@@ -85,7 +85,7 @@ input {
   border-radius: 8px;
   display: grid;
   gap: 10px;
-  grid-template-columns: minmax(260px, 1.4fr) repeat(3, minmax(150px, 0.45fr));
+  grid-template-columns: minmax(260px, 1.35fr) repeat(4, minmax(132px, 0.36fr));
   margin: 0 auto 14px;
   max-width: 1240px;
   padding: 12px;
@@ -215,6 +215,14 @@ input {
   margin-bottom: 4px;
 }
 
+.problem-cn {
+  color: #6d766f;
+  display: block;
+  font-size: 12px;
+  font-weight: 850;
+  margin-bottom: 6px;
+}
+
 .problem-main p {
   color: #58645e;
   line-height: 1.45;
@@ -289,6 +297,11 @@ input {
   font-size: 12px;
   font-weight: 800;
   padding: 6px 8px;
+}
+
+.tag-list .collection-tag {
+  background: #17201b;
+  color: #fffdfa;
 }
 
 .tag-list.large {

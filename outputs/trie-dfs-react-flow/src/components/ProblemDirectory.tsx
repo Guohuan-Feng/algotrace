@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { BookOpen, CheckCircle2, Circle, Filter, Search } from "lucide-react";
-import { allTags, problemCatalog, sortedProblems } from "../problemCatalog";
+import { allCollections, allTags, problemCatalog, sortedProblems } from "../problemCatalog";
 import type { Problem } from "../types";
 
 export function ProblemDirectory() {
@@ -8,6 +8,7 @@ export function ProblemDirectory() {
   const [tag, setTag] = useState("All");
   const [difficulty, setDifficulty] = useState("All");
   const [status, setStatus] = useState<"All" | "Ready" | "Missing">("All");
+  const [collection, setCollection] = useState("All");
 
   const visibleProblems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -16,8 +17,10 @@ export function ProblemDirectory() {
       const matchesSearch =
         !normalized ||
         problem.title.toLowerCase().includes(normalized) ||
+        Boolean(problem.cnTitle?.toLowerCase().includes(normalized)) ||
         String(problem.id).includes(normalized) ||
         problem.tags.some((problemTag) => problemTag.toLowerCase().includes(normalized)) ||
+        Boolean(problem.collections?.some((problemCollection) => problemCollection.toLowerCase().includes(normalized))) ||
         problem.pattern.toLowerCase().includes(normalized);
       const matchesTag = tag === "All" || problem.tags.includes(tag);
       const matchesDifficulty = difficulty === "All" || problem.difficulty === difficulty;
@@ -25,10 +28,11 @@ export function ProblemDirectory() {
         status === "All" ||
         (status === "Ready" && problem.hasVisualizer) ||
         (status === "Missing" && !problem.hasVisualizer);
+      const matchesCollection = collection === "All" || Boolean(problem.collections?.includes(collection));
 
-      return matchesSearch && matchesTag && matchesDifficulty && matchesStatus;
+      return matchesSearch && matchesTag && matchesDifficulty && matchesStatus && matchesCollection;
     });
-  }, [difficulty, query, status, tag]);
+  }, [collection, difficulty, query, status, tag]);
 
   const groupedProblems = useMemo(() => groupProblemsByFirstLetter(visibleProblems), [visibleProblems]);
   const readyCount = problemCatalog.filter((problem) => problem.hasVisualizer).length;
@@ -84,6 +88,15 @@ export function ProblemDirectory() {
             <option value="Missing">Missing only</option>
           </select>
         </label>
+        <label>
+          List
+          <select value={collection} onChange={(event) => setCollection(event.target.value)}>
+            <option value="All">All lists</option>
+            {allCollections.map((item) => (
+              <option key={item} value={item}>{item}</option>
+            ))}
+          </select>
+        </label>
       </section>
 
       <section className="catalog-content">
@@ -114,6 +127,7 @@ export function ProblemDirectory() {
                       <span className="problem-id">#{problem.id}</span>
                       <div>
                         <h2>{problem.title}</h2>
+                        {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
                         <p>{problem.summary}</p>
                       </div>
                     </div>
@@ -125,6 +139,9 @@ export function ProblemDirectory() {
                       </span>
                     </div>
                     <div className="tag-list">
+                      {problem.collections?.map((problemCollection) => (
+                        <span className="collection-tag" key={problemCollection}>{problemCollection}</span>
+                      ))}
                       {problem.tags.map((problemTag) => (
                         <span key={problemTag}>{problemTag}</span>
                       ))}
