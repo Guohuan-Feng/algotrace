@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "cd outputs/trie-dfs-react-flow && npm install && npm run build"
+  }
+}

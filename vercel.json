@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd outputs/trie-dfs-react-flow && rm -rf node_modules && npm install && npm run build",
+  "installCommand": "cd outputs/trie-dfs-react-flow && rm -rf node_modules && npm install",
+  "outputDirectory": "outputs/trie-dfs-react-flow/dist"
+}
