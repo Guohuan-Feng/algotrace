@@ -19,3 +19,7 @@ npm run build
 ## Deployment
 
 The project is configured for Vercel through `vercel.json`.
+
+## Architecture
+
+See `docs/ARCHITECTURE.md` for the 500-problem folder structure and the steps for adding a new visualizer.
