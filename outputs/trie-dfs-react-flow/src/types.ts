@@ -1,6 +1,7 @@
 export type Difficulty = "Easy" | "Medium" | "Hard";
 
 export type VisualizerKey =
+  | "generate-parentheses"
   | "letter-combinations-of-a-phone-number"
   | "combinations"
   | "combination-sum"
