@@ -10,6 +10,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.LetterCombinationsVisualizer,
     })),
   ),
+  "combinations": lazy(() =>
+    import("./problems/0077-combinations/Visualizer").then((module) => ({
+      default: module.CombinationsVisualizer,
+    })),
+  ),
   "implement-trie-prefix-tree": lazy(() =>
     import("./problems/0208-implement-trie-prefix-tree/Visualizer").then((module) => ({
       default: module.ImplementTrieVisualizer,

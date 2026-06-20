@@ -63,6 +63,10 @@ problems/
     data.ts
     dryRun.ts
     Visualizer.tsx
+  0077-combinations/
+    data.ts
+    dryRun.ts
+    Visualizer.tsx
   0208-implement-trie-prefix-tree/
     data.ts
     Visualizer.tsx
