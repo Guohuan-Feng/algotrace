@@ -1030,9 +1030,18 @@ textarea {
   border-color: #2f9b57;
 }
 
+.combo-node.is-pruned {
+  background: #f8e4df;
+  border-color: #d76b5f;
+}
+
 .combo-node.is-path span,
 .combo-node.is-complete span {
   color: #237244;
+}
+
+.combo-node.is-pruned span {
+  color: #9b3325;
 }
 
 .combo-node.is-active {

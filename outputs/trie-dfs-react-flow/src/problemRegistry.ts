@@ -15,6 +15,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.CombinationsVisualizer,
     })),
   ),
+  "combination-sum": lazy(() =>
+    import("./problems/0039-combination-sum/Visualizer").then((module) => ({
+      default: module.CombinationSumVisualizer,
+    })),
+  ),
   "permutations": lazy(() =>
     import("./problems/0046-permutations/Visualizer").then((module) => ({
       default: module.PermutationsVisualizer,

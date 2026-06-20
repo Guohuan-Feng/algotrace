@@ -3,6 +3,7 @@ export type Difficulty = "Easy" | "Medium" | "Hard";
 export type VisualizerKey =
   | "letter-combinations-of-a-phone-number"
   | "combinations"
+  | "combination-sum"
   | "permutations"
   | "implement-trie-prefix-tree"
   | "design-add-and-search-words-data-structure"
