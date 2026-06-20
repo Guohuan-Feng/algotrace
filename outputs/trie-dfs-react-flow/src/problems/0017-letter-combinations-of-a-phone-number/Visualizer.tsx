@@ -113,7 +113,7 @@ export function LetterCombinationsVisualizer({ onBack }: VisualizerProps) {
   useEffect(() => {
     const id = window.requestAnimationFrame(() => resetTreeViewport());
     return () => window.cancelAnimationFrame(id);
-  }, [frame.nodes.length, resetTreeViewport]);
+  }, [resetTreeViewport]);
 
   function loadExample(example: LetterCombinationExample) {
     setSelectedExampleId(example.id);

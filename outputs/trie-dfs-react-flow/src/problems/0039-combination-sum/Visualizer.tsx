@@ -116,7 +116,7 @@ export function CombinationSumVisualizer({ onBack }: VisualizerProps) {
   useEffect(() => {
     const id = window.requestAnimationFrame(() => resetTreeViewport());
     return () => window.cancelAnimationFrame(id);
-  }, [frame.nodes.length, resetTreeViewport]);
+  }, [resetTreeViewport]);
 
   function loadExample(example: CombinationSumExample) {
     setSelectedExampleId(example.id);
