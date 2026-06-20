@@ -491,6 +491,12 @@ h3 {
   padding: 16px;
 }
 
+.state-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .flow-panel {
   display: flex;
   flex-direction: column;
@@ -1044,6 +1050,7 @@ textarea {
 .state-sticky {
   background: #fffdfa;
   border-bottom: 1px solid #e5ded4;
+  flex: 0 0 auto;
   margin: -16px -16px 0;
   padding: 16px 16px 14px;
   position: sticky;
@@ -1098,6 +1105,7 @@ textarea {
 }
 
 .state-block {
+  flex: 0 0 auto;
   border-top: 1px solid #e5ded4;
   padding-top: 14px;
   margin-top: 14px;
@@ -1107,7 +1115,10 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
+  max-height: 88px;
   min-height: 28px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .token-list span,
@@ -1134,9 +1145,11 @@ textarea {
   background: #18221d;
   border-radius: 8px;
   color: #dcebe2;
+  flex: 1 1 auto;
   font-size: 12px;
   margin-top: 16px;
-  overflow-x: auto;
+  min-height: 180px;
+  overflow: auto;
   padding: 12px 10px 10px;
 }
 
@@ -1247,9 +1260,14 @@ textarea {
     overflow: visible;
   }
 
-  .board-panel,
-  .state-panel {
+  .board-panel {
     overflow: visible;
+  }
+
+  .state-panel {
+    height: calc(100vh - 36px);
+    max-height: calc(100vh - 36px);
+    overflow: hidden;
   }
 
   .flow-panel {
