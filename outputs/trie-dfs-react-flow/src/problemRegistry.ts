@@ -20,6 +20,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.CombinationSumVisualizer,
     })),
   ),
+  "n-queens-ii": lazy(() =>
+    import("./problems/0052-n-queens-ii/Visualizer").then((module) => ({
+      default: module.NQueensIiVisualizer,
+    })),
+  ),
   "permutations": lazy(() =>
     import("./problems/0046-permutations/Visualizer").then((module) => ({
       default: module.PermutationsVisualizer,

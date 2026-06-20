@@ -4,6 +4,7 @@ export type VisualizerKey =
   | "letter-combinations-of-a-phone-number"
   | "combinations"
   | "combination-sum"
+  | "n-queens-ii"
   | "permutations"
   | "implement-trie-prefix-tree"
   | "design-add-and-search-words-data-structure"
