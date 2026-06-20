@@ -15,6 +15,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.CombinationsVisualizer,
     })),
   ),
+  "permutations": lazy(() =>
+    import("./problems/0046-permutations/Visualizer").then((module) => ({
+      default: module.PermutationsVisualizer,
+    })),
+  ),
   "implement-trie-prefix-tree": lazy(() =>
     import("./problems/0208-implement-trie-prefix-tree/Visualizer").then((module) => ({
       default: module.ImplementTrieVisualizer,

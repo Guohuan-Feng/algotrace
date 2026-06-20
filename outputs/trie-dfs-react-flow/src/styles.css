@@ -337,8 +337,20 @@ input {
 }
 
 .tag-list .collection-tag {
-  background: #17201b;
-  color: #fffdfa;
+  background: #f0ebe2;
+  color: #4f5a54;
+}
+
+.number-strip span.used {
+  background: #dff5e3;
+  border-color: #2f9b57;
+  color: #155333;
+}
+
+.number-strip span.skipped {
+  background: #f8e4df;
+  border-color: #d76b5f;
+  color: #9b3325;
 }
 
 .tag-list.large {
