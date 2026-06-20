@@ -15,6 +15,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.LetterCombinationsVisualizer,
     })),
   ),
+  "word-search": lazy(() =>
+    import("./problems/0079-word-search/Visualizer").then((module) => ({
+      default: module.WordSearchVisualizer,
+    })),
+  ),
   "combinations": lazy(() =>
     import("./problems/0077-combinations/Visualizer").then((module) => ({
       default: module.CombinationsVisualizer,

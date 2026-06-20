@@ -3,6 +3,7 @@ export type Difficulty = "Easy" | "Medium" | "Hard";
 export type VisualizerKey =
   | "generate-parentheses"
   | "letter-combinations-of-a-phone-number"
+  | "word-search"
   | "combinations"
   | "combination-sum"
   | "n-queens-ii"

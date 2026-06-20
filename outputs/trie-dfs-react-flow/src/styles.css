@@ -632,6 +632,70 @@ h3 {
   border-color: #d76b5f;
 }
 
+.word-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 18px;
+}
+
+.word-strip span {
+  align-items: center;
+  background: #f4efe6;
+  border: 1px solid #d8d0c3;
+  border-radius: 8px;
+  color: #26332c;
+  display: inline-flex;
+  font-size: 17px;
+  font-weight: 900;
+  height: 38px;
+  justify-content: center;
+  min-width: 38px;
+}
+
+.word-strip span.matched {
+  background: #dff5e3;
+  border-color: #2f9b57;
+  color: #185f39;
+}
+
+.word-strip span.active {
+  background: #ffe3bd;
+  border-color: #e49a22;
+  box-shadow: 0 0 0 4px rgba(228, 154, 34, 0.16);
+}
+
+.word-search-panel {
+  min-height: 0;
+}
+
+.word-board-wrap {
+  align-items: center;
+  display: grid;
+  flex: 1;
+  gap: 14px;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+}
+
+.word-board {
+  display: grid;
+  gap: 10px;
+  margin: 0 auto;
+  max-width: min(100%, 680px);
+  min-width: 260px;
+  width: 100%;
+}
+
+.word-board .cell {
+  min-height: 84px;
+}
+
+.word-board .cell strong {
+  font-size: clamp(24px, 5vw, 42px);
+}
+
 .queen-flow-panel {
   min-height: 0;
 }
