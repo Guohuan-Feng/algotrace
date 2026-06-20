@@ -500,8 +500,9 @@ h3 {
 
 .example-switcher div {
   display: grid;
-  grid-template-columns: repeat(2, 34px);
   gap: 6px;
+  grid-auto-columns: 34px;
+  grid-auto-flow: column;
 }
 
 .example-switcher button {
@@ -677,6 +678,15 @@ textarea {
   resize: vertical;
 }
 
+.text-input {
+  background: #fbfaf6;
+  border: 1px solid #d9d3c8;
+  border-radius: 8px;
+  color: #17201b;
+  min-height: 42px;
+  padding: 10px;
+}
+
 .command,
 .icon-button {
   align-items: center;
@@ -822,6 +832,159 @@ textarea {
 .edge-path path {
   stroke: #1e7e4e;
   stroke-width: 3.2;
+}
+
+.digits-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.digits-strip span,
+.digits-strip em {
+  align-items: center;
+  background: #f4efe6;
+  border: 1px solid #d8d0c3;
+  border-radius: 8px;
+  color: #26332c;
+  display: inline-flex;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 900;
+  height: 42px;
+  justify-content: center;
+  min-width: 42px;
+  padding: 0 11px;
+}
+
+.digits-strip span.active {
+  background: #ffe3bd;
+  border-color: #e49a22;
+  box-shadow: 0 0 0 4px rgba(228, 154, 34, 0.18);
+}
+
+.phone-keypad {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 16px;
+}
+
+.phone-key {
+  background: #fbfaf6;
+  border: 1px solid #d8d0c3;
+  border-radius: 8px;
+  display: grid;
+  gap: 4px;
+  min-height: 58px;
+  padding: 8px;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.phone-key.active {
+  background: #dff5e3;
+  border-color: #2f9b57;
+  box-shadow: 0 0 0 4px rgba(47, 155, 87, 0.12);
+}
+
+.phone-key strong {
+  font-size: 19px;
+  line-height: 1;
+}
+
+.phone-key span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.phone-key b {
+  align-items: center;
+  background: #efe9de;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 10px;
+  height: 18px;
+  justify-content: center;
+  min-width: 18px;
+}
+
+.phone-key b.selected {
+  background: #e49a22;
+  color: #17201b;
+}
+
+.react-flow__node.combo-node,
+.react-flow__node-default.combo-node,
+.combo-node {
+  align-items: center;
+  background: #fffdf8;
+  border: 2px solid #cfc8bc;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(47, 64, 54, 0.08);
+  color: #26332c;
+  display: flex;
+  height: 66px;
+  justify-content: center;
+  min-width: 66px;
+  padding: 0;
+  width: 66px;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.combo-node-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.combo-node strong {
+  font-size: 20px;
+  font-weight: 850;
+  max-width: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.combo-node span {
+  color: #7b8580;
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  margin-top: 2px;
+  max-width: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.combo-node.is-path,
+.combo-node.is-complete {
+  background: #dff5e3;
+  border-color: #2f9b57;
+}
+
+.combo-node.is-path span,
+.combo-node.is-complete span {
+  color: #237244;
+}
+
+.combo-node.is-active {
+  background: #ffe3bd;
+  border-color: #e49a22;
+  box-shadow: 0 0 0 6px rgba(228, 154, 34, 0.22), 0 13px 30px rgba(72, 59, 42, 0.18);
+  transform: translateY(-2px);
 }
 
 .react-flow__edge-textbg {

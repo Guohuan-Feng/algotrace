@@ -5,6 +5,11 @@ import type { VisualizerKey, VisualizerProps } from "./types";
 type VisualizerComponent = LazyExoticComponent<ComponentType<VisualizerProps>>;
 
 export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
+  "letter-combinations-of-a-phone-number": lazy(() =>
+    import("./problems/0017-letter-combinations-of-a-phone-number/Visualizer").then((module) => ({
+      default: module.LetterCombinationsVisualizer,
+    })),
+  ),
   "implement-trie-prefix-tree": lazy(() =>
     import("./problems/0208-implement-trie-prefix-tree/Visualizer").then((module) => ({
       default: module.ImplementTrieVisualizer,

@@ -59,6 +59,10 @@ Each completed problem gets one folder:
 
 ```txt
 problems/
+  0017-letter-combinations-of-a-phone-number/
+    data.ts
+    dryRun.ts
+    Visualizer.tsx
   0208-implement-trie-prefix-tree/
     data.ts
     Visualizer.tsx
