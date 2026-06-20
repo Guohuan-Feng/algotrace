@@ -85,7 +85,12 @@ input {
   border-radius: 8px;
   display: grid;
   gap: 10px;
-  grid-template-columns: minmax(260px, 1.35fr) repeat(4, minmax(132px, 0.36fr));
+  grid-template-columns:
+    minmax(300px, 430px)
+    minmax(158px, 1fr)
+    minmax(166px, 1fr)
+    minmax(218px, 1.2fr)
+    minmax(166px, 1fr);
   margin: 0 auto 14px;
   max-width: 1240px;
   padding: 12px;
@@ -93,13 +98,21 @@ input {
 
 .catalog-toolbar label {
   align-items: center;
-  background: #f8f5ee;
+  background: #fbfaf6;
   border: 1px solid #e2dbd0;
   border-radius: 8px;
   display: flex;
   gap: 8px;
-  min-height: 42px;
-  padding: 0 10px;
+  min-height: 44px;
+  min-width: 0;
+  padding: 0 12px;
+}
+
+.catalog-toolbar label:not(.search-field) {
+  color: #4d5a54;
+  font-size: 13px;
+  gap: 10px;
+  white-space: nowrap;
 }
 
 .catalog-toolbar input,
@@ -112,8 +125,32 @@ input {
   width: 100%;
 }
 
+.catalog-toolbar select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #526058 50%),
+    linear-gradient(135deg, #526058 50%, transparent 50%);
+  background-position:
+    calc(100% - 15px) 52%,
+    calc(100% - 10px) 52%;
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+  cursor: pointer;
+  font-weight: 750;
+  padding-right: 28px;
+  text-overflow: ellipsis;
+}
+
+.catalog-toolbar select::-ms-expand {
+  display: none;
+}
+
 .search-field {
   color: #66736d;
+}
+
+.search-field input {
+  font-weight: 750;
 }
 
 .catalog-content {
