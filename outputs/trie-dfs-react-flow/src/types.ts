@@ -9,6 +9,7 @@ export type VisualizerKey =
   | "convert-sorted-array-to-binary-search-tree"
   | "n-queens-ii"
   | "permutations"
+  | "sort-list"
   | "implement-trie-prefix-tree"
   | "design-add-and-search-words-data-structure"
   | "word-search-ii";

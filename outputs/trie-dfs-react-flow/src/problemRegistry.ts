@@ -45,6 +45,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.PermutationsVisualizer,
     })),
   ),
+  "sort-list": lazy(() =>
+    import("./problems/0148-sort-list/Visualizer").then((module) => ({
+      default: module.SortListVisualizer,
+    })),
+  ),
   "implement-trie-prefix-tree": lazy(() =>
     import("./problems/0208-implement-trie-prefix-tree/Visualizer").then((module) => ({
       default: module.ImplementTrieVisualizer,
