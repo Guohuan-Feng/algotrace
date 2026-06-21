@@ -1116,6 +1116,57 @@ textarea {
   box-shadow: 0 0 0 4px rgba(228, 154, 34, 0.18);
 }
 
+.array-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.array-strip span {
+  align-items: center;
+  background: #fffdf8;
+  border: 1px solid #d8d0c3;
+  border-radius: 8px;
+  color: #26332c;
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  min-height: 50px;
+  min-width: 50px;
+  padding: 7px 10px;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.array-strip strong {
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.array-strip em {
+  color: #7b8580;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.array-strip span.in-range {
+  background: #dff5e3;
+  border-color: #69a875;
+}
+
+.array-strip span.active {
+  background: #ffe3bd;
+  border-color: #e49a22;
+  box-shadow: 0 0 0 4px rgba(228, 154, 34, 0.18);
+  transform: translateY(-1px);
+}
+
 .phone-keypad {
   display: grid;
   gap: 8px;
@@ -1246,6 +1297,20 @@ textarea {
   border-color: #e49a22;
   box-shadow: 0 0 0 6px rgba(228, 154, 34, 0.22), 0 13px 30px rgba(72, 59, 42, 0.18);
   transform: translateY(-2px);
+}
+
+.bst-node {
+  height: 76px;
+  min-width: 76px;
+  width: 76px;
+}
+
+.bst-node strong {
+  max-width: 62px;
+}
+
+.bst-node span {
+  max-width: 66px;
 }
 
 .react-flow__edge-textbg {

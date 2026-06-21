@@ -30,6 +30,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.CombinationSumVisualizer,
     })),
   ),
+  "convert-sorted-array-to-binary-search-tree": lazy(() =>
+    import("./problems/0108-convert-sorted-array-to-binary-search-tree/Visualizer").then((module) => ({
+      default: module.SortedArrayToBstVisualizer,
+    })),
+  ),
   "n-queens-ii": lazy(() =>
     import("./problems/0052-n-queens-ii/Visualizer").then((module) => ({
       default: module.NQueensIiVisualizer,

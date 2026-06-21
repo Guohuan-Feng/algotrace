@@ -6,6 +6,7 @@ export type VisualizerKey =
   | "word-search"
   | "combinations"
   | "combination-sum"
+  | "convert-sorted-array-to-binary-search-tree"
   | "n-queens-ii"
   | "permutations"
   | "implement-trie-prefix-tree"
