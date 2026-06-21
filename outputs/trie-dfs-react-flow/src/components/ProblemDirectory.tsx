@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { BookOpen, CheckCircle2, Circle, Filter, Search } from "lucide-react";
 import { allCollections, allTags, problemCatalog, sortedProblems } from "../problemCatalog";
-import type { Problem } from "../types";
 
 export function ProblemDirectory() {
   const [query, setQuery] = useState("");
@@ -34,7 +33,6 @@ export function ProblemDirectory() {
     });
   }, [collection, difficulty, query, status, tag]);
 
-  const groupedProblems = useMemo(() => groupProblemsByFirstLetter(visibleProblems), [visibleProblems]);
   const readyCount = problemCatalog.filter((problem) => problem.hasVisualizer).length;
 
   return (
@@ -117,40 +115,38 @@ export function ProblemDirectory() {
         </aside>
 
         <div className="problem-groups">
-          {Object.entries(groupedProblems).map(([letter, problems]) => (
-            <section className="letter-group" key={letter}>
-              <div className="letter-heading">{letter}</div>
-              <div className="problem-list">
-                {problems.map((problem) => (
-                  <a className="problem-row" href={`#/problems/${problem.slug}`} key={problem.slug}>
-                    <div className="problem-main">
-                      <span className="problem-id">#{problem.id}</span>
-                      <div>
-                        <h2>{problem.title}</h2>
-                        {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
-                        <p>{problem.summary}</p>
-                      </div>
+          <section className="letter-group">
+            <div className="letter-heading">Problem number</div>
+            <div className="problem-list">
+              {visibleProblems.map((problem) => (
+                <a className="problem-row" href={`#/problems/${problem.slug}`} key={problem.slug}>
+                  <div className="problem-main">
+                    <span className="problem-id">#{problem.id}</span>
+                    <div>
+                      <h2>{problem.title}</h2>
+                      {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
+                      <p>{problem.summary}</p>
                     </div>
-                    <div className="problem-meta">
-                      <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
-                      <span className={problem.hasVisualizer ? "status ready" : "status missing"}>
-                        {problem.hasVisualizer ? <CheckCircle2 size={14} /> : <Circle size={14} />}
-                        {problem.hasVisualizer ? "已有动画" : "待补动画"}
-                      </span>
-                    </div>
-                    <div className="tag-list">
-                      {problem.collections?.map((problemCollection) => (
-                        <span className="collection-tag" key={problemCollection}>{problemCollection}</span>
-                      ))}
-                      {problem.tags.map((problemTag) => (
-                        <span key={problemTag}>{problemTag}</span>
-                      ))}
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </section>
-          ))}
+                  </div>
+                  <div className="problem-meta">
+                    <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
+                    <span className={problem.hasVisualizer ? "status ready" : "status missing"}>
+                      {problem.hasVisualizer ? <CheckCircle2 size={14} /> : <Circle size={14} />}
+                      {problem.hasVisualizer ? "已有动画" : "待补动画"}
+                    </span>
+                  </div>
+                  <div className="tag-list">
+                    {problem.collections?.map((problemCollection) => (
+                      <span className="collection-tag" key={problemCollection}>{problemCollection}</span>
+                    ))}
+                    {problem.tags.map((problemTag) => (
+                      <span key={problemTag}>{problemTag}</span>
+                    ))}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
 
           {!visibleProblems.length ? (
             <div className="empty-state">
@@ -163,12 +159,4 @@ export function ProblemDirectory() {
       </section>
     </main>
   );
-}
-
-function groupProblemsByFirstLetter(problems: Problem[]): Record<string, Problem[]> {
-  return problems.reduce<Record<string, Problem[]>>((groups, problem) => {
-    const letter = problem.title[0].toUpperCase();
-    groups[letter] = groups[letter] ? [...groups[letter], problem] : [problem];
-    return groups;
-  }, {});
 }

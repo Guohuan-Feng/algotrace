@@ -50,7 +50,7 @@ const extraRoadmapProblems: Problem[] = [
 
 export const problemCatalog = mergeProblems([...hot150Problems, ...extraRoadmapProblems]);
 
-export const sortedProblems = [...problemCatalog].sort((a, b) => a.title.localeCompare(b.title));
+export const sortedProblems = [...problemCatalog].sort((a, b) => a.id - b.id);
 
 export const allTags = Array.from(new Set(problemCatalog.flatMap((problem) => problem.tags))).sort();
 
