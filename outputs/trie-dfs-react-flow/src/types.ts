@@ -9,6 +9,7 @@ export type VisualizerKey =
   | "convert-sorted-array-to-binary-search-tree"
   | "find-minimum-in-rotated-sorted-array"
   | "n-queens-ii"
+  | "ipo"
   | "path-with-minimum-effort"
   | "permutations"
   | "quick-sort"

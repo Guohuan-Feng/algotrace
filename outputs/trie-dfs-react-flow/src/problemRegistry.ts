@@ -40,6 +40,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.FindMinimumRotatedArrayVisualizer,
     })),
   ),
+  "ipo": lazy(() =>
+    import("./problems/0502-ipo/Visualizer").then((module) => ({
+      default: module.IpoVisualizer,
+    })),
+  ),
   "path-with-minimum-effort": lazy(() =>
     import("./problems/1631-path-with-minimum-effort/Visualizer").then((module) => ({
       default: module.MinimumEffortPathVisualizer,

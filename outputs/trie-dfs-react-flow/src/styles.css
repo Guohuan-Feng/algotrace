@@ -877,6 +877,132 @@ h3 {
   color: #d5f0da;
 }
 
+.heap-flow-panel {
+  min-height: 0;
+}
+
+.heap-stage {
+  display: grid;
+  flex: 1;
+  gap: 14px;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+}
+
+.project-board,
+.heap-list {
+  background: #fffdf8;
+  border: 1px solid #ded8ce;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.project-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+}
+
+.project-card {
+  background: #ece8e0;
+  border: 1px solid #c7bfb3;
+  border-radius: 8px;
+  color: #514a42;
+  display: grid;
+  gap: 5px;
+  min-height: 92px;
+  padding: 12px;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.project-card strong {
+  color: inherit;
+  font-size: 18px;
+}
+
+.project-card span {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.project-card.is-locked {
+  background: #f3f0ea;
+}
+
+.project-card.is-affordable {
+  background: #e7f5eb;
+  border-color: #69a875;
+  color: #185f39;
+}
+
+.project-card.is-chosen {
+  background: #143522;
+  border-color: #143522;
+  color: #fff;
+}
+
+.project-card.is-current {
+  box-shadow: 0 0 0 5px rgba(217, 151, 60, 0.18);
+  outline: 3px solid #d9973c;
+  transform: translateY(-2px);
+}
+
+.heap-columns {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.heap-list .compact-heading {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.heap-list .compact-heading span {
+  color: #68746e;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.heap-items {
+  display: grid;
+  gap: 8px;
+}
+
+.heap-item {
+  align-items: center;
+  background: #f8f7f2;
+  border: 1px solid #d7d1c7;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 44px 1fr 1fr;
+  padding: 10px;
+}
+
+.heap-item strong {
+  font-size: 15px;
+}
+
+.heap-item span,
+.heap-item em {
+  color: #59665f;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.heap-empty {
+  color: #7b8580;
+  font-size: 13px;
+  font-style: italic;
+  margin: 0;
+}
+
 .list-stage {
   display: grid;
   flex: 1;
