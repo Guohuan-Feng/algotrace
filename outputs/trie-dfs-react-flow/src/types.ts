@@ -7,6 +7,7 @@ export type VisualizerKey =
   | "combinations"
   | "combination-sum"
   | "convert-sorted-array-to-binary-search-tree"
+  | "find-minimum-in-rotated-sorted-array"
   | "n-queens-ii"
   | "path-with-minimum-effort"
   | "permutations"

@@ -35,6 +35,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.SortedArrayToBstVisualizer,
     })),
   ),
+  "find-minimum-in-rotated-sorted-array": lazy(() =>
+    import("./problems/0153-find-minimum-in-rotated-sorted-array/Visualizer").then((module) => ({
+      default: module.FindMinimumRotatedArrayVisualizer,
+    })),
+  ),
   "path-with-minimum-effort": lazy(() =>
     import("./problems/1631-path-with-minimum-effort/Visualizer").then((module) => ({
       default: module.MinimumEffortPathVisualizer,
