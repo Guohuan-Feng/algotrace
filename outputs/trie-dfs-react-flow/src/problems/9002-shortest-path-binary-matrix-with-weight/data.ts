@@ -3,9 +3,9 @@ export type WeightedGridExample = { id: 1 | 2 | 3; label: string; grid: number[]
 export const title = "Amazon: Weighted Binary Matrix Shortest Path";
 
 export const examples: WeightedGridExample[] = [
-  { id: 1, label: "Weighted path", grid: [[1, 2], [3, 4]], output: 5 },
-  { id: 2, label: "Diagonal move", grid: [[1, -1], [2, 1]], output: 2 },
-  { id: 3, label: "No path", grid: [[1, -1, 2], [-1, -1, 1], [3, 2, 1]], output: -1 },
+  { id: 1, label: "Weighted path", grid: [[1, 3, 2, 4], [2, -1, 5, 1], [4, 2, 1, 3], [6, 3, 2, 1]], output: 7 },
+  { id: 2, label: "Obstacle detour", grid: [[1, 8, 2, 5], [3, -1, -1, 2], [4, 1, 6, 1], [7, 2, 1, 2]], output: 8 },
+  { id: 3, label: "No path", grid: [[1, -1, 2, 3], [-1, -1, -1, 4], [2, -1, 1, 2], [3, 2, 1, 1]], output: -1 },
 ];
 
 export const defaultExample = examples[0];
