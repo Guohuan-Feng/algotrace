@@ -50,6 +50,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.QuickSortVisualizer,
     })),
   ),
+  "search-in-rotated-sorted-array": lazy(() =>
+    import("./problems/0033-search-in-rotated-sorted-array/Visualizer").then((module) => ({
+      default: module.SearchRotatedArrayVisualizer,
+    })),
+  ),
   "permutations": lazy(() =>
     import("./problems/0046-permutations/Visualizer").then((module) => ({
       default: module.PermutationsVisualizer,

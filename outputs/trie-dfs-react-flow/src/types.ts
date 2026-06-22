@@ -11,6 +11,7 @@ export type VisualizerKey =
   | "path-with-minimum-effort"
   | "permutations"
   | "quick-sort"
+  | "search-in-rotated-sorted-array"
   | "sort-list"
   | "shortest-path-binary-matrix-with-weight"
   | "implement-trie-prefix-tree"
