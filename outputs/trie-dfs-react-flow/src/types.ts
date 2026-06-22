@@ -8,8 +8,11 @@ export type VisualizerKey =
   | "combination-sum"
   | "convert-sorted-array-to-binary-search-tree"
   | "n-queens-ii"
+  | "path-with-minimum-effort"
   | "permutations"
+  | "quick-sort"
   | "sort-list"
+  | "shortest-path-binary-matrix-with-weight"
   | "implement-trie-prefix-tree"
   | "design-add-and-search-words-data-structure"
   | "word-search-ii";

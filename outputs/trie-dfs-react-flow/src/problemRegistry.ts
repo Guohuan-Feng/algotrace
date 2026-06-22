@@ -35,9 +35,19 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.SortedArrayToBstVisualizer,
     })),
   ),
+  "path-with-minimum-effort": lazy(() =>
+    import("./problems/1631-path-with-minimum-effort/Visualizer").then((module) => ({
+      default: module.MinimumEffortPathVisualizer,
+    })),
+  ),
   "n-queens-ii": lazy(() =>
     import("./problems/0052-n-queens-ii/Visualizer").then((module) => ({
       default: module.NQueensIiVisualizer,
+    })),
+  ),
+  "quick-sort": lazy(() =>
+    import("./problems/9001-quick-sort/Visualizer").then((module) => ({
+      default: module.QuickSortVisualizer,
     })),
   ),
   "permutations": lazy(() =>
@@ -48,6 +58,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
   "sort-list": lazy(() =>
     import("./problems/0148-sort-list/Visualizer").then((module) => ({
       default: module.SortListVisualizer,
+    })),
+  ),
+  "shortest-path-binary-matrix-with-weight": lazy(() =>
+    import("./problems/9002-shortest-path-binary-matrix-with-weight/Visualizer").then((module) => ({
+      default: module.WeightedBinaryMatrixVisualizer,
     })),
   ),
   "implement-trie-prefix-tree": lazy(() =>
