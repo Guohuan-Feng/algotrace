@@ -45,6 +45,21 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.IpoVisualizer,
     })),
   ),
+  "longest-consecutive-sequence": lazy(() =>
+    import("./problems/0128-longest-consecutive-sequence/Visualizer").then((module) => ({
+      default: module.LongestConsecutiveVisualizer,
+    })),
+  ),
+  "longest-continuous-increasing-subsequence": lazy(() =>
+    import("./problems/0674-longest-continuous-increasing-subsequence/Visualizer").then((module) => ({
+      default: module.LongestContinuousIncreasingSubsequenceVisualizer,
+    })),
+  ),
+  "longest-increasing-subsequence": lazy(() =>
+    import("./problems/0300-longest-increasing-subsequence/Visualizer").then((module) => ({
+      default: module.LongestIncreasingSubsequenceVisualizer,
+    })),
+  ),
   "path-with-minimum-effort": lazy(() =>
     import("./problems/1631-path-with-minimum-effort/Visualizer").then((module) => ({
       default: module.MinimumEffortPathVisualizer,
