@@ -95,6 +95,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.WeightedBinaryMatrixVisualizer,
     })),
   ),
+  "triangle": lazy(() =>
+    import("./problems/0120-triangle/Visualizer").then((module) => ({
+      default: module.TriangleVisualizer,
+    })),
+  ),
   "implement-trie-prefix-tree": lazy(() =>
     import("./problems/0208-implement-trie-prefix-tree/Visualizer").then((module) => ({
       default: module.ImplementTrieVisualizer,

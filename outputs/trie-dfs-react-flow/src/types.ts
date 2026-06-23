@@ -19,6 +19,7 @@ export type VisualizerKey =
   | "search-in-rotated-sorted-array"
   | "sort-list"
   | "shortest-path-binary-matrix-with-weight"
+  | "triangle"
   | "implement-trie-prefix-tree"
   | "design-add-and-search-words-data-structure"
   | "word-search-ii";
