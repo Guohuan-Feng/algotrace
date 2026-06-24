@@ -97,7 +97,7 @@ const entries: Hot150Entry[] = [
   { id: 130, title: "Surrounded Regions", cnTitle: "被围绕的区域", slug: "surrounded-regions", difficulty: "Medium", tags: ["DFS", "BFS", "Union Find", "Matrix"], pattern: "Boundary flood fill" },
   { id: 133, title: "Clone Graph", cnTitle: "克隆图", slug: "clone-graph", difficulty: "Medium", tags: ["Graph", "DFS", "BFS", "Hash Table"], pattern: "Graph traversal" },
   { id: 399, title: "Evaluate Division", cnTitle: "除法求值", slug: "evaluate-division", difficulty: "Medium", tags: ["Graph", "DFS", "BFS", "Union Find"], pattern: "Weighted graph traversal" },
-  { id: 207, title: "Course Schedule", cnTitle: "课程表", slug: "course-schedule", difficulty: "Medium", tags: ["Graph", "Topological Sort", "BFS", "DFS"], pattern: "Cycle detection / topo sort" },
+  { id: 207, title: "Course Schedule", cnTitle: "课程表", slug: "course-schedule", difficulty: "Medium", tags: ["Graph", "Topological Sort", "BFS", "DFS"], pattern: "DFS cycle detection", visualizerKey: "course-schedule", summary: "Ready visualizer: build prerequisite edges and use DFS three-color visited states to detect cycles." },
   { id: 210, title: "Course Schedule II", cnTitle: "课程表 II", slug: "course-schedule-ii", difficulty: "Medium", tags: ["Graph", "Topological Sort", "BFS", "DFS"], pattern: "Topological ordering" },
   { id: 909, title: "Snakes and Ladders", cnTitle: "蛇梯棋", slug: "snakes-and-ladders", difficulty: "Medium", tags: ["Array", "BFS", "Matrix"], pattern: "Shortest path BFS" },
   { id: 433, title: "Minimum Genetic Mutation", cnTitle: "最小基因变化", slug: "minimum-genetic-mutation", difficulty: "Medium", tags: ["Hash Table", "String", "BFS"], pattern: "Shortest mutation BFS" },
