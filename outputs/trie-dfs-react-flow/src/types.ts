@@ -17,6 +17,7 @@ export type VisualizerKey =
   | "path-with-minimum-effort"
   | "permutations"
   | "quick-sort"
+  | "reverse-linked-list"
   | "search-in-rotated-sorted-array"
   | "sort-list"
   | "shortest-path-binary-matrix-with-weight"

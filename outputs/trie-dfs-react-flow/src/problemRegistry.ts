@@ -80,6 +80,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.QuickSortVisualizer,
     })),
   ),
+  "reverse-linked-list": lazy(() =>
+    import("./problems/0206-reverse-linked-list/Visualizer").then((module) => ({
+      default: module.ReverseLinkedListVisualizer,
+    })),
+  ),
   "search-in-rotated-sorted-array": lazy(() =>
     import("./problems/0033-search-in-rotated-sorted-array/Visualizer").then((module) => ({
       default: module.SearchRotatedArrayVisualizer,

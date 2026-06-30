@@ -1386,6 +1386,18 @@ h3 {
   box-shadow: 0 0 0 5px rgba(48, 111, 174, 0.18);
 }
 
+.list-node.is-cur {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  box-shadow: 0 0 0 5px rgba(217, 151, 60, 0.18);
+  transform: translateY(-1px);
+}
+
+.list-node.is-next {
+  border-color: #306fae;
+  box-shadow: 0 0 0 5px rgba(48, 111, 174, 0.16);
+}
+
 .list-node.is-pre {
   box-shadow: 0 0 0 5px rgba(98, 91, 184, 0.18);
 }
