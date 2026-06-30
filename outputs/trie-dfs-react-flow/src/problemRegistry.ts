@@ -5,6 +5,11 @@ import type { VisualizerKey, VisualizerProps } from "./types";
 type VisualizerComponent = LazyExoticComponent<ComponentType<VisualizerProps>>;
 
 export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
+  "remove-duplicates-from-sorted-array": lazy(() =>
+    import("./problems/0026-remove-duplicates-from-sorted-array/Visualizer").then((module) => ({
+      default: module.RemoveDuplicatesSortedArrayVisualizer,
+    })),
+  ),
   "generate-parentheses": lazy(() =>
     import("./problems/0022-generate-parentheses/Visualizer").then((module) => ({
       default: module.GenerateParenthesesVisualizer,

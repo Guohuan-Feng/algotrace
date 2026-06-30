@@ -7,7 +7,7 @@ type Hot150Entry = Omit<Problem, "collections" | "hasVisualizer" | "summary"> & 
 const entries: Hot150Entry[] = [
   { id: 88, title: "Merge Sorted Array", cnTitle: "合并两个有序数组", slug: "merge-sorted-array", difficulty: "Easy", tags: ["Array", "Two Pointers"], pattern: "Reverse two pointers" },
   { id: 27, title: "Remove Element", cnTitle: "移除元素", slug: "remove-element", difficulty: "Easy", tags: ["Array", "Two Pointers"], pattern: "In-place write pointer" },
-  { id: 26, title: "Remove Duplicates from Sorted Array", cnTitle: "删除有序数组中的重复项", slug: "remove-duplicates-from-sorted-array", difficulty: "Easy", tags: ["Array", "Two Pointers"], pattern: "In-place write pointer" },
+  { id: 26, title: "Remove Duplicates from Sorted Array", cnTitle: "删除有序数组中的重复项", slug: "remove-duplicates-from-sorted-array", difficulty: "Easy", tags: ["Array", "Two Pointers"], pattern: "In-place write pointer", visualizerKey: "remove-duplicates-from-sorted-array", summary: "Ready visualizer: scan with fast, write each new unique value at slow, and return the valid prefix length." },
   { id: 80, title: "Remove Duplicates from Sorted Array II", cnTitle: "删除有序数组中的重复项 II", slug: "remove-duplicates-from-sorted-array-ii", difficulty: "Medium", tags: ["Array", "Two Pointers"], pattern: "Bounded duplicates" },
   { id: 169, title: "Majority Element", cnTitle: "多数元素", slug: "majority-element", difficulty: "Easy", tags: ["Array", "Counting"], pattern: "Boyer-Moore voting" },
   { id: 189, title: "Rotate Array", cnTitle: "轮转数组", slug: "rotate-array", difficulty: "Medium", tags: ["Array", "Math"], pattern: "Reverse sections" },
