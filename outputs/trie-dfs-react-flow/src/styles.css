@@ -1460,6 +1460,152 @@ h3 {
   border-left-color: #d76b5f;
 }
 
+.reverse-list-stage {
+  background: #fffdf8;
+  border: 1px solid #ded8ce;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  min-height: 100%;
+  overflow: hidden;
+  padding: 14px;
+}
+
+.reverse-list-scroll {
+  background:
+    linear-gradient(#f5f0e8 1px, transparent 1px),
+    linear-gradient(90deg, #f5f0e8 1px, transparent 1px),
+    #fffaf1;
+  background-size: 28px 28px;
+  border: 1px solid #e6ded2;
+  border-radius: 8px;
+  min-height: 260px;
+  overflow: auto;
+  position: relative;
+}
+
+.reverse-list-svg,
+.reverse-list-nodes {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.reverse-edge {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+  transition: stroke 160ms ease, stroke-width 160ms ease;
+}
+
+.reverse-edge.is-forward {
+  stroke: #53615a;
+}
+
+.reverse-edge.is-backward {
+  stroke: #2f9b57;
+}
+
+.reverse-edge.is-changed {
+  filter: drop-shadow(0 3px 5px rgba(217, 151, 60, 0.28));
+  stroke: #d9973c;
+  stroke-width: 4;
+}
+
+.reverse-node-slot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.reverse-tags {
+  top: -26px;
+  z-index: 3;
+}
+
+.list-node.is-pointer-change {
+  box-shadow: 0 0 0 7px rgba(217, 151, 60, 0.22);
+}
+
+.reverse-none-tag {
+  background: #17201b;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  left: 50%;
+  padding: 3px 8px;
+  position: absolute;
+  top: 42px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.reverse-list-empty {
+  align-items: center;
+  background: #fffdf8;
+  border: 1px dashed #cfc8bc;
+  border-radius: 8px;
+  color: #59665f;
+  display: flex;
+  font-size: 14px;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.reverse-legend {
+  align-items: center;
+  color: #59665f;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.reverse-legend span {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.legend-dot {
+  border: 2px solid #cfc8bc;
+  border-radius: 999px;
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+}
+
+.legend-dot.unvisited {
+  background: #fffdf8;
+}
+
+.legend-dot.processed {
+  background: #dff5e3;
+  border-color: #2f9b57;
+}
+
+.legend-dot.current {
+  background: #ffe3bd;
+  border-color: #d9973c;
+}
+
+.legend-line {
+  display: inline-block;
+  height: 3px;
+  width: 24px;
+}
+
+.legend-line.forward {
+  background: #53615a;
+}
+
+.legend-line.backward {
+  background: #2f9b57;
+}
+
 .queen-flow-panel {
   min-height: 0;
 }

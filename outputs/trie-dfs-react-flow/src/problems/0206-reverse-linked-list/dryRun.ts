@@ -6,26 +6,42 @@ export type ReverseLinkedListFrame = {
   detail: string;
   activeLines: number[];
   original: number[];
-  reversed: number[];
-  remaining: number[];
+  nextPointers: Array<number | null>;
+  prevIndex: number | null;
   curIndex: number | null;
-  nextIndex: number | null;
+  nxtIndex: number | null;
+  changedIndex: number | null;
   phase: string;
   result: number[];
 };
 
 export function createReverseLinkedListDryRun(values: number[]): { frames: ReverseLinkedListFrame[] } {
   const frames: ReverseLinkedListFrame[] = [];
-  let reversed: number[] = [];
-  let index = 0;
+  const nextPointers: Array<number | null> = values.map((_, index) => (index + 1 < values.length ? index + 1 : null));
+  let prevIndex: number | null = null;
+  let curIndex: number | null = values.length ? 0 : null;
+  let nxtIndex: number | null = null;
 
-  const push = (frame: Omit<ReverseLinkedListFrame, "original" | "reversed" | "remaining" | "result">) => {
+  const collectResult = (headIndex: number | null) => {
+    const result: number[] = [];
+    const seen = new Set<number>();
+    let index = headIndex;
+    while (index !== null && !seen.has(index)) {
+      seen.add(index);
+      result.push(values[index]);
+      index = nextPointers[index];
+    }
+    return result;
+  };
+
+  const valueLabel = (index: number | null) => (index === null ? "None" : values[index]);
+
+  const push = (frame: Omit<ReverseLinkedListFrame, "original" | "nextPointers" | "result">) => {
     frames.push({
       ...frame,
       original: [...values],
-      reversed: [...reversed],
-      remaining: values.slice(index),
-      result: [...reversed],
+      nextPointers: [...nextPointers],
+      result: collectResult(prevIndex),
     });
   };
 
@@ -34,64 +50,75 @@ export function createReverseLinkedListDryRun(values: number[]): { frames: Rever
     title: "Initialize pointers",
     detail: "prev = None, cur = head.",
     activeLines: [3, 4],
-    curIndex: values.length ? 0 : null,
-    nextIndex: null,
+    prevIndex,
+    curIndex,
+    nxtIndex,
+    changedIndex: null,
     phase: "init",
   });
 
-  while (index < values.length) {
-    const curIndex = index;
-    const nextIndex = index + 1 < values.length ? index + 1 : null;
-
+  while (curIndex !== null) {
     push({
       kind: "visit",
-      title: `Visit node ${values[curIndex]}`,
+      title: `Visit node ${valueLabel(curIndex)}`,
       detail: "cur is not None, so enter the loop.",
       activeLines: [6],
+      prevIndex,
       curIndex,
-      nextIndex,
+      nxtIndex,
+      changedIndex: null,
       phase: "while cur",
     });
 
+    nxtIndex = nextPointers[curIndex];
     push({
       kind: "visit",
       title: "Save nxt",
-      detail: nextIndex === null ? "nxt = None because cur is the tail." : `nxt points to node ${values[nextIndex]}.`,
+      detail: nxtIndex === null ? "nxt = None because cur is the tail." : `nxt points to node ${valueLabel(nxtIndex)} before we rewrite cur.next.`,
       activeLines: [7],
+      prevIndex,
       curIndex,
-      nextIndex,
+      nxtIndex,
+      changedIndex: null,
       phase: "nxt = cur.next",
     });
 
+    nextPointers[curIndex] = prevIndex;
     push({
       kind: "build",
       title: "Reverse current pointer",
-      detail: `Set ${values[curIndex]}.next to prev${reversed.length ? `, whose head is ${reversed[0]}` : " (None)"}.`,
+      detail: `Set ${valueLabel(curIndex)}.next to prev (${valueLabel(prevIndex)}). The arrow on this same node changes direction.`,
       activeLines: [8],
+      prevIndex,
       curIndex,
-      nextIndex,
+      nxtIndex,
+      changedIndex: curIndex,
       phase: "cur.next = prev",
     });
 
-    reversed = [values[curIndex], ...reversed];
+    prevIndex = curIndex;
     push({
       kind: "build",
       title: "Move prev to cur",
-      detail: `prev now points to ${values[curIndex]}. The reversed list grows by one node.`,
+      detail: `prev now points to ${valueLabel(prevIndex)}. The processed prefix is reversed in place.`,
       activeLines: [9],
+      prevIndex,
       curIndex,
-      nextIndex,
+      nxtIndex,
+      changedIndex: null,
       phase: "prev = cur",
     });
 
-    index += 1;
+    curIndex = nxtIndex;
     push({
-      kind: nextIndex === null ? "done" : "visit",
+      kind: curIndex === null ? "done" : "visit",
       title: "Move cur to nxt",
-      detail: nextIndex === null ? "cur becomes None, so the loop will stop." : `cur moves to ${values[nextIndex]}.`,
+      detail: curIndex === null ? "cur becomes None, so the loop will stop." : `cur moves to ${valueLabel(curIndex)}.`,
       activeLines: [10],
-      curIndex: nextIndex,
-      nextIndex: index + 1 < values.length ? index + 1 : null,
+      prevIndex,
+      curIndex,
+      nxtIndex,
+      changedIndex: null,
       phase: "cur = nxt",
     });
   }
@@ -99,15 +126,16 @@ export function createReverseLinkedListDryRun(values: number[]): { frames: Rever
   frames.push({
     kind: "done",
     title: "Return prev",
-    detail: reversed.length ? `prev is the new head ${reversed[0]}.` : "The input list was empty, return None.",
+    detail: prevIndex !== null ? `prev is the new head ${valueLabel(prevIndex)}.` : "The input list was empty, return None.",
     activeLines: [12],
     original: [...values],
-    reversed: [...reversed],
-    remaining: [],
+    nextPointers: [...nextPointers],
+    prevIndex,
     curIndex: null,
-    nextIndex: null,
+    nxtIndex,
+    changedIndex: null,
     phase: "return prev",
-    result: [...reversed],
+    result: collectResult(prevIndex),
   });
 
   return { frames };

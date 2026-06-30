@@ -81,14 +81,14 @@ export function ReverseLinkedListVisualizer({ onBack }: VisualizerProps) {
         <section className="flow-panel list-flow-panel">
           <div className="panel-heading"><h2>Pointer Reversal</h2><span>{frame.phase}</span></div>
           <div className="list-stage">
-            <section className="list-zone">
-              <div className="panel-heading compact-heading"><h3>reversed / prev</h3><span>{frame.reversed.length ? "new head on the left" : "prev = None"}</span></div>
-              <LinkedList values={frame.reversed} tone="green" prevHead={frame.reversed.length > 0} />
-            </section>
-            <section className="list-zone">
-              <div className="panel-heading compact-heading"><h3>remaining / cur</h3><span>{frame.remaining.length ? "nodes not processed yet" : "cur = None"}</span></div>
-              <LinkedList values={frame.remaining} curHead={frame.remaining.length > 0} nextHead={frame.remaining.length > 1} />
-            </section>
+            <SingleLinkedListFrame
+              changedIndex={frame.changedIndex}
+              curIndex={frame.curIndex}
+              nextPointers={frame.nextPointers}
+              prevIndex={frame.prevIndex}
+              nxtIndex={frame.nxtIndex}
+              values={frame.original}
+            />
           </div>
         </section>
         <aside className="state-panel">
@@ -96,7 +96,7 @@ export function ReverseLinkedListVisualizer({ onBack }: VisualizerProps) {
             <div className={`event-card ${frame.kind}`}><p className="eyebrow">{frame.kind}</p><h2>{frame.title}</h2><p>{frame.detail}</p></div>
             <StepControls frameCount={dryRun.frames.length} playing={playing} step={step} onPlayingChange={setPlaying} onStepChange={setStep} />
           </div>
-          <div className="state-block"><h3>pointers</h3><div className="token-list"><span>prev = {frame.reversed[0] ?? "None"}</span><span>cur = {frame.remaining[0] ?? "None"}</span><span>nxt = {frame.remaining[1] ?? "None"}</span></div></div>
+          <div className="state-block"><h3>pointers</h3><div className="token-list"><span>prev = {valueAt(frame.original, frame.prevIndex)}</span><span>cur = {valueAt(frame.original, frame.curIndex)}</span><span>nxt = {valueAt(frame.original, frame.nxtIndex)}</span></div></div>
           <div className="state-block"><h3>result</h3><div className="token-list words"><span>{JSON.stringify(frame.result)}</span></div></div>
           <CodeTrace activeLines={frame.activeLines} codeLines={codeLines} />
         </aside>
@@ -105,26 +105,113 @@ export function ReverseLinkedListVisualizer({ onBack }: VisualizerProps) {
   );
 }
 
-function LinkedList({ values, tone, curHead = false, nextHead = false, prevHead = false }: { values: number[]; tone?: "green"; curHead?: boolean; nextHead?: boolean; prevHead?: boolean }) {
-  if (!values.length) {
-    return <div className="linked-list empty-list">None</div>;
+function valueAt(values: number[], index: number | null) {
+  return index === null ? "None" : values[index];
+}
+
+function collectProcessed(nextPointers: Array<number | null>, prevIndex: number | null) {
+  const processed = new Set<number>();
+  let index = prevIndex;
+  while (index !== null && !processed.has(index)) {
+    processed.add(index);
+    index = nextPointers[index];
   }
+  return processed;
+}
+
+function SingleLinkedListFrame({
+  changedIndex,
+  curIndex,
+  nextPointers,
+  prevIndex,
+  nxtIndex,
+  values,
+}: {
+  changedIndex: number | null;
+  curIndex: number | null;
+  nextPointers: Array<number | null>;
+  prevIndex: number | null;
+  nxtIndex: number | null;
+  values: number[];
+}) {
+  if (!values.length) {
+    return <div className="reverse-list-empty">head = None</div>;
+  }
+
+  const nodeGap = 96;
+  const nodeRadius = 29;
+  const leftPad = 58;
+  const nodeY = 110;
+  const width = Math.max(520, leftPad * 2 + nodeGap * (values.length - 1));
+  const height = 220;
+  const processed = collectProcessed(nextPointers, prevIndex);
+  const xFor = (index: number) => leftPad + index * nodeGap;
+
   return (
-    <div className="linked-list">
-      {values.map((value, index) => (
-        <div className="list-node-wrap" key={`${value}-${index}`}>
-          <div className={["list-node", tone ? `tone-${tone}` : "", curHead && index === 0 ? "is-cur" : "", nextHead && index === 1 ? "is-next" : "", prevHead && index === 0 ? "is-pre" : ""].filter(Boolean).join(" ")}>
-            <strong>{value}</strong>
-            <span>{index}</span>
-            <div className="pointer-tags">
-              {prevHead && index === 0 ? <em>prev</em> : null}
-              {curHead && index === 0 ? <em>cur</em> : null}
-              {nextHead && index === 1 ? <em>nxt</em> : null}
+    <div className="reverse-list-stage">
+      <div className="reverse-list-scroll" style={{ minWidth: width }}>
+        <svg className="reverse-list-svg" height={height} viewBox={`0 0 ${width} ${height}`} width={width} aria-hidden="true">
+          <defs>
+            <marker id="reverse-arrow-forward" markerHeight="8" markerWidth="9" orient="auto" refX="8" refY="4">
+              <path d="M0,0 L9,4 L0,8 Z" fill="#53615a" />
+            </marker>
+            <marker id="reverse-arrow-backward" markerHeight="8" markerWidth="9" orient="auto" refX="8" refY="4">
+              <path d="M0,0 L9,4 L0,8 Z" fill="#2f9b57" />
+            </marker>
+            <marker id="reverse-arrow-active" markerHeight="9" markerWidth="10" orient="auto" refX="9" refY="4.5">
+              <path d="M0,0 L10,4.5 L0,9 Z" fill="#d9973c" />
+            </marker>
+          </defs>
+          {nextPointers.map((target, source) => {
+            if (target === null) return null;
+            const sourceX = xFor(source);
+            const targetX = xFor(target);
+            const isBackward = target < source;
+            const isChanged = changedIndex === source;
+            const startX = isBackward ? sourceX - nodeRadius : sourceX + nodeRadius;
+            const endX = isBackward ? targetX + nodeRadius : targetX - nodeRadius;
+            const middle = (startX + endX) / 2;
+            const arcY = isBackward ? nodeY - 66 : nodeY;
+            const path = isBackward
+              ? `M ${startX} ${nodeY} C ${middle} ${arcY}, ${middle} ${arcY}, ${endX} ${nodeY}`
+              : `M ${startX} ${nodeY} L ${endX} ${nodeY}`;
+            const marker = isChanged ? "url(#reverse-arrow-active)" : isBackward ? "url(#reverse-arrow-backward)" : "url(#reverse-arrow-forward)";
+            return <path className={["reverse-edge", isBackward ? "is-backward" : "is-forward", isChanged ? "is-changed" : ""].filter(Boolean).join(" ")} d={path} key={`${source}-${target}`} markerEnd={marker} />;
+          })}
+        </svg>
+        <div className="reverse-list-nodes" style={{ height, width }}>
+          {values.map((value, index) => (
+            <div className="reverse-node-slot" key={`${value}-${index}`} style={{ left: xFor(index), top: nodeY }}>
+              <div
+                className={[
+                  "list-node",
+                  processed.has(index) ? "tone-green" : "",
+                  curIndex === index ? "is-cur" : "",
+                  nxtIndex === index ? "is-next" : "",
+                  prevIndex === index ? "is-pre" : "",
+                  changedIndex === index ? "is-pointer-change" : "",
+                ].filter(Boolean).join(" ")}
+              >
+                <strong>{value}</strong>
+                <span>i={index}</span>
+              </div>
+              <div className="pointer-tags reverse-tags">
+                {prevIndex === index ? <em>prev</em> : null}
+                {curIndex === index ? <em>cur</em> : null}
+                {nxtIndex === index ? <em>nxt</em> : null}
+              </div>
+              {nextPointers[index] === null ? <div className="reverse-none-tag">next = None</div> : null}
             </div>
-          </div>
-          {index < values.length - 1 ? <div className="list-arrow" /> : null}
+          ))}
         </div>
-      ))}
+      </div>
+      <div className="reverse-legend">
+        <span><i className="legend-dot unvisited" />not processed</span>
+        <span><i className="legend-dot processed" />processed</span>
+        <span><i className="legend-dot current" />cur</span>
+        <span><i className="legend-line forward" />original next</span>
+        <span><i className="legend-line backward" />reversed next</span>
+      </div>
     </div>
   );
 }
