@@ -119,6 +119,11 @@ function collectProcessed(nextPointers: Array<number | null>, prevIndex: number 
   return processed;
 }
 
+function nullPointerLabel(index: number, processed: Set<number>, changedIndex: number | null) {
+  if (changedIndex === index) return "set next -> None";
+  return processed.has(index) ? "prev tail -> None" : "cur tail -> None";
+}
+
 function SingleLinkedListFrame({
   changedIndex,
   curIndex,
@@ -200,7 +205,7 @@ function SingleLinkedListFrame({
                 {curIndex === index ? <em>cur</em> : null}
                 {nxtIndex === index ? <em>nxt</em> : null}
               </div>
-              {nextPointers[index] === null ? <div className="reverse-none-tag">next = None</div> : null}
+              {nextPointers[index] === null ? <div className="reverse-none-tag">{nullPointerLabel(index, processed, changedIndex)}</div> : null}
             </div>
           ))}
         </div>
