@@ -1527,20 +1527,6 @@ h3 {
   box-shadow: 0 0 0 7px rgba(217, 151, 60, 0.22);
 }
 
-.reverse-none-tag {
-  background: #17201b;
-  border-radius: 999px;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 900;
-  left: 50%;
-  padding: 3px 8px;
-  position: absolute;
-  top: 42px;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
-
 .reverse-list-empty {
   align-items: center;
   background: #fffdf8;
