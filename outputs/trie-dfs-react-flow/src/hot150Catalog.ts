@@ -138,7 +138,7 @@ const entries: Hot150Entry[] = [
   { id: 9, title: "Palindrome Number", cnTitle: "回文数", slug: "palindrome-number", difficulty: "Easy", tags: ["Math"], pattern: "Reverse half number" },
   { id: 66, title: "Plus One", cnTitle: "加一", slug: "plus-one", difficulty: "Easy", tags: ["Array", "Math"], pattern: "Carry simulation" },
   { id: 172, title: "Factorial Trailing Zeroes", cnTitle: "阶乘后的零", slug: "factorial-trailing-zeroes", difficulty: "Medium", tags: ["Math"], pattern: "Count factors of five" },
-  { id: 69, title: "Sqrt(x)", cnTitle: "x 的平方根", slug: "sqrtx", difficulty: "Easy", tags: ["Math", "Binary Search"], pattern: "Binary search" },
+  { id: 69, title: "Sqrt(x)", cnTitle: "x 的平方根", slug: "sqrtx", difficulty: "Easy", tags: ["Math", "Binary Search"], pattern: "Binary boundary", visualizerKey: "sqrtx", summary: "Ready visualizer: move left/right until they cross, showing right as the last n where n^2 <= x and left as the first n where n^2 > x." },
   { id: 50, title: "Pow(x, n)", cnTitle: "Pow(x, n)", slug: "powx-n", difficulty: "Medium", tags: ["Math", "Recursion"], pattern: "Fast power" },
   { id: 149, title: "Max Points on a Line", cnTitle: "直线上最多的点数", slug: "max-points-on-a-line", difficulty: "Hard", tags: ["Array", "Hash Table", "Math", "Geometry"], pattern: "Slope counting" },
   { id: 70, title: "Climbing Stairs", cnTitle: "爬楼梯", slug: "climbing-stairs", difficulty: "Easy", tags: ["Math", "Dynamic Programming", "Memoization"], pattern: "Fibonacci DP" },

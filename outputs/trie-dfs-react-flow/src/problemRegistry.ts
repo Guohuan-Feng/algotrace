@@ -5,6 +5,11 @@ import type { VisualizerKey, VisualizerProps } from "./types";
 type VisualizerComponent = LazyExoticComponent<ComponentType<VisualizerProps>>;
 
 export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
+  sqrtx: lazy(() =>
+    import("./problems/0069-sqrtx/Visualizer").then((module) => ({
+      default: module.SqrtVisualizer,
+    })),
+  ),
   "remove-duplicates-from-sorted-array": lazy(() =>
     import("./problems/0026-remove-duplicates-from-sorted-array/Visualizer").then((module) => ({
       default: module.RemoveDuplicatesSortedArrayVisualizer,

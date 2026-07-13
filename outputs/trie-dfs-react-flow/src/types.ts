@@ -1,6 +1,7 @@
 export type Difficulty = "Easy" | "Medium" | "Hard";
 
 export type VisualizerKey =
+  | "sqrtx"
   | "remove-duplicates-from-sorted-array"
   | "generate-parentheses"
   | "letter-combinations-of-a-phone-number"
