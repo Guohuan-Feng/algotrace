@@ -32,18 +32,18 @@ export function createOperationDryRun({ codeLines, mode, operations }: CreateOpe
     }
 
     if (operation === "addWord") {
-      return phase === "start" ? [6, 7] : phase === "create" ? [8, 9, 10] : phase === "end" ? [12] : [8, 11];
+      return phase === "start" ? [13, 14] : phase === "create" ? [16, 17, 18] : phase === "end" ? [22] : [16, 20];
     }
     if (phase === "dot") {
-      return [18, 19, 20];
+      return [40, 41, 42];
     }
     if (phase === "miss") {
-      return [21, 22];
+      return [33, 34, 35];
     }
     if (phase === "result") {
-      return [16, 17, 24];
+      return [27, 28, 46];
     }
-    return [14, 15, 18, 23];
+    return [24, 26, 30, 33, 37];
   };
 
   function runInsert(operation: TrieOperation, operationIndex: number) {
@@ -87,7 +87,7 @@ export function createOperationDryRun({ codeLines, mode, operations }: CreateOpe
     pushFrame({
       kind: "done",
       title: `Mark "${word}" complete`,
-      detail: `Set isEnd on prefix "${word}". The operation returns ${operation.output}.`,
+      detail: `Set is_end on prefix "${word}". The operation returns ${operation.output}.`,
       activeTrieId: node.id,
       path: word,
       activeLines: lineSet(operation.name, "end"),
@@ -168,7 +168,7 @@ export function createOperationDryRun({ codeLines, mode, operations }: CreateOpe
       detail: "Start DFS from root. A dot can match any child node.",
       activeTrieId: "root",
       path: "",
-      activeLines: [14, 15, 24],
+      activeLines: [24, 26, 46],
       operationIndex,
       stack: [`search("${pattern}")`],
     });
@@ -179,7 +179,7 @@ export function createOperationDryRun({ codeLines, mode, operations }: CreateOpe
         pushFrame({
           kind: ok ? "done" : "prune",
           title: `End of pattern: ${ok}`,
-          detail: `Reached "${prefix || "root"}"; isEnd is ${ok}, so this path ${ok ? "matches" : "fails"}.`,
+          detail: `Reached "${prefix || "root"}"; is_end is ${ok}, so this path ${ok ? "matches" : "fails"}.`,
           activeTrieId: node.id,
           path: prefix,
           activeLines: lineSet(operation.name, "result"),
@@ -267,7 +267,7 @@ export function createOperationDryRun({ codeLines, mode, operations }: CreateOpe
       detail: `The official example expects ${operation.output}; the DFS result is ${matched}.`,
       activeTrieId: "root",
       path: "",
-      activeLines: [24],
+      activeLines: [46],
       operationIndex,
       stack: [`return ${matched}`],
     });
@@ -282,7 +282,7 @@ export function createOperationDryRun({ codeLines, mode, operations }: CreateOpe
         detail: "Create an empty root node.",
         activeTrieId: "root",
         path: "",
-        activeLines: [1, 2, 3, 4],
+        activeLines: mode === "word-dictionary" ? [1, 2, 3, 5, 8, 10, 11] : [1, 2, 3, 4],
         operationIndex,
         stack: ["constructor"],
       });

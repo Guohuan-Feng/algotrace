@@ -2648,6 +2648,12 @@ textarea {
   margin-bottom: 8px;
 }
 
+.code-title-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
 .code-title h3 {
   color: #edf6ef;
   margin: 0;
@@ -2658,6 +2664,38 @@ textarea {
   font-size: 11px;
   font-weight: 800;
   white-space: nowrap;
+}
+
+.code-trace-expand {
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(220, 235, 226, 0.35);
+  border-radius: 6px;
+  color: #dcebe2;
+  cursor: pointer;
+  display: inline-flex;
+  height: 28px;
+  justify-content: center;
+  padding: 0;
+  width: 28px;
+}
+
+.code-trace-expand:hover {
+  background: rgba(220, 235, 226, 0.12);
+}
+
+.code-trace-expand:focus-visible {
+  outline: 2px solid #9ecaae;
+  outline-offset: 2px;
+}
+
+.state-panel:has(.code-window.is-expanded) > .state-block {
+  display: none;
+}
+
+.state-panel:has(.code-window.is-expanded) > .code-window {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .active-snippet {

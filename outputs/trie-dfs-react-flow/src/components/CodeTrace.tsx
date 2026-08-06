@@ -1,14 +1,32 @@
+import { Maximize2, Minimize2 } from "lucide-react";
+import { useState } from "react";
+
 type CodeTraceProps = {
   codeLines: string[];
   activeLines: number[];
 };
 
 export function CodeTrace({ codeLines, activeLines }: CodeTraceProps) {
+  const [expanded, setExpanded] = useState(false);
+  const toggleLabel = expanded ? "Collapse code trace" : "Expand code trace";
+
   return (
-    <div className="code-window">
+    <div aria-label="Code trace" className={`code-window${expanded ? " is-expanded" : ""}`} role="region">
       <div className="code-title">
         <h3>Code trace</h3>
-        <span>{activeLines.length ? `line ${activeLines.join(", ")}` : "idle"}</span>
+        <div className="code-title-actions">
+          <span>{activeLines.length ? `line ${activeLines.join(", ")}` : "idle"}</span>
+          <button
+            aria-expanded={expanded}
+            aria-label={toggleLabel}
+            className="code-trace-expand"
+            onClick={() => setExpanded((current) => !current)}
+            title={toggleLabel}
+            type="button"
+          >
+            {expanded ? <Minimize2 aria-hidden="true" size={15} /> : <Maximize2 aria-hidden="true" size={15} />}
+          </button>
+        </div>
       </div>
       <div className="active-snippet">
         {activeLines.length ? (
