@@ -1370,6 +1370,128 @@ h3 {
   transform: translateY(-3px);
 }
 
+.extra-characters-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  padding: 18px;
+}
+
+.extra-explanation,
+.extra-match-note {
+  align-items: baseline;
+  background: #f4f0e8;
+  border: 1px solid #e2dbd0;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+}
+
+.extra-explanation span,
+.extra-row-label {
+  color: #66736d;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.extra-explanation strong {
+  color: #17201b;
+  font-size: 16px;
+}
+
+.extra-explanation code,
+.extra-match-note {
+  color: #405149;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.extra-scroll {
+  display: grid;
+  gap: 9px;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.extra-strip {
+  display: grid;
+  gap: 7px;
+  grid-auto-columns: 58px;
+  grid-auto-flow: column;
+  min-width: max-content;
+}
+
+.extra-start-cell,
+.extra-char-cell,
+.extra-dp-cell {
+  align-items: center;
+  background: #fffdfa;
+  border: 1px solid #ded8ce;
+  border-radius: 7px;
+  display: grid;
+  justify-items: center;
+  min-height: 64px;
+  padding: 7px 4px;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.extra-start-cell span,
+.extra-char-cell span,
+.extra-dp-cell span {
+  color: #748078;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.extra-start-cell strong,
+.extra-char-cell strong,
+.extra-dp-cell strong {
+  color: #17201b;
+  font-size: 18px;
+}
+
+.extra-dp-cell strong {
+  color: #1e5f4a;
+}
+
+.extra-char-cell.is-candidate,
+.extra-dp-cell.is-start {
+  background: #fff4da;
+  border-color: #dba13e;
+}
+
+.extra-char-cell.is-current,
+.extra-dp-cell.is-current {
+  background: #ffe3bd;
+  border-color: #e49a22;
+  box-shadow: 0 0 0 4px rgba(228, 154, 34, 0.18);
+}
+
+.extra-char-cell.is-match,
+.extra-dp-cell.is-match,
+.extra-match-note.is-match {
+  background: #dff2e4;
+  border-color: #3f9b62;
+}
+
+.extra-match-note {
+  margin-top: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .extra-start-cell,
+  .extra-char-cell,
+  .extra-dp-cell {
+    transition: none;
+  }
+}
+
 .sequence-cell.is-discarded {
   background: #ece8e0;
   border-color: #c7bfb3;

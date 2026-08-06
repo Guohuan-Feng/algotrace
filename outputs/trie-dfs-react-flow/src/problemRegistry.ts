@@ -130,6 +130,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.DesignAddSearchWordsVisualizer,
     })),
   ),
+  "extra-characters-in-a-string": lazy(() =>
+    import("./problems/2707-extra-characters-in-a-string/Visualizer").then((module) => ({
+      default: module.ExtraCharactersVisualizer,
+    })),
+  ),
   "word-search-ii": lazy(() =>
     import("./problems/0212-word-search-ii/Visualizer").then((module) => ({
       default: module.WordSearchIiVisualizer,

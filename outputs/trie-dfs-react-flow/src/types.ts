@@ -26,6 +26,7 @@ export type VisualizerKey =
   | "triangle"
   | "implement-trie-prefix-tree"
   | "design-add-and-search-words-data-structure"
+  | "extra-characters-in-a-string"
   | "word-search-ii";
 
 export type Problem = {
