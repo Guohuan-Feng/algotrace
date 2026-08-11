@@ -1,5 +1,10 @@
 {
+  "name": "algotrace",
+  "private": true,
+  "packageManager": "pnpm@11.16.0",
   "scripts": {
-    "build": "cd outputs/trie-dfs-react-flow && npm install && npm run build"
+    "dev": "pnpm --dir apps/web dev",
+    "test": "pnpm --dir apps/web test",
+    "build": "pnpm --dir apps/web build"
   }
 }

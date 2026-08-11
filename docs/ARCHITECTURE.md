@@ -1,102 +1,54 @@
 # AlgoTrace Architecture
 
-AlgoTrace is organized for a large problem library. The catalog stays lightweight, while each finished visualizer lives in its own problem folder and is loaded only when the user opens that problem.
+AlgoTrace separates the lightweight problem directory from algorithm-specific visualizers. The browser can list hundreds of problems without downloading every animation implementation.
 
-## Main Layers
-
-```txt
-outputs/trie-dfs-react-flow/src/
-  App.tsx
-  problemCatalog.ts
-  problemRegistry.ts
-  types.ts
-  components/
-  lib/
-  problems/
-```
-
-## Files
-
-`App.tsx`
-
-Routes between the catalog, placeholder pages, and lazy-loaded visualizers.
-
-`problemCatalog.ts`
-
-Stores lightweight problem metadata: id, title, slug, difficulty, tags, pattern, summary, and whether a visualizer exists. This file can scale to hundreds of rows because it does not import heavy animation code.
-
-`problemRegistry.ts`
-
-Maps `visualizerKey` values to `React.lazy` imports. This keeps visualizer code split into separate chunks.
-
-`components/`
-
-Shared UI that many problems can reuse, such as:
+## Application Layers
 
 ```txt
-CodeTrace.tsx
-StepControls.tsx
-TrieFlow.tsx
-ProblemDirectory.tsx
-ProblemPlaceholder.tsx
-OperationTrieVisualizer.tsx
+apps/web/src/
+  app/          Application entry point, hash-route shell, global CSS
+  catalog/      Hot 150 data, additional roadmap entries, catalog composition
+  shared/       Reusable components, domain types, parsing and Trie helpers
+  problems/     Self-contained completed visualizer modules
 ```
 
-`lib/`
+## Problem Modules
 
-Shared logic without page UI:
+Every ready problem lives in `src/problems/XXXX-slug/`.
 
-```txt
-hashRouting.ts
-inputParsers.ts
-trieModel.ts
-trieOperationDryRun.ts
-```
+- `definition.ts` exports `ReadyProblemDefinition`. It is intentionally small and contains no visualizer import.
+- `data.ts` holds official examples and the Python code displayed in `CodeTrace`.
+- `dryRun.ts` creates deterministic frames from an input. Each frame carries `activeLines` and the exact state the UI needs.
+- `Visualizer.tsx` is the default export and connects input controls, the algorithm view, state panels, and `StepControls`.
+- `dryRun.test.ts` protects important intermediate transitions plus the final answer.
 
-`problems/`
+`src/problems/index.ts` has two Vite globs:
 
-Each completed problem gets one folder:
+1. Eagerly import `definition.ts` files so catalog filtering has only metadata.
+2. Lazily import `Visualizer.tsx` files only after the user opens that problem route.
 
-```txt
-problems/
-  0017-letter-combinations-of-a-phone-number/
-    data.ts
-    dryRun.ts
-    Visualizer.tsx
-  0077-combinations/
-    data.ts
-    dryRun.ts
-    Visualizer.tsx
-  0208-implement-trie-prefix-tree/
-    data.ts
-    Visualizer.tsx
-  0211-design-add-and-search-words-data-structure/
-    data.ts
-    Visualizer.tsx
-  0212-word-search-ii/
-    data.ts
-    dryRun.ts
-    Visualizer.tsx
-```
+The loader pairs both paths from the same problem folder. This replaces the old central `problemRegistry.ts` and `VisualizerKey` union, so a completed problem is added in one place.
 
-## Adding A New Problem
+## Catalog Composition
 
-1. Add metadata in `problemCatalog.ts`.
-2. Create `src/problems/XXXX-slug/`.
-3. Put official examples and code lines in `data.ts`.
-4. Put step generation logic in `dryRun.ts` when the problem has custom behavior.
-5. Build the page in `Visualizer.tsx`, reusing shared components where possible.
-6. Register the visualizer in `problemRegistry.ts`.
-7. Run:
+`catalog/hot150.ts` and `catalog/roadmap.ts` hold problems without a visualizer. `catalog/problems.ts` merges them with discovered ready definitions. Records are keyed by LeetCode ID; a ready definition is appended last and replaces its roadmap entry.
+
+This permits a problem to remain visible before its animation exists, then become ready simply by adding a module folder.
+
+## Shared Layer
+
+`shared/components/` owns UI reused across multiple problems, including `CodeTrace`, `StepControls`, Trie views, and the directory UI. `shared/lib/` contains non-visual helpers such as input parsing and the Trie model. `shared/types.ts` contains frame types shared by several visualizers.
+
+Do not move problem-specific dry-run logic into `shared/` only because two algorithms both use BFS or DFS. Extract a shared abstraction only once it removes meaningful duplicated behavior.
+
+## Verification
+
+Run from the repository root:
 
 ```bash
-cd outputs/trie-dfs-react-flow
-npm run build
+pnpm test
+pnpm build
+git diff --check
 ```
 
-## Scaling Notes
-
-- The catalog should only import metadata, not all dry-run implementations.
-- Heavy visualizers should stay behind `React.lazy`.
-- Reusable visual patterns should become shared components instead of being copied into each problem.
-- Large generated assets should not be committed to GitHub.
+The Vercel configuration deploys `apps/web/dist` while keeping the repository root as the Vercel project root.
