@@ -75,6 +75,16 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
       default: module.LongestIncreasingSubsequenceVisualizer,
     })),
   ),
+  "walls-and-gates": lazy(() =>
+    import("./problems/0286-walls-and-gates/Visualizer").then((module) => ({
+      default: module.WallsAndGatesVisualizer,
+    })),
+  ),
+  "pacific-atlantic-water-flow": lazy(() =>
+    import("./problems/0417-pacific-atlantic-water-flow/Visualizer").then((module) => ({
+      default: module.PacificAtlanticVisualizer,
+    })),
+  ),
   "path-with-minimum-effort": lazy(() =>
     import("./problems/1631-path-with-minimum-effort/Visualizer").then((module) => ({
       default: module.MinimumEffortPathVisualizer,
@@ -133,6 +143,11 @@ export const visualizerRegistry: Record<VisualizerKey, VisualizerComponent> = {
   "extra-characters-in-a-string": lazy(() =>
     import("./problems/2707-extra-characters-in-a-string/Visualizer").then((module) => ({
       default: module.ExtraCharactersVisualizer,
+    })),
+  ),
+  "rotting-oranges": lazy(() =>
+    import("./problems/0994-rotting-oranges/Visualizer").then((module) => ({
+      default: module.RottingOrangesVisualizer,
     })),
   ),
   "word-search-ii": lazy(() =>

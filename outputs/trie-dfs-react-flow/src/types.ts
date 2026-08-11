@@ -16,6 +16,8 @@ export type VisualizerKey =
   | "longest-consecutive-sequence"
   | "longest-continuous-increasing-subsequence"
   | "longest-increasing-subsequence"
+  | "walls-and-gates"
+  | "pacific-atlantic-water-flow"
   | "path-with-minimum-effort"
   | "permutations"
   | "quick-sort"
@@ -27,6 +29,7 @@ export type VisualizerKey =
   | "implement-trie-prefix-tree"
   | "design-add-and-search-words-data-structure"
   | "extra-characters-in-a-string"
+  | "rotting-oranges"
   | "word-search-ii";
 
 export type Problem = {
