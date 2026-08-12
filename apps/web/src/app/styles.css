@@ -1581,6 +1581,134 @@ h3 {
   min-height: 0;
 }
 
+.components-flow-panel,
+.query-flow-panel {
+  min-height: 0;
+}
+
+.components-stage,
+.query-stage {
+  display: grid;
+  flex: 1;
+  gap: 14px;
+  grid-template-rows: minmax(300px, 1fr) auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+}
+
+.components-graph,
+.query-graph {
+  background: #fffdf8;
+  border: 1px solid #ded8ce;
+  border-radius: 8px;
+  min-height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.components-edges,
+.query-edges {
+  height: 100%;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.components-edge,
+.query-edge {
+  stroke: #8c9890;
+  stroke-width: 1.3;
+  transition: stroke 180ms ease, stroke-width 180ms ease;
+}
+
+.query-edge {
+  marker-end: url(#query-arrow);
+}
+
+.components-edge.is-active,
+.query-edge.is-active {
+  stroke: #d9973c;
+  stroke-width: 2.2;
+}
+
+.query-edges marker path {
+  fill: #8c9890;
+}
+
+.components-node,
+.query-node {
+  align-items: center;
+  background: #fffdfa;
+  border: 2px solid #b7c0b9;
+  border-radius: 50%;
+  color: #27342d;
+  display: flex;
+  flex-direction: column;
+  height: 78px;
+  justify-content: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  width: 78px;
+  z-index: 1;
+}
+
+.components-node strong,
+.query-node strong {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.components-node span,
+.query-node span {
+  color: #66736b;
+  font-size: 10px;
+  font-weight: 800;
+  margin-top: 5px;
+}
+
+.components-node.is-visited,
+.query-node.is-visited {
+  background: #e7f5eb;
+  border-color: #69a875;
+  color: #155333;
+}
+
+.components-node.is-current,
+.query-node.is-current {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  box-shadow: 0 0 0 5px rgba(217, 151, 60, 0.18);
+  transform: translate(-50%, calc(-50% - 3px));
+}
+
+.components-node.is-target,
+.query-node.is-target {
+  box-shadow: inset 0 0 0 3px #306fae;
+}
+
+.query-node.is-target {
+  background: #dcecf7;
+  border-color: #5d98bb;
+  color: #184f72;
+}
+
+.component-count {
+  align-items: center;
+  background: #e7f5eb;
+  border: 1px solid #69a875;
+  border-radius: 8px;
+  color: #155333;
+  display: flex;
+  font-size: 32px;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 56px;
+}
+
 .valid-tree-stage {
   display: grid;
   flex: 1;
