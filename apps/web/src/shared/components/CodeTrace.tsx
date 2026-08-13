@@ -4,16 +4,17 @@ import { useState } from "react";
 type CodeTraceProps = {
   codeLines: string[];
   activeLines: number[];
+  title?: string;
 };
 
-export function CodeTrace({ codeLines, activeLines }: CodeTraceProps) {
+export function CodeTrace({ codeLines, activeLines, title = "Code trace" }: CodeTraceProps) {
   const [expanded, setExpanded] = useState(false);
   const toggleLabel = expanded ? "Collapse code trace" : "Expand code trace";
 
   return (
     <div aria-label="Code trace" className={`code-window${expanded ? " is-expanded" : ""}`} role="region">
       <div className="code-title">
-        <h3>Code trace</h3>
+        <h3>{title}</h3>
         <div className="code-title-actions">
           <span>{activeLines.length ? `line ${activeLines.join(", ")}` : "idle"}</span>
           <button

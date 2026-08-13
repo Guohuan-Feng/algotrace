@@ -1,4 +1,5 @@
 {
+  "alias": ["algotrace-dryrun.vercel.app"],
   "buildCommand": "cd apps/web && npm install && npm run build",
   "installCommand": "cd apps/web && npm install",
   "outputDirectory": "apps/web/dist"

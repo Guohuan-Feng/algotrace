@@ -3137,6 +3137,357 @@ textarea {
   }
 }
 
+.interval-trace-shell .topbar {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.interval-cn-title {
+  color: #68746e;
+  font-size: 13px;
+  font-weight: 800;
+  margin: 6px 0 0;
+}
+
+.interval-header-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  justify-content: flex-end;
+}
+
+.lesson-link {
+  align-items: center;
+  background: #e9f4ea;
+  border: 1px solid #6eaa7b;
+  border-radius: 8px;
+  color: #155333;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 900;
+  gap: 6px;
+  padding: 10px 12px;
+  text-decoration: none;
+}
+
+.lesson-link:hover {
+  background: #dff5e3;
+}
+
+.input-help,
+.interval-invariant {
+  color: #526058;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.input-help {
+  margin: -5px 0 12px;
+}
+
+.interval-input-label {
+  color: #4d5a54;
+  display: grid;
+  font-size: 12px;
+  font-weight: 850;
+  gap: 6px;
+}
+
+.interval-input-label textarea {
+  background: #fbfaf6;
+  border: 1px solid #d8d0c3;
+  border-radius: 8px;
+  color: #17201b;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  min-height: 132px;
+  padding: 10px;
+  resize: vertical;
+}
+
+.interval-input-panel .command {
+  margin-top: 10px;
+}
+
+.interval-expected-output {
+  margin-top: 14px;
+}
+
+.interval-rule-card {
+  background: #f2eee5;
+  border: 1px solid #ded8ce;
+  border-radius: 8px;
+  display: grid;
+  gap: 5px;
+  margin-top: 14px;
+  padding: 11px;
+}
+
+.interval-rule-card span {
+  color: #68746e;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.interval-rule-card strong {
+  color: #155333;
+  font-size: 14px;
+}
+
+.interval-rule-card p {
+  color: #526058;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.interval-flow-panel {
+  min-height: 0;
+}
+
+.interval-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+}
+
+.interval-axis {
+  border-bottom: 1px solid #a9b3aa;
+  height: 24px;
+  margin-left: 118px;
+  position: relative;
+}
+
+.interval-axis span {
+  color: #68746e;
+  font-size: 10px;
+  font-weight: 850;
+  position: absolute;
+  top: 4px;
+  transform: translateX(-50%);
+}
+
+.interval-lanes {
+  display: grid;
+  gap: 10px;
+}
+
+.interval-lane {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 108px minmax(0, 1fr);
+}
+
+.interval-lane-label {
+  color: #4d5a54;
+  font-size: 12px;
+  font-weight: 900;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.interval-track,
+.result-track {
+  background: repeating-linear-gradient(90deg, transparent 0, transparent calc(25% - 1px), rgba(108, 124, 114, 0.18) calc(25% - 1px), rgba(108, 124, 114, 0.18) 25%);
+  border-bottom: 1px solid #c6cdc6;
+  min-height: 42px;
+  position: relative;
+}
+
+.interval-mask {
+  background: rgba(215, 107, 95, 0.18);
+  border-left: 1px dashed #c64f43;
+  border-right: 1px dashed #c64f43;
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+.interval-block {
+  align-items: center;
+  background: #dcebe2;
+  border: 1px solid #6eaa7b;
+  border-radius: 6px;
+  color: #155333;
+  display: flex;
+  font-size: 11px;
+  font-weight: 900;
+  height: 27px;
+  justify-content: center;
+  min-width: 16px;
+  overflow: hidden;
+  padding: 0 5px;
+  position: absolute;
+  text-align: center;
+  top: 7px;
+  transition: 180ms ease;
+  z-index: 1;
+}
+
+.interval-block span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tone-muted .interval-block {
+  background: #eef0ed;
+  border-color: #b7c1b9;
+  color: #56625c;
+}
+
+.tone-result .interval-block,
+.result-track .interval-block {
+  background: #dff5e3;
+  border-color: #2f9b57;
+}
+
+.interval-block.is-current {
+  background: #ffe3bd;
+  border-color: #e49a22;
+  box-shadow: 0 0 0 4px rgba(228, 154, 34, 0.18);
+  color: #70400a;
+  transform: translateY(-2px);
+  z-index: 4;
+}
+
+.interval-block.is-compared {
+  border-color: #557ca8;
+  box-shadow: inset 0 0 0 1px #557ca8;
+}
+
+.interval-block.is-accepted {
+  background: #dff5e3;
+  border-color: #2f9b57;
+  color: #155333;
+}
+
+.interval-block.is-rejected,
+.interval-block.is-covered {
+  background: #fae4df;
+  border-color: #d76b5f;
+  color: #9b3325;
+  opacity: 0.76;
+}
+
+.sweep-cursor {
+  border-left: 2px solid #18221d;
+  bottom: -4px;
+  position: absolute;
+  top: -6px;
+  z-index: 5;
+}
+
+.sweep-cursor span {
+  background: #18221d;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  left: -14px;
+  padding: 3px 5px;
+  position: absolute;
+  top: -20px;
+}
+
+.interval-events,
+.interval-output {
+  background: #f7f4ed;
+  border: 1px solid #e0d9ce;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.compact-heading {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.compact-heading h3 {
+  margin: 0;
+}
+
+.compact-heading span {
+  color: #68746e;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.interval-event {
+  align-items: center;
+  background: #fffdfa;
+  border: 1px solid #ded8ce;
+  border-radius: 6px;
+  display: flex;
+  font-size: 11px;
+  gap: 5px;
+  padding: 6px 7px;
+}
+
+.interval-event.active {
+  background: #ffe3bd;
+  border-color: #e49a22;
+  box-shadow: 0 0 0 3px rgba(228, 154, 34, 0.16);
+}
+
+.interval-event span {
+  font-weight: 950;
+}
+
+.interval-event .positive {
+  color: #1c7a45;
+}
+
+.interval-event .negative {
+  color: #b44235;
+}
+
+.interval-event em {
+  color: #68746e;
+  font-style: normal;
+  max-width: 108px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.interval-output {
+  margin-top: auto;
+}
+
+.result-track {
+  margin-top: 10px;
+}
+
+.result-track p {
+  color: #7b8580;
+  font-size: 12px;
+  margin: 12px;
+}
+
 @media (max-width: 1120px) {
   .app-shell {
     height: auto;
