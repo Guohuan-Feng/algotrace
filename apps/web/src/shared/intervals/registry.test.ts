@@ -11,6 +11,7 @@ const intervalVisualizerSlugs = [
   "non-overlapping-intervals",
   "remove-covered-intervals",
   "meeting-scheduler",
+  "data-stream-as-disjoint-intervals",
 ];
 
 describe("扫描线基础算法模块发现", () => {
