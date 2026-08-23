@@ -30,7 +30,7 @@
 - Produces: a test contract for `createRedundantConnectionDryRun(edges: number[][]): { frames: RedundantConnectionFrame[] }`.
 - `RedundantConnectionFrame` exposes `parent: number[]`, `edgeIndex: number | null`, `currentEdge: [number, number] | null`, `acceptedEdges: [number, number][]`, `findStack: number[]`, `compressingNode: number | null`, `pa: number | null`, `pb: number | null`, `redundantEdge: [number, number] | null`, and `result: [number, number] | null`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```ts
 import { describe, expect, test } from "vitest";
@@ -63,7 +63,7 @@ describe("Redundant Connection dry run", () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run:
 
@@ -73,7 +73,7 @@ pnpm --dir apps/web test src/problems/0684-redundant-connection/dryRun.test.ts
 
 Expected: Vitest fails because `./dryRun` does not exist.
 
-- [ ] **Step 3: Commit the red test only**
+- [x] **Step 3: Commit the red test only**
 
 ```bash
 git add apps/web/src/problems/0684-redundant-connection/dryRun.test.ts
@@ -92,7 +92,7 @@ git commit -m "test: define redundant connection dry run"
 - Consumes: the test contract from Task 1 and `ReadyProblemDefinition` from `apps/web/src/catalog/types.ts`.
 - Produces: `definition`, `title`, `examples`, `defaultExample`, `codeLines`, `RedundantConnectionFrame`, and `createRedundantConnectionDryRun` for Task 3.
 
-- [ ] **Step 1: Create the catalog definition and original examples**
+- [x] **Step 1: Create the catalog definition and original examples**
 
 ```ts
 // definition.ts
@@ -122,7 +122,7 @@ export const defaultExample = examples[0];
 
 Include the supplied Python algorithm in `codeLines`, keeping blank lines so the lines numbered by the simulator are exactly: 5 for `n`, 6 for `parent`, 9-11 for `find`, 14-20 for the edge loop, roots, cycle return, and union assignment.
 
-- [ ] **Step 2: Implement an immutable frame simulator**
+- [x] **Step 2: Implement an immutable frame simulator**
 
 ```ts
 import type { FrameKind } from "../../shared/types";
@@ -246,7 +246,7 @@ export function createRedundantConnectionDryRun(edgesInput: number[][]): { frame
 
 Preserve the order of input edges and stop immediately when `pa === pb`; do not process an edge after the returned cycle edge.
 
-- [ ] **Step 3: Run the focused tests to verify they pass**
+- [x] **Step 3: Run the focused tests to verify they pass**
 
 Run:
 
@@ -256,7 +256,7 @@ pnpm --dir apps/web test src/problems/0684-redundant-connection/dryRun.test.ts
 
 Expected: all three tests pass.
 
-- [ ] **Step 4: Commit the metadata and simulator**
+- [x] **Step 4: Commit the metadata and simulator**
 
 ```bash
 git add apps/web/src/problems/0684-redundant-connection/definition.ts \
@@ -276,7 +276,7 @@ git commit -m "feat: add redundant connection dry run"
 - Consumes: `createRedundantConnectionDryRun`, `examples`, `codeLines`, `StepControls`, `CodeTrace`, and `VisualizerProps`.
 - Produces: the default-exported lazy visualizer discovered by `apps/web/src/problems/index.ts`.
 
-- [ ] **Step 1: Render the standard visualizer shell and input guardrail**
+- [x] **Step 1: Render the standard visualizer shell and input guardrail**
 
 ```tsx
 const [edges, setEdges] = useState<number[][]>(defaultExample.edges.map((edge) => [...edge]));
@@ -309,7 +309,7 @@ function loadInput() {
 
 Use the existing playback effect with a 700ms frame delay and reset step plus play state when switching an example or successfully loading input.
 
-- [ ] **Step 2: Render graph and parent state from the active frame**
+- [x] **Step 2: Render graph and parent state from the active frame**
 
 ```tsx
 {frame.edges.map((edge, index) => {
@@ -329,7 +329,7 @@ Use the existing playback effect with a 700ms frame delay and reset step plus pl
 
 Center the 1-based graph using a circular `nodePosition(node, frame.n)` helper. The right state panel shows current input edge, `pa`, `pb`, find stack, and the full parent array before `CodeTrace`.
 
-- [ ] **Step 3: Add scoped CSS with stable dimensions and clear states**
+- [x] **Step 3: Add scoped CSS with stable dimensions and clear states**
 
 ```css
 .redundant-flow-panel { min-height: 0; }
@@ -345,7 +345,7 @@ Center the 1-based graph using a circular `nodePosition(node, frame.n)` helper. 
 
 Reuse the existing green, yellow, red, and blue palette values; add no global reset or unrelated selector changes.
 
-- [ ] **Step 4: Verify module discovery and build**
+- [x] **Step 4: Verify module discovery and build**
 
 Run:
 
@@ -356,7 +356,7 @@ pnpm --dir apps/web build
 
 Expected: index discovery test and TypeScript/Vite build pass.
 
-- [ ] **Step 5: Commit the UI**
+- [x] **Step 5: Commit the UI**
 
 ```bash
 git add apps/web/src/problems/0684-redundant-connection/Visualizer.tsx apps/web/src/app/styles.css
@@ -373,7 +373,7 @@ git commit -m "feat: visualize redundant connection union find"
 - Consumes: the completed auto-discovered route `#/problems/redundant-connection`.
 - Produces: a GitHub-synced `main` and Vercel production release at `algotrace-dryrun.vercel.app`.
 
-- [ ] **Step 1: Run the complete verification suite**
+- [x] **Step 1: Run the complete verification suite**
 
 Run:
 
@@ -385,7 +385,7 @@ git diff --check
 
 Expected: all Vitest files pass, production build exits 0, and whitespace check has no output.
 
-- [ ] **Step 2: Inspect the local page in a browser**
+- [x] **Step 2: Inspect the local page in a browser**
 
 Open:
 
