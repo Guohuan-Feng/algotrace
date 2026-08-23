@@ -4,6 +4,7 @@ import {
   createInsertIntervalDryRun,
   createMeetingRoomsDryRun,
   createMeetingRoomsTwoDryRun,
+  createMeetingSchedulerDryRun,
   createMergeIntervalsDryRun,
   createNonOverlappingIntervalsDryRun,
   createRemoveCoveredIntervalsDryRun,
@@ -71,5 +72,25 @@ describe("interval and sweep-line dry runs", () => {
     expect(bounds(firstFrame.lanes[1].intervals)).toEqual([[1, 4], [1, 2], [2, 3]]);
     expect(frame.result).toBe(1);
     expect(bounds(frame.output)).toEqual([[1, 4]]);
+  });
+
+  test("1229 returns the earliest shared duration", () => {
+    const frame = finalFrame(createMeetingSchedulerDryRun({
+      slots1: [[10, 50], [60, 120], [140, 210]],
+      slots2: [[0, 15], [60, 70]],
+      duration: 8,
+    }));
+
+    expect(frame.result).toBe("[60, 68]");
+  });
+
+  test("1229 returns an empty result when every overlap is too short", () => {
+    const frame = finalFrame(createMeetingSchedulerDryRun({
+      slots1: [[10, 50], [60, 120], [140, 210]],
+      slots2: [[0, 15], [60, 70]],
+      duration: 12,
+    }));
+
+    expect(frame.result).toBe("[]");
   });
 });

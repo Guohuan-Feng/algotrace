@@ -732,3 +732,176 @@ export function createRemoveCoveredIntervalsDryRun(input: unknown): IntervalTrac
   });
   return { frames };
 }
+
+export function createMeetingSchedulerDryRun(input: unknown): IntervalTraceRun {
+  const record = objectValue(input, "input");
+  const slots1 = itemsFromPairs(intervalList(record.slots1, "slots1"), "A");
+  const slots2 = itemsFromPairs(intervalList(record.slots2, "slots2"), "B");
+  const duration = numberValue(record.duration, "duration");
+  if (duration <= 0) throw new Error("duration 必须大于 0。");
+
+  const sortedSlots1 = sortedByStart(slots1);
+  const sortedSlots2 = sortedByStart(slots2);
+  const frames: IntervalTraceFrame[] = [];
+  const result: IntervalItem[] = [];
+  let i = 0;
+  let j = 0;
+  let start: number | null = null;
+  let end: number | null = null;
+  const lanes = () => [
+    lane("slots1", "slots1", sortedSlots1, "input"),
+    lane("slots2", "slots2", sortedSlots2, "employee"),
+  ];
+  const pointers = () => [
+    ["i", i],
+    ["j", j],
+    ["duration", duration],
+    ["start", start ?? "pending"],
+    ["end", end ?? "pending"],
+  ] satisfies Array<[string, string | number]>;
+  const push = (frame: Omit<FrameInput, "lanes" | "output" | "outputLabel" | "pointers">) => {
+    frames.push(makeFrame({
+      ...frame,
+      lanes: lanes(),
+      output: result,
+      outputLabel: "最早可用时间",
+      pointers: pointers(),
+    }));
+  };
+
+  push({
+    kind: "start",
+    title: "排序第一个人的时间段",
+    detail: "先按开始时间排序 slots1，后续只需要从左到右移动 i。",
+    activeLines: [11],
+    phase: "排序 slots1",
+    invariant: "i 左边的 slots1 时间段不需要再次检查。",
+  });
+  push({
+    kind: "build",
+    title: "排序第二个人的时间段",
+    detail: "同样按开始时间排序 slots2，让 j 也只向右移动。",
+    activeLines: [12],
+    phase: "排序 slots2",
+    invariant: "两个列表现在都按开始时间有序。",
+  });
+  push({
+    kind: "build",
+    title: "从两个首个时间段开始",
+    detail: "i = j = 0；每次比较两个指针当前指向的时间段。",
+    activeLines: [14],
+    phase: "初始化指针",
+    invariant: "任何被越过的时间段都不可能产生更早的可用答案。",
+  });
+
+  while (i < sortedSlots1.length && j < sortedSlots2.length) {
+    const first = sortedSlots1[i];
+    const second = sortedSlots2[j];
+    push({
+      kind: "visit",
+      title: "检查当前两个时间段",
+      detail: `比较 ${first.label} 与 ${second.label}。`,
+      activeLines: [16],
+      phase: "循环比较",
+      currentIds: [first.id],
+      comparedIds: [second.id],
+      invariant: "只要 i 和 j 仍在范围内，两个指针当前的时间段就是下一次候选交集。",
+    });
+
+    start = Math.max(first.start, second.start);
+    push({
+      kind: "build",
+      title: "确定交集起点",
+      detail: `start = max(${first.start}, ${second.start}) = ${start}。`,
+      activeLines: [17],
+      phase: "计算交集",
+      currentIds: [first.id],
+      comparedIds: [second.id],
+      invariant: "两个时间段的共同部分不可能早于较晚的起点。",
+    });
+
+    end = Math.min(first.end, second.end);
+    push({
+      kind: "build",
+      title: "确定交集终点",
+      detail: `end = min(${first.end}, ${second.end}) = ${end}。`,
+      activeLines: [18],
+      phase: "计算交集",
+      currentIds: [first.id],
+      comparedIds: [second.id],
+      invariant: "共同部分最多延伸到较早的终点。",
+    });
+
+    if (end - start >= duration) {
+      const meeting: IntervalItem = {
+        id: "meeting",
+        start,
+        end: start + duration,
+        label: `[${start}, ${start + duration}]`,
+      };
+      result.push(meeting);
+      push({
+        kind: "found",
+        title: "找到足够长的共同时间",
+        detail: `${end} - ${start} >= ${duration}，最早可用时段是 ${meeting.label}。`,
+        activeLines: [20, 21],
+        phase: "满足时长",
+        currentIds: [first.id],
+        comparedIds: [second.id],
+        acceptedIds: [first.id, second.id],
+        invariant: "指针按时间向右推进，所以第一个满足条件的交集就是最早答案。",
+        result: meeting.label,
+      });
+      push({
+        kind: "done",
+        title: "返回最早共同时间",
+        detail: `return ${meeting.label}。`,
+        activeLines: [21],
+        phase: "完成",
+        acceptedIds: [first.id, second.id],
+        invariant: "第一个满足 duration 的交集已经是最早的答案。",
+        result: meeting.label,
+      });
+      return { frames };
+    }
+
+    if (first.end < second.end) {
+      push({
+        kind: "visit",
+        title: "推进 i 指针",
+        detail: `${first.end} < ${second.end}；slots1 当前时间段更早结束，不能再与后续 slots2 形成更长交集。`,
+        activeLines: [23, 24],
+        phase: "移动指针",
+        currentIds: [first.id],
+        comparedIds: [second.id],
+        invariant: "结束更早的时间段不会与当前或后续另一个列表的时间段形成更长交集。",
+      });
+      i += 1;
+    } else {
+      push({
+        kind: "visit",
+        title: "推进 j 指针",
+        detail: `${second.end} <= ${first.end}；slots2 当前时间段更早结束，不能再与后续 slots1 形成更长交集。`,
+        activeLines: [25, 26],
+        phase: "移动指针",
+        currentIds: [first.id],
+        comparedIds: [second.id],
+        invariant: "结束更早的时间段不会与当前或后续另一个列表的时间段形成更长交集。",
+      });
+      j += 1;
+    }
+    start = null;
+    end = null;
+  }
+
+  push({
+    kind: "done",
+    title: "没有足够长的共同时间",
+    detail: "至少有一个时间表已经扫描完，所有交集都不足 duration。",
+    activeLines: [28],
+    phase: "完成",
+    invariant: "每对可能的时间段都已被比较或被更早结束的指针安全跳过。",
+    result: "[]",
+  });
+  return { frames };
+}

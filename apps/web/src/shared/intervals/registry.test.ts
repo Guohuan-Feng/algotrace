@@ -10,10 +10,11 @@ const intervalVisualizerSlugs = [
   "remove-interval",
   "non-overlapping-intervals",
   "remove-covered-intervals",
+  "meeting-scheduler",
 ];
 
 describe("扫描线基础算法模块发现", () => {
-  test("八道题均已作为可视化题目自动发现", () => {
+  test("已开放题目均已作为可视化题目自动发现", () => {
     expect(
       readyProblems.filter((problem) => problem.collections?.includes("扫描线基础算法")).map((problem) => problem.slug),
     ).toEqual(expect.arrayContaining(intervalVisualizerSlugs));
