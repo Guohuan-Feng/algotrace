@@ -4241,3 +4241,281 @@ textarea {
     transition: none;
   }
 }
+
+.itinerary-flow-panel {
+  min-height: 0;
+}
+
+.itinerary-stage {
+  display: grid;
+  flex: 1;
+  gap: 16px;
+  grid-template-rows: minmax(300px, 1.45fr) minmax(132px, 0.55fr);
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+}
+
+.itinerary-graph {
+  background: #f8f6f0;
+  border: 1px solid #d7d1c5;
+  min-height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.itinerary-edges {
+  height: 100%;
+  inset: 0;
+  overflow: visible;
+  position: absolute;
+  width: 100%;
+}
+
+.itinerary-edges marker path {
+  fill: #aeb9b1;
+}
+
+.itinerary-edge {
+  stroke: #b8c0ba;
+  stroke-width: 1.15;
+  transition: stroke 180ms ease, stroke-width 180ms ease;
+}
+
+.itinerary-edge.is-used {
+  stroke: #409660;
+  stroke-width: 1.85;
+}
+
+.itinerary-edge.is-active {
+  stroke: #d68d27;
+  stroke-width: 2.45;
+}
+
+.itinerary-edge.is-active + marker path {
+  fill: #d68d27;
+}
+
+.itinerary-airport {
+  align-items: center;
+  background: #fffdfa;
+  border: 1px solid #b9c2bb;
+  border-radius: 7px;
+  color: #26332c;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  justify-content: center;
+  min-height: 52px;
+  padding: 7px 10px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  width: 82px;
+  z-index: 1;
+}
+
+.itinerary-airport strong {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 14px;
+}
+
+.itinerary-airport span {
+  color: #728078;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.itinerary-airport.is-stack {
+  background: #dcecf7;
+  border-color: #5d98bb;
+  color: #184f72;
+}
+
+.itinerary-airport.is-returned {
+  background: #dff2e4;
+  border-color: #479764;
+  color: #155333;
+}
+
+.itinerary-airport.is-current {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  box-shadow: 0 0 0 4px rgba(217, 151, 60, 0.18);
+  color: #6a4108;
+}
+
+.itinerary-heaps {
+  border-top: 1px solid #ded8ce;
+  display: grid;
+  gap: 10px;
+  padding-top: 12px;
+}
+
+.itinerary-heaps-heading {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+}
+
+.itinerary-heaps-heading h3 {
+  color: #26332c;
+  font-size: 13px;
+  margin: 0;
+}
+
+.itinerary-heaps-heading span {
+  color: #718077;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.itinerary-heap-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+}
+
+.itinerary-heap {
+  align-items: center;
+  background: #fffdfa;
+  border: 1px solid #d7d1c5;
+  display: flex;
+  gap: 8px;
+  min-height: 38px;
+  padding: 7px 8px;
+}
+
+.itinerary-heap.is-current {
+  border-color: #d9973c;
+}
+
+.itinerary-heap > strong {
+  color: #334139;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+}
+
+.itinerary-heap > span {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.itinerary-heap b,
+.itinerary-heap em {
+  color: #5d6a62;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.itinerary-heap b {
+  background: #edf0eb;
+  border: 1px solid #d4dbd4;
+  padding: 3px 5px;
+}
+
+.itinerary-heap b.is-top {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  color: #6a4108;
+}
+
+.itinerary-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 14px 0;
+}
+
+.itinerary-legend span {
+  border: 1px solid #d2d5cf;
+  border-radius: 5px;
+  color: #536158;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 5px 7px;
+}
+
+.itinerary-legend span:nth-child(2) {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  color: #6a4108;
+}
+
+.itinerary-legend span:nth-child(3) {
+  background: #dff2e4;
+  border-color: #479764;
+  color: #155333;
+}
+
+.itinerary-legend span:nth-child(4) {
+  background: #dcecf7;
+  border-color: #5d98bb;
+  color: #184f72;
+}
+
+.itinerary-route {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.itinerary-route span {
+  align-items: center;
+  background: #e2f1e5;
+  border: 1px solid #4a9866;
+  color: #155333;
+  display: inline-flex;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 11px;
+  font-weight: 900;
+  min-height: 27px;
+  padding: 3px 6px;
+}
+
+.itinerary-route span:not(:last-child)::after {
+  color: #738178;
+  content: "->";
+  font-family: inherit;
+  margin-left: 12px;
+}
+
+.itinerary-route.reverse span {
+  background: #dcecf7;
+  border-color: #5d98bb;
+  color: #184f72;
+}
+
+.itinerary-route em {
+  color: #78847c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .itinerary-stage {
+    grid-template-rows: minmax(310px, 1fr) auto;
+  }
+
+  .itinerary-airport {
+    width: 70px;
+  }
+
+  .itinerary-heaps-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .itinerary-edge,
+  .itinerary-airport {
+    transition: none;
+  }
+}

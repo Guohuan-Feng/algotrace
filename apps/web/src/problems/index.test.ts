@@ -12,4 +12,15 @@ describe("problem module discovery", () => {
     });
     expect(getVisualizerBySlug("sqrtx")).toBeDefined();
   });
+
+  test("discovers the itinerary graph visualizer", () => {
+    const itinerary = readyProblems.find((problem) => problem.slug === "reconstruct-itinerary");
+
+    expect(itinerary).toMatchObject({
+      id: 332,
+      collections: ["Graph"],
+      hasVisualizer: true,
+    });
+    expect(getVisualizerBySlug("reconstruct-itinerary")).toBeDefined();
+  });
 });
