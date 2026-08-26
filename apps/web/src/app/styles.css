@@ -4519,3 +4519,303 @@ textarea {
     transition: none;
   }
 }
+
+.min-cost-flow-panel {
+  min-height: 0;
+}
+
+.min-cost-stage {
+  display: grid;
+  flex: 1;
+  gap: 14px;
+  grid-template-rows: minmax(308px, 1.35fr) minmax(122px, 0.55fr);
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+}
+
+.mst-canvas,
+.mst-heap-panel {
+  background: #fffdf8;
+  border: 1px solid #ded8ce;
+  border-radius: 8px;
+}
+
+.mst-canvas {
+  min-height: 308px;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.mst-svg {
+  display: block;
+  height: 100%;
+  min-height: 290px;
+  overflow: visible;
+  width: 100%;
+}
+
+.mst-grid line {
+  stroke: #e9e5dc;
+  stroke-width: 0.45;
+}
+
+.mst-graph-edge line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 1.25;
+}
+
+.mst-graph-edge text {
+  fill: #59665e;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 4px;
+  font-weight: 900;
+  paint-order: stroke;
+  stroke: #fffdf8;
+  stroke-width: 1.7px;
+}
+
+.mst-graph-edge.is-mst line {
+  stroke: #439262;
+  stroke-width: 2.15;
+}
+
+.mst-graph-edge.is-mst text {
+  fill: #155333;
+}
+
+.mst-graph-edge.is-heap line {
+  stroke: #3672aa;
+  stroke-dasharray: 2.1 1.8;
+  stroke-width: 1.5;
+}
+
+.mst-graph-edge.is-heap text {
+  fill: #184f72;
+}
+
+.mst-graph-edge.is-current line {
+  stroke: #d9973c;
+  stroke-width: 2.7;
+}
+
+.mst-graph-edge.is-current text {
+  fill: #6a4108;
+}
+
+.mst-graph-edge.is-stale line {
+  stroke: #bc5353;
+  stroke-dasharray: 2.1 1.6;
+  stroke-width: 1.75;
+}
+
+.mst-graph-edge.is-stale text {
+  fill: #8a3030;
+}
+
+.mst-node {
+  color: #26332c;
+}
+
+.mst-node circle {
+  fill: #fffdfa;
+  stroke: #b9c2bb;
+  stroke-width: 1.05;
+  transition: fill 180ms ease, stroke 180ms ease, stroke-width 180ms ease;
+}
+
+.mst-node.is-start circle {
+  stroke: #5d98bb;
+  stroke-width: 1.6;
+}
+
+.mst-node.is-visited circle {
+  fill: #dff2e4;
+  stroke: #479764;
+  stroke-width: 1.6;
+}
+
+.mst-node.is-current circle {
+  fill: #ffe3bd;
+  stroke: #d9973c;
+  stroke-width: 2.1;
+}
+
+.mst-node-id {
+  dominant-baseline: middle;
+  fill: currentColor;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 4.1px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.mst-node-coordinate {
+  fill: #6c7870;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 3.2px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.mst-heap-panel {
+  min-height: 122px;
+  padding: 12px;
+}
+
+.mst-heap-panel .compact-heading {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.mst-heap-panel .compact-heading h3 {
+  color: #26332c;
+  font-size: 13px;
+  margin: 0;
+}
+
+.mst-heap-panel .compact-heading span {
+  color: #6c7870;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.mst-heap-items {
+  align-content: start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.mst-heap-item {
+  align-items: center;
+  background: #f3f0ea;
+  border: 1px solid #d6d0c5;
+  color: #4e5b53;
+  display: inline-flex;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  gap: 6px;
+  min-height: 29px;
+  padding: 4px 7px;
+}
+
+.mst-heap-item strong {
+  font-size: 11px;
+}
+
+.mst-heap-item em {
+  color: #738077;
+  font-family: inherit;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.mst-heap-item.is-top {
+  background: #dcecf7;
+  border-color: #5d98bb;
+  color: #184f72;
+}
+
+.mst-heap-item.is-current {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  color: #6a4108;
+}
+
+.mst-heap-item.is-stale {
+  background: #f7dddd;
+  border-color: #bc5353;
+  color: #8a3030;
+}
+
+.mst-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 14px 0;
+}
+
+.mst-legend span {
+  border: 1px solid #d2d5cf;
+  border-radius: 5px;
+  color: #536158;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 5px 7px;
+}
+
+.mst-legend span:nth-child(2) {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  color: #6a4108;
+}
+
+.mst-legend span:nth-child(3) {
+  background: #dff2e4;
+  border-color: #479764;
+  color: #155333;
+}
+
+.mst-legend span:nth-child(4) {
+  background: #dcecf7;
+  border-color: #5d98bb;
+  color: #184f72;
+}
+
+.mst-legend span:nth-child(5) {
+  background: #f7dddd;
+  border-color: #bc5353;
+  color: #8a3030;
+}
+
+.mst-edge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.mst-edge-list span {
+  background: #e2f1e5;
+  border: 1px solid #4a9866;
+  color: #155333;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 5px 7px;
+}
+
+.mst-edge-list b {
+  color: #2e7748;
+  font-family: inherit;
+}
+
+.mst-edge-list em {
+  color: #78847c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .min-cost-stage {
+    grid-template-rows: minmax(300px, 1fr) auto;
+  }
+
+  .mst-canvas {
+    min-height: 300px;
+  }
+
+  .mst-svg {
+    min-height: 282px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mst-node circle {
+    transition: none;
+  }
+}

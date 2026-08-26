@@ -23,4 +23,15 @@ describe("problem module discovery", () => {
     });
     expect(getVisualizerBySlug("reconstruct-itinerary")).toBeDefined();
   });
+
+  test("discovers the Prim MST visualizer", () => {
+    const points = readyProblems.find((problem) => problem.slug === "min-cost-to-connect-all-points");
+
+    expect(points).toMatchObject({
+      id: 1584,
+      collections: ["Graph"],
+      hasVisualizer: true,
+    });
+    expect(getVisualizerBySlug("min-cost-to-connect-all-points")).toBeDefined();
+  });
 });
