@@ -34,4 +34,15 @@ describe("problem module discovery", () => {
     });
     expect(getVisualizerBySlug("min-cost-to-connect-all-points")).toBeDefined();
   });
+
+  test("discovers the rising-water min-heap visualizer", () => {
+    const swim = readyProblems.find((problem) => problem.slug === "swim-in-rising-water");
+
+    expect(swim).toMatchObject({
+      id: 778,
+      collections: ["Graph"],
+      hasVisualizer: true,
+    });
+    expect(getVisualizerBySlug("swim-in-rising-water")).toBeDefined();
+  });
 });
