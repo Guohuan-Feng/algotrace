@@ -56,4 +56,19 @@ describe("problem module discovery", () => {
     });
     expect(getVisualizerBySlug("cheapest-flights-within-k-stops")).toBeDefined();
   });
+
+  test("discovers both center-expansion palindrome visualizers", () => {
+    expect(readyProblems.find((problem) => problem.slug === "longest-palindromic-substring")).toMatchObject({
+      id: 5,
+      collections: ["Hot 150"],
+      hasVisualizer: true,
+    });
+    expect(readyProblems.find((problem) => problem.slug === "palindromic-substrings")).toMatchObject({
+      id: 647,
+      pattern: "Center expansion",
+      hasVisualizer: true,
+    });
+    expect(getVisualizerBySlug("longest-palindromic-substring")).toBeDefined();
+    expect(getVisualizerBySlug("palindromic-substrings")).toBeDefined();
+  });
 });
