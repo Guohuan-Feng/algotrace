@@ -45,4 +45,15 @@ describe("problem module discovery", () => {
     });
     expect(getVisualizerBySlug("swim-in-rising-water")).toBeDefined();
   });
+
+  test("discovers the Bellman-Ford cheapest flights visualizer", () => {
+    const flights = readyProblems.find((problem) => problem.slug === "cheapest-flights-within-k-stops");
+
+    expect(flights).toMatchObject({
+      id: 787,
+      collections: ["Graph"],
+      hasVisualizer: true,
+    });
+    expect(getVisualizerBySlug("cheapest-flights-within-k-stops")).toBeDefined();
+  });
 });

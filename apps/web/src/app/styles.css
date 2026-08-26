@@ -5071,3 +5071,322 @@ textarea {
     transition: none;
   }
 }
+
+.flights-flow-panel {
+  min-height: 0;
+}
+
+.flights-stage {
+  display: grid;
+  flex: 1;
+  gap: 14px;
+  grid-template-rows: minmax(300px, 1fr) auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+}
+
+.flight-input-grid {
+  gap: 11px;
+}
+
+.flight-input-row {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flight-input-row label {
+  color: #596860;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.flight-input-row input {
+  margin-top: 5px;
+  min-width: 0;
+  padding: 8px 7px;
+  width: 100%;
+}
+
+.flight-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 14px 0;
+}
+
+.flight-legend span {
+  background: #fffdfa;
+  border: 1px solid #d2d5cf;
+  border-radius: 5px;
+  color: #536158;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 5px 7px;
+}
+
+.flight-legend span:nth-child(1) {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  color: #6a4108;
+}
+
+.flight-legend span:nth-child(2) {
+  background: #dff2e4;
+  border-color: #479764;
+  color: #155333;
+}
+
+.flight-legend span:nth-child(3) {
+  background: #f7dddd;
+  border-color: #bc5353;
+  color: #8a3030;
+}
+
+.flight-legend span:nth-child(4) {
+  background: #dcecf7;
+  border-color: #5d98bb;
+  color: #184f72;
+}
+
+.flight-graph,
+.distance-panel {
+  background: #fffdf8;
+  border: 1px solid #ded8ce;
+  border-radius: 8px;
+}
+
+.flight-graph {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  overflow: hidden;
+  padding: 12px 12px 8px;
+}
+
+.flight-graph svg {
+  flex: 1;
+  min-height: 260px;
+  overflow: visible;
+  width: 100%;
+}
+
+.airport-graph-caption {
+  align-items: center;
+  color: #657269;
+  display: flex;
+  font-size: 10px;
+  font-weight: 800;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.airport-graph-caption span {
+  background: #f0eee8;
+  border: 1px solid #d6d0c5;
+  color: #4e5b53;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  padding: 3px 5px;
+}
+
+.flight-edge path {
+  fill: none;
+  stroke: #b2b9b3;
+  stroke-linecap: round;
+  stroke-width: 1.25;
+}
+
+.flight-edge text {
+  fill: #606e66;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 5px;
+  font-weight: 900;
+  paint-order: stroke;
+  stroke: #fffdf8;
+  stroke-width: 2px;
+}
+
+.flight-edge.is-current path {
+  stroke: #d9973c;
+  stroke-width: 2.7;
+}
+
+.flight-edge.is-current text {
+  fill: #8a570c;
+}
+
+.flight-edge.is-skipped path {
+  stroke: #bc5353;
+}
+
+.flight-edge.is-skipped text {
+  fill: #8a3030;
+}
+
+.flight-edge.is-improved path {
+  stroke: #479764;
+}
+
+.flight-edge.is-improved text {
+  fill: #155333;
+}
+
+.airport-node circle {
+  fill: #fffdfa;
+  stroke: #8c9b91;
+  stroke-width: 1.4;
+  transition: fill 180ms ease, stroke 180ms ease, r 180ms ease;
+}
+
+.airport-node > text:first-of-type {
+  fill: #24332a;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 6px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.airport-node .airport-distance {
+  fill: #66756b;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 4.2px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.airport-node.is-source circle,
+.airport-node.is-destination circle {
+  fill: #dcecf7;
+  stroke: #5d98bb;
+  stroke-width: 2;
+}
+
+.airport-node.is-source .airport-distance,
+.airport-node.is-destination .airport-distance {
+  fill: #184f72;
+}
+
+.airport-node.is-current-from circle,
+.airport-node.is-current-to circle {
+  fill: #ffe3bd;
+  stroke: #d9973c;
+  stroke-width: 2.8;
+}
+
+.airport-node.is-current-to circle {
+  r: 8.6;
+}
+
+.distance-panel {
+  display: grid;
+  gap: 11px;
+  padding: 12px;
+}
+
+.distance-row {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(122px, 0.75fr) minmax(0, 2.3fr);
+}
+
+.distance-row h3 {
+  color: #35443b;
+  font-size: 11px;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.distance-row > div {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(42px, 1fr));
+}
+
+.distance-row > div > span {
+  background: #f3f0ea;
+  border: 1px solid #d6d0c5;
+  display: grid;
+  min-height: 46px;
+  padding: 5px;
+  place-items: center;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.distance-row em {
+  color: #748078;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.distance-row strong {
+  color: #37473d;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 13px;
+}
+
+.distance-row > div > span.is-active {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  transform: translateY(-2px);
+}
+
+.distance-row > div > span.is-updated {
+  background: #dff2e4;
+  border-color: #479764;
+}
+
+.distance-row p {
+  color: #748078;
+  font-size: 11px;
+  font-style: italic;
+  margin: 0;
+}
+
+.flight-note {
+  color: #5a685f;
+  font-size: 12px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.flight-note code {
+  color: #26332c;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  .flights-stage {
+    grid-template-rows: minmax(270px, 1fr) auto;
+    padding: 12px;
+  }
+
+  .flight-graph {
+    min-height: 270px;
+  }
+
+  .flight-graph svg {
+    min-height: 230px;
+  }
+
+  .flight-input-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .distance-row {
+    align-items: start;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .airport-node circle,
+  .distance-row > div > span {
+    transition: none;
+  }
+}
