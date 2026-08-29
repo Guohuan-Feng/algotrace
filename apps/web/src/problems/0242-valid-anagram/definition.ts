@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 242, title: "Valid Anagram", cnTitle: "有效的字母异位词", slug: "valid-anagram", difficulty: "Easy", tags: ["Hash Table", "String", "Sorting"], pattern: "Frequency cancellation", collections: ["Hot 150", "Hash Table", "String"], hasVisualizer: true, summary: "Ready visualizer: count every character in s and cancel it with t until the frequency table is empty." } satisfies ReadyProblemDefinition;
