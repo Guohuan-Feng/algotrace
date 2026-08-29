@@ -6541,6 +6541,113 @@ textarea {
   margin-top: 6px;
 }
 
+.sudoku-flow-panel {
+  min-width: 0;
+}
+
+.sudoku-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 18px;
+}
+
+.sudoku-board {
+  aspect-ratio: 1;
+  border: 2px solid #4a5d52;
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  max-width: 560px;
+  width: 100%;
+}
+
+.sudoku-cell {
+  align-items: center;
+  background: #fffdfa;
+  border-bottom: 1px solid #d7d2c9;
+  border-right: 1px solid #d7d2c9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  position: relative;
+}
+
+.sudoku-cell:nth-child(3n) {
+  border-right: 2px solid #4a5d52;
+}
+
+.sudoku-cell:nth-child(9n) {
+  border-right: 0;
+}
+
+.sudoku-cell:nth-child(n + 19):nth-child(-n + 27),
+.sudoku-cell:nth-child(n + 46):nth-child(-n + 54) {
+  border-bottom: 2px solid #4a5d52;
+}
+
+.sudoku-cell strong {
+  color: #1e5f4a;
+  font-size: clamp(14px, 2vw, 24px);
+}
+
+.sudoku-cell span {
+  bottom: 3px;
+  color: #8b958f;
+  font-size: 8px;
+  position: absolute;
+}
+
+.sudoku-cell.is-box {
+  background: #eef5ef;
+}
+
+.sudoku-cell.is-current {
+  background: #ffe3bd;
+  box-shadow: inset 0 0 0 2px #d9973c;
+  z-index: 1;
+}
+
+.sudoku-cell.is-conflict {
+  background: #f8d8d4;
+  box-shadow: inset 0 0 0 2px #bd5146;
+  z-index: 2;
+}
+
+.sudoku-set-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sudoku-set-card {
+  background: #eef5ef;
+  border: 1px solid #b9d3bf;
+  border-radius: 8px;
+  min-width: 0;
+  padding: 11px;
+}
+
+.sudoku-set-card span {
+  color: #6f7c74;
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.sudoku-set-card strong {
+  color: #17643c;
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  margin-top: 7px;
+  overflow-wrap: anywhere;
+}
+
 .product-legend,
 .robber-legend {
   display: flex;
@@ -6648,6 +6755,10 @@ textarea {
   }
 
   .merge-list-row {
+    grid-template-columns: 1fr;
+  }
+
+  .sudoku-set-grid {
     grid-template-columns: 1fr;
   }
 }
