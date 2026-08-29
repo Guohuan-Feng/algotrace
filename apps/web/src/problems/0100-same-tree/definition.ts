@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 100, title: "Same Tree", cnTitle: "相同的树", slug: "same-tree", difficulty: "Easy", tags: ["Tree", "Depth-First Search", "Binary Tree"], pattern: "Paired recursion", collections: ["Hot 150", "Tree"], hasVisualizer: true, summary: "Ready visualizer: compare each pair of tree positions recursively and short-circuit on the first mismatch." } satisfies ReadyProblemDefinition;
