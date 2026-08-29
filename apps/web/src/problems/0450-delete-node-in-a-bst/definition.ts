@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 450, title: "Delete Node in a BST", cnTitle: "删除二叉搜索树中的节点", slug: "delete-node-in-a-bst", difficulty: "Medium", tags: ["Tree", "Binary Search Tree", "Binary Tree"], pattern: "BST search then inorder-successor replacement", collections: ["Binary Search Tree"], hasVisualizer: true, summary: "Ready visualizer: follow BST comparisons, then reconnect a child or replace a two-child node with its inorder successor." } satisfies ReadyProblemDefinition;

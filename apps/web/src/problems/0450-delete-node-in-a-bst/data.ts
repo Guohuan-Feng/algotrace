@@ -1,0 +1,6 @@
+export type DeleteNodeBstInput = { root: Array<number | null>; key: number };
+export type DeleteNodeBstExample = { id: number; label: string; input: DeleteNodeBstInput; output: Array<number | null> };
+export const title = "450. Delete Node in a BST";
+export const examples: DeleteNodeBstExample[] = [{ id: 1, label: "LeetCode 1", input: { root: [5, 3, 6, 2, 4, null, 7], key: 3 }, output: [5, 4, 6, 2, null, null, 7] }, { id: 2, label: "LeetCode 2", input: { root: [5, 3, 6, 2, 4, null, 7], key: 0 }, output: [5, 3, 6, 2, 4, null, 7] }];
+export const defaultExample = examples[0]!;
+export const codeLines = ["class Solution:", "    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:", "        if not root:", "            return None", "", "        if key < root.val:", "            root.left = self.deleteNode(root.left, key)", "        elif key > root.val:", "            root.right = self.deleteNode(root.right, key)", "        else:", "            if not root.left:", "                return root.right", "            if not root.right:", "                return root.left", "", "            successor = root.right", "            while successor.left:", "                successor = successor.left", "            root.val = successor.val", "            root.right = self.deleteNode(root.right, successor.val)", "", "        return root"];
