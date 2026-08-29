@@ -1,0 +1,1 @@
+import{describe,expect,test}from"vitest";import{createInsertBstDryRun}from"./dryRun";describe("Insert into a Binary Search Tree dry run",()=>{test("finds an empty ordered child slot",()=>{const{frames}=createInsertBstDryRun([4,2,7,1,3],5);expect(frames[frames.length-1]?.result).toContain(5);expect(frames.some(f=>f.phase==="insert")).toBe(true);});});

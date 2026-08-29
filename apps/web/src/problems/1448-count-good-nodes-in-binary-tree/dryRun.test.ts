@@ -1,0 +1,1 @@
+import{describe,expect,test}from"vitest";import{createGoodNodesDryRun}from"./dryRun";describe("Count Good Nodes in Binary Tree dry run",()=>{test("counts nodes at least as large as their path maximum",()=>{const{frames}=createGoodNodesDryRun([3,1,4,3,null,1,5]);expect(frames[frames.length-1]?.result).toBe(4);expect(frames.some(f=>f.count===4)).toBe(true);});});
