@@ -6055,6 +6055,114 @@ textarea {
   color: #829087;
 }
 
+.majority-flow-panel {
+  min-width: 0;
+}
+
+.majority-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 18px;
+}
+
+.majority-array {
+  display: grid;
+  gap: 10px;
+  grid-auto-columns: minmax(84px, 1fr);
+  grid-auto-flow: column;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  padding: 4px;
+}
+
+.majority-cell {
+  background: #fffdfa;
+  border: 1px solid #ded8ce;
+  border-radius: 8px;
+  display: grid;
+  gap: 7px;
+  min-height: 116px;
+  padding: 11px;
+  text-align: center;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.majority-cell span,
+.majority-cell em,
+.majority-counter span,
+.majority-counter p {
+  color: #617168;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.majority-cell strong {
+  color: #38483e;
+  font-size: 30px;
+}
+
+.majority-cell.is-processed {
+  background: #e8f4eb;
+  border-color: #83b694;
+}
+
+.majority-cell.is-candidate:not(.is-current) {
+  background: #dff2e4;
+  border-color: #3f9b62;
+}
+
+.majority-cell.is-current {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  box-shadow: 0 0 0 4px rgba(217, 151, 60, 0.18);
+  transform: translateY(-2px);
+}
+
+.majority-readout {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.majority-counter {
+  border: 1px solid #b9d3bf;
+  border-radius: 8px;
+  min-height: 120px;
+  padding: 14px;
+}
+
+.majority-counter strong {
+  display: block;
+  font-size: 37px;
+  margin: 8px 0;
+}
+
+.majority-counter.is-candidate {
+  background: #e8f4eb;
+  border-color: #83b694;
+}
+
+.majority-counter.is-candidate strong {
+  color: #17643c;
+}
+
+.majority-counter.is-count {
+  background: #edf4fb;
+  border-color: #91b3d1;
+}
+
+.majority-counter.is-count strong {
+  color: #255b91;
+}
+
 .water-flow-panel {
   min-width: 0;
 }
