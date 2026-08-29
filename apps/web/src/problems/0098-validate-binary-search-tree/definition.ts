@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 98, title: "Validate Binary Search Tree", cnTitle: "验证二叉搜索树", slug: "validate-binary-search-tree", difficulty: "Medium", tags: ["Tree", "Depth-First Search", "Binary Search Tree", "Binary Tree"], pattern: "Ancestor bounds DFS", collections: ["Hot 150", "Tree"], hasVisualizer: true, summary: "Ready visualizer: carry strict low/high ancestor bounds through each DFS call." } satisfies ReadyProblemDefinition;
