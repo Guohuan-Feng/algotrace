@@ -1,0 +1,2 @@
+import { describe, expect, test } from "vitest"; import { createCommonCharactersDryRun } from "./dryRun";
+describe("Find Common Characters dry run", () => { test("intersects each character count across all words", () => { const { frames } = createCommonCharactersDryRun(["bella", "label", "roller"]); expect(frames[frames.length - 1]?.result).toEqual(["e", "l", "l"]); expect(frames.some((frame) => frame.common.e === 1)).toBe(true); }); });

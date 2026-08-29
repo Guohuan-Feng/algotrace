@@ -1,0 +1,2 @@
+import { describe, expect, test } from "vitest"; import { createMergeStringsDryRun } from "./dryRun";
+describe("Merge Strings Alternately dry run", () => { test("takes alternating characters then appends the remainder", () => { const { frames } = createMergeStringsDryRun("abc", "pqr"); expect(frames[frames.length - 1]?.result).toBe("apbqcr"); expect(frames.some((frame) => frame.output === "apbqcr")).toBe(true); }); });

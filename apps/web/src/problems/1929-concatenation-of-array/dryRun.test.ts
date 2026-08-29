@@ -1,0 +1,2 @@
+import { describe, expect, test } from "vitest"; import { createConcatenationDryRun } from "./dryRun";
+describe("Concatenation of Array dry run", () => { test("fills both halves from the same source index", () => { const { frames } = createConcatenationDryRun([1, 2, 1]); expect(frames[frames.length - 1]?.result).toEqual([1, 2, 1, 1, 2, 1]); expect(frames.some((frame) => frame.output.length === 6)).toBe(true); }); });
