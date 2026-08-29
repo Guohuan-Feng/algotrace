@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 151, title: "Reverse Words in a String", cnTitle: "反转字符串中的单词", slug: "reverse-words-in-a-string", difficulty: "Medium", tags: ["Two Pointers", "String"], pattern: "Split reverse join", collections: ["Hot 150", "String"], hasVisualizer: true, summary: "Ready visualizer: split on whitespace, reverse whole words, and join using one normalized space." } satisfies ReadyProblemDefinition;
