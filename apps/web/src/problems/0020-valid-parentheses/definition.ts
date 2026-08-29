@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 20, title: "Valid Parentheses", cnTitle: "有效的括号", slug: "valid-parentheses", difficulty: "Easy", tags: ["String", "Stack"], pattern: "Bracket matching stack", collections: ["Stack", "Hot 150"], hasVisualizer: true, summary: "Ready visualizer: push openings, pop exact matches, and stop immediately at a mismatch." } satisfies ReadyProblemDefinition;
