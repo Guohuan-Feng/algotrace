@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 209, title: "Minimum Size Subarray Sum", cnTitle: "长度最小的子数组", slug: "minimum-size-subarray-sum", difficulty: "Medium", tags: ["Array", "Sliding Window", "Prefix Sum"], pattern: "Positive-number sliding window", collections: ["Hot 150", "Sliding Window", "Array"], hasVisualizer: true, summary: "Ready visualizer: expand a positive-number window until it reaches target, then shrink it to keep the shortest answer." } satisfies ReadyProblemDefinition;
