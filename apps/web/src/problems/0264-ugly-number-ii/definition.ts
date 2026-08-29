@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 264, title: "Ugly Number II", cnTitle: "丑数 II", slug: "ugly-number-ii", difficulty: "Medium", tags: ["Hash Table", "Math", "Dynamic Programming", "Heap (Priority Queue)"], pattern: "Three-pointer DP generation", collections: ["Dynamic Programming", "Heap"], hasVisualizer: true, summary: "Ready visualizer: generate ordered ugly numbers from three 2x, 3x, and 5x candidate streams without duplicates." } satisfies ReadyProblemDefinition;
