@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition={id:101,title:"Symmetric Tree",cnTitle:"对称二叉树",slug:"symmetric-tree",difficulty:"Easy",tags:["Tree","Depth-First Search","Breadth-First Search","Binary Tree"],pattern:"Mirrored DFS",collections:["Hot 150","Tree"],hasVisualizer:true,summary:"Ready visualizer: compare outer and inner mirrored child pairs using recursive DFS."} satisfies ReadyProblemDefinition;
