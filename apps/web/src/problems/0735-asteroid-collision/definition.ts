@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 735, title: "Asteroid Collision", cnTitle: "行星碰撞", slug: "asteroid-collision", difficulty: "Medium", tags: ["Array", "Stack", "Simulation"], pattern: "Collision-resolution stack", collections: ["Stack"], hasVisualizer: true, summary: "Ready visualizer: resolve right-moving and left-moving collisions until one asteroid survives or both disappear." } satisfies ReadyProblemDefinition;
