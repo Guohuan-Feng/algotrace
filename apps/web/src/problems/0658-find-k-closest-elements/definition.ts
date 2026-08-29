@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 658, title: "Find K Closest Elements", cnTitle: "找到 K 个最接近的元素", slug: "find-k-closest-elements", difficulty: "Medium", tags: ["Array", "Two Pointers", "Binary Search", "Sorting", "Heap"], pattern: "Shrink endpoints to a k-sized window", collections: ["Two Pointers", "Binary Search"], hasVisualizer: true, summary: "Ready visualizer: remove the farther endpoint until the remaining sorted window has exactly k elements." } satisfies ReadyProblemDefinition;

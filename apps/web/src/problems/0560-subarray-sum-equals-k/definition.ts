@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 560, title: "Subarray Sum Equals K", cnTitle: "和为 K 的子数组", slug: "subarray-sum-equals-k", difficulty: "Medium", tags: ["Array", "Hash Table", "Prefix Sum"], pattern: "Prefix sum frequency map", collections: ["Hash Table", "Prefix Sum"], hasVisualizer: true, summary: "Ready visualizer: look up every prior prefix sum equal to currentSum - k before recording the current prefix." } satisfies ReadyProblemDefinition;

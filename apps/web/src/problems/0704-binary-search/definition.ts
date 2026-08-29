@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 704, title: "Binary Search", cnTitle: "二分查找", slug: "binary-search", difficulty: "Easy", tags: ["Array", "Binary Search"], pattern: "Closed-interval binary search", collections: ["Binary Search"], hasVisualizer: true, summary: "Ready visualizer: compare the midpoint, then discard one ordered half of the closed search interval." } satisfies ReadyProblemDefinition;

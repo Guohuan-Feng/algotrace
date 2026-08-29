@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 567, title: "Permutation in String", cnTitle: "字符串的排列", slug: "permutation-in-string", difficulty: "Medium", tags: ["Hash Table", "Two Pointers", "String", "Sliding Window"], pattern: "Fixed-size frequency window", collections: ["Sliding Window", "String"], hasVisualizer: true, summary: "Ready visualizer: keep a window the size of s1 and compare its character frequencies with the target permutation." } satisfies ReadyProblemDefinition;

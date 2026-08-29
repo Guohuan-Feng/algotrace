@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 680, title: "Valid Palindrome II", cnTitle: "验证回文串 II", slug: "valid-palindrome-ii", difficulty: "Easy", tags: ["Two Pointers", "String", "Greedy"], pattern: "Two pointers with one deletion branch", collections: ["Two Pointers", "String"], hasVisualizer: true, summary: "Ready visualizer: advance matching endpoints and, at the first mismatch, test skipping either one character." } satisfies ReadyProblemDefinition;
