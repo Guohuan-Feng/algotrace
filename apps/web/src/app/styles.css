@@ -6506,6 +6506,38 @@ textarea {
 .color-regions .unknown { background: #f4f0e8; color: #56645c; }
 .color-regions .two { background: #edf4fb; color: #256b97; }
 
+.dedupe-list-flow-panel { min-width: 0; }
+
+.dedupe-list-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 18px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 18px;
+}
+
+.dedupe-chain {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  min-height: 110px;
+}
+
+.dedupe-chain > svg { color: #839089; flex: 0 0 auto; }
+
+.dedupe-removed {
+  background: #f8d8d4;
+  border: 1px solid #d98e85;
+  border-radius: 8px;
+  padding: 11px;
+}
+
+.dedupe-removed span { color: #9c4a43; display: block; font-size: 10px; font-weight: 900; text-transform: uppercase; }
+.dedupe-removed strong { color: #803d38; display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; margin-top: 6px; }
+
 .prefix-flow-panel,
 .ksum-flow-panel,
 .remove-nth-flow-panel {
