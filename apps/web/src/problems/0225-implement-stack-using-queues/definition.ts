@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 225, title: "Implement Stack using Queues", cnTitle: "用队列实现栈", slug: "implement-stack-using-queues", difficulty: "Easy", tags: ["Queue", "Design", "Stack"], pattern: "Rotate queue after push", collections: ["Stack", "Design"], hasVisualizer: true, summary: "Ready visualizer: rotate the queue after every push so its front remains the stack top." } satisfies ReadyProblemDefinition;
