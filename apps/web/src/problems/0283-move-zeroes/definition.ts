@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 283, title: "Move Zeroes", cnTitle: "移动零", slug: "move-zeroes", difficulty: "Easy", tags: ["Array", "Two Pointers"], pattern: "Stable two-pointer compaction", collections: ["Array", "Two Pointers"], hasVisualizer: true, summary: "Ready visualizer: scan with fast and place each nonzero at slow, moving all zeroes to the suffix in place." } satisfies ReadyProblemDefinition;
