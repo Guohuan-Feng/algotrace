@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 459, title: "Repeated Substring Pattern", cnTitle: "重复的子字符串", slug: "repeated-substring-pattern", difficulty: "Easy", tags: ["String", "String Matching"], pattern: "Divisor-length prefix repetition", collections: ["String"], hasVisualizer: true, summary: "Ready visualizer: inspect each divisor-length prefix and compare its repetitions with the full string." } satisfies ReadyProblemDefinition;
