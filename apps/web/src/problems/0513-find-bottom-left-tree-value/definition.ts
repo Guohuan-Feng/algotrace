@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 513, title: "Find Bottom Left Tree Value", cnTitle: "找树左下角的值", slug: "find-bottom-left-tree-value", difficulty: "Medium", tags: ["Tree", "Breadth-First Search", "Binary Tree"], pattern: "Level-order traversal", collections: ["Binary Tree", "Breadth-First Search"], hasVisualizer: true, summary: "Ready visualizer: scan level by level and save the first node from each deeper level." } satisfies ReadyProblemDefinition;

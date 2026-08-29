@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 541, title: "Reverse String II", cnTitle: "反转字符串 II", slug: "reverse-string-ii", difficulty: "Easy", tags: ["Two Pointers", "String"], pattern: "Reverse first k of each 2k block", collections: ["Two Pointers", "String"], hasVisualizer: true, summary: "Ready visualizer: advance in 2k-sized blocks and reverse only each block's leading k characters." } satisfies ReadyProblemDefinition;

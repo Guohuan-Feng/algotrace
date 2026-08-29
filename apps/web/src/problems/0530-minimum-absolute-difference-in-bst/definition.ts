@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 530, title: "Minimum Absolute Difference in BST", cnTitle: "二叉搜索树的最小绝对差", slug: "minimum-absolute-difference-in-bst", difficulty: "Easy", tags: ["Tree", "Depth-First Search", "Binary Search Tree"], pattern: "Inorder traversal compares adjacent values", collections: ["Binary Tree", "Depth-First Search"], hasVisualizer: true, summary: "Ready visualizer: inorder order makes the smallest BST difference appear between adjacent visited values." } satisfies ReadyProblemDefinition;

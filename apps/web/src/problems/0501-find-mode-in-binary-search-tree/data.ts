@@ -1,0 +1,5 @@
+export type FindModeExample = { id: number; label: string; input: Array<number | null>; output: number[] };
+export const title = "501. Find Mode in Binary Search Tree";
+export const examples: FindModeExample[] = [{ id: 1, label: "LeetCode 1", input: [1, null, 2, 2], output: [2] }, { id: 2, label: "LeetCode 2", input: [0], output: [0] }];
+export const defaultExample = examples[0]!;
+export const codeLines = ["class Solution:", "    def findMode(self, root: Optional[TreeNode]) -> List[int]:", "        modes, prev, count, max_count = [], None, 0, 0", "        def inorder(node):", "            if not node:", "                return", "            inorder(node.left)", "            count = count + 1 if node.val == prev else 1", "            if count > max_count:", "                max_count, modes = count, [node.val]", "            elif count == max_count:", "                modes.append(node.val)", "            prev = node.val", "            inorder(node.right)", "        inorder(root)", "        return modes"];

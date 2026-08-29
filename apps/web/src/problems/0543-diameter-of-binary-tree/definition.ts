@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 543, title: "Diameter of Binary Tree", cnTitle: "二叉树的直径", slug: "diameter-of-binary-tree", difficulty: "Easy", tags: ["Tree", "Depth-First Search", "Binary Tree"], pattern: "Postorder subtree heights", collections: ["Binary Tree", "Depth-First Search"], hasVisualizer: true, summary: "Ready visualizer: return subtree heights bottom-up and maximize left-height plus right-height at every node." } satisfies ReadyProblemDefinition;

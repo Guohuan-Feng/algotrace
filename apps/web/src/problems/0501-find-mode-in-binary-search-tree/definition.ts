@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 501, title: "Find Mode in Binary Search Tree", cnTitle: "二叉搜索树中的众数", slug: "find-mode-in-binary-search-tree", difficulty: "Easy", tags: ["Tree", "Depth-First Search", "Binary Search Tree"], pattern: "Inorder traversal with a run counter", collections: ["Binary Tree", "Depth-First Search"], hasVisualizer: true, summary: "Ready visualizer: inorder traversal groups equal adjacent values and tracks the largest frequency." } satisfies ReadyProblemDefinition;
