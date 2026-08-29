@@ -1,0 +1,2 @@
+import { describe, expect, test } from "vitest"; import { createLinkedListDesignDryRun } from "./dryRun";
+describe("Design Linked List dry run", () => { test("updates positions through the official operation sequence", () => { const { frames } = createLinkedListDesignDryRun(["addAtHead 1", "addAtTail 3", "addAtIndex 1 2", "get 1", "deleteAtIndex 1", "get 1"]); expect(frames[frames.length - 1]?.outputs).toEqual([2, 3]); expect(frames[frames.length - 1]?.list).toEqual([1, 3]); }); });
