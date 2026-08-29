@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 142, title: "Linked List Cycle II", cnTitle: "环形链表 II", slug: "linked-list-cycle-ii", difficulty: "Medium", tags: ["Hash Table", "Linked List", "Two Pointers"], pattern: "Floyd cycle entry", collections: ["Hot 150", "Linked List", "Two Pointers"], hasVisualizer: true, summary: "Ready visualizer: find a fast/slow meeting, then reset one pointer to head and walk both pointers to the cycle entry." } satisfies ReadyProblemDefinition;
