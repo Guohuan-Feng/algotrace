@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 24, title: "Swap Nodes in Pairs", cnTitle: "两两交换链表中的节点", slug: "swap-nodes-in-pairs", difficulty: "Medium", tags: ["Linked List", "Recursion"], pattern: "Adjacent pointer rewiring", collections: ["Linked List"], hasVisualizer: true, summary: "Ready visualizer: three next-pointer assignments swap each adjacent pair in the same linked list." } satisfies ReadyProblemDefinition;
