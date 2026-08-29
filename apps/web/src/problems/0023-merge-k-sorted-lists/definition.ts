@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 23, title: "Merge k Sorted Lists", cnTitle: "合并 K 个升序链表", slug: "merge-k-sorted-lists", difficulty: "Hard", tags: ["Linked List", "Divide and Conquer", "Heap (Priority Queue)", "Merge Sort"], pattern: "K-way min-heap merge", collections: ["Hot 150", "Linked List", "Heap"], hasVisualizer: true, summary: "Ready visualizer: a min-heap chooses the next node while each popped node contributes one successor." } satisfies ReadyProblemDefinition;
