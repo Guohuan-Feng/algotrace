@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 160, title: "Intersection of Two Linked Lists", cnTitle: "相交链表", slug: "intersection-of-two-linked-lists", difficulty: "Easy", tags: ["Hash Table", "Linked List", "Two Pointers"], pattern: "Two pointers with head switches", collections: ["Hot 150", "Linked List", "Two Pointers"], hasVisualizer: true, summary: "Ready visualizer: walk both pointers and switch them to the opposite head so they align at the shared suffix." } satisfies ReadyProblemDefinition;
