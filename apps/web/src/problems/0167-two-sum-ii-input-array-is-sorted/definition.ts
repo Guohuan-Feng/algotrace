@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 167, title: "Two Sum II - Input Array Is Sorted", cnTitle: "两数之和 II - 输入有序数组", slug: "two-sum-ii-input-array-is-sorted", difficulty: "Medium", tags: ["Array", "Two Pointers", "Binary Search"], pattern: "Sorted two pointers", collections: ["Hot 150", "Two Pointers", "Array"], hasVisualizer: true, summary: "Ready visualizer: compare the two endpoint sum with target and move the one pointer that can correct it." } satisfies ReadyProblemDefinition;
