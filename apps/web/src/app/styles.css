@@ -6134,6 +6134,16 @@ textarea {
   color: #a46212;
 }
 
+.water-column.is-current .water-bar {
+  background: #f8d8d4;
+  border-color: #bd5146;
+  box-shadow: 0 0 0 3px rgba(189, 81, 70, 0.16);
+}
+
+.water-column.is-trapped > span {
+  color: #277fa8;
+}
+
 .water-fill {
   background: rgba(116, 177, 214, 0.33);
   bottom: 0;
