@@ -1,0 +1,5 @@
+export type ShipInput = { weights: number[]; days: number };
+export const title = "1011. Capacity To Ship Packages Within D Days";
+export const examples = [{ id: 1, label: "LeetCode 1", input: { weights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], days: 5 }, output: 15 }, { id: 2, label: "LeetCode 2", input: { weights: [3, 2, 2, 4, 1, 4], days: 3 }, output: 6 }] satisfies Array<{ id: number; label: string; input: ShipInput; output: number }>;
+export const defaultExample = examples[0]!;
+export const codeLines = ["class Solution:", "    def shipWithinDays(self, weights: List[int], days: int) -> int:", "        left = max(weights)", "        right = sum(weights)", "        while left <= right:", "            mid = left + (right - left) // 2", "            need_days = 1", "            current_weight = 0", "            for weight in weights:", "                current_weight += weight", "                if current_weight > mid:", "                    need_days += 1", "                    current_weight = weight", "            if need_days <= days:", "                right = mid - 1", "            else:", "                left = mid + 1", "        return left"];

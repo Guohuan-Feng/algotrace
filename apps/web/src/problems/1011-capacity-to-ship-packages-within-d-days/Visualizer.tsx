@@ -1,0 +1,5 @@
+import { ThresholdSearchVisualizer } from "../../shared/components/ThresholdSearchVisualizer";
+import { codeLines, defaultExample, examples, title, type ShipInput } from "./data";
+import { createShipCapacityDryRun } from "./dryRun";
+export default function ShipCapacityVisualizer(props: { onBack: () => void }) { return <ThresholdSearchVisualizer {...props} title={title} examples={examples} defaultExample={defaultExample} codeLines={codeLines} inputToText={JSON.stringify} parseInput={parseInput} createRun={(input) => createShipCapacityDryRun(input.weights, input.days)} candidateLimit={(input) => input.weights.reduce((sum, weight) => sum + weight, 0)} inputSummary={(input) => `days = ${input.days}`} />; }
+function parseInput(text: string): ShipInput { const input = JSON.parse(text) as ShipInput; if (!Array.isArray(input.weights) || !input.weights.length || !input.weights.every((value) => Number.isInteger(value) && value > 0) || !Number.isInteger(input.days) || input.days < 1) throw new Error(); return input; }

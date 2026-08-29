@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 1011, title: "Capacity To Ship Packages Within D Days", cnTitle: "在 D 天内送达包裹的能力", slug: "capacity-to-ship-packages-within-d-days", difficulty: "Medium", tags: ["Array", "Binary Search"], pattern: "First feasible capacity boundary", collections: ["Binary Search"], hasVisualizer: true, summary: "Ready visualizer: greedily pack each candidate capacity and locate the first one that meets the day limit." } satisfies ReadyProblemDefinition;

@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 875, title: "Koko Eating Bananas", cnTitle: "爱吃香蕉的珂珂", slug: "koko-eating-bananas", difficulty: "Medium", tags: ["Array", "Binary Search"], pattern: "First feasible binary-search boundary", collections: ["Binary Search"], hasVisualizer: true, summary: "Ready visualizer: test each speed, then return the first feasible boundary." } satisfies ReadyProblemDefinition;
