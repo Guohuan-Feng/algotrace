@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 287, title: "Find the Duplicate Number", cnTitle: "寻找重复数", slug: "find-the-duplicate-number", difficulty: "Medium", tags: ["Array", "Two Pointers", "Binary Search", "Bit Manipulation"], pattern: "Floyd cycle detection", collections: ["Array", "Two Pointers"], hasVisualizer: true, summary: "Ready visualizer: treat nums[index] as a next pointer, find the cycle meeting point, then locate its entrance." } satisfies ReadyProblemDefinition;
