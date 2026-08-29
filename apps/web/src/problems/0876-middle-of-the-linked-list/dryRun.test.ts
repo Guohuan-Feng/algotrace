@@ -1,0 +1,1 @@
+import {describe,expect,test}from"vitest";import{createMiddleNodeDryRun}from"./dryRun";describe("Middle of the Linked List dry run",()=>{test("moves fast twice as far as slow",()=>{const{frames}=createMiddleNodeDryRun([1,2,3,4,5]);expect(frames[frames.length-1]?.result).toBe(3);expect(frames.some(frame=>frame.slow===2&&frame.fast===4)).toBe(true);});});

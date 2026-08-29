@@ -1,0 +1,1 @@
+import {describe,expect,test}from"vitest";import{createSortArrayDryRun}from"./dryRun";describe("Sort an Array dry run",()=>{test("partitions then recursively sorts the array",()=>{const{frames}=createSortArrayDryRun([5,2,3,1]);expect(frames[frames.length-1]?.result).toEqual([1,2,3,5]);expect(frames.some(frame=>frame.phase==="place")).toBe(true);});});
