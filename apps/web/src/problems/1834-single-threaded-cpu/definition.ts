@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 1834, title: "Single-Threaded CPU", cnTitle: "单线程 CPU", slug: "single-threaded-cpu", difficulty: "Medium", tags: ["Array", "Sorting", "Heap (Priority Queue)"], pattern: "Arrival-sorted scheduling min-heap", collections: ["Heap", "Amazon"], hasVisualizer: true, summary: "Ready visualizer: enqueue arrived tasks, choose the shortest process, and advance CPU time." } satisfies ReadyProblemDefinition;

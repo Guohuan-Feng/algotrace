@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 1405, title: "Longest Happy String", cnTitle: "最长快乐字符串", slug: "longest-happy-string", difficulty: "Medium", tags: ["String", "Greedy", "Heap (Priority Queue)"], pattern: "Max-heap with triple-character fallback", collections: ["Heap", "Greedy"], hasVisualizer: true, summary: "Ready visualizer: pop the most frequent character, then use the second choice only to avoid a triple." } satisfies ReadyProblemDefinition;

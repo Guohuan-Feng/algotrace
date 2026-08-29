@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 621, title: "Task Scheduler", cnTitle: "任务调度器", slug: "task-scheduler", difficulty: "Medium", tags: ["Array", "Hash Table", "Greedy", "Sorting", "Heap (Priority Queue)"], pattern: "Max-heap cooldown window simulation", collections: ["Heap", "Greedy"], hasVisualizer: true, summary: "Ready visualizer: process a cooldown window, collect unfinished frequencies in temp, then restore them to the heap." } satisfies ReadyProblemDefinition;

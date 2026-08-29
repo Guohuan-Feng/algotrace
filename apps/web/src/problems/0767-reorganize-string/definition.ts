@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 767, title: "Reorganize String", cnTitle: "重构字符串", slug: "reorganize-string", difficulty: "Medium", tags: ["Hash Table", "String", "Greedy", "Heap (Priority Queue)"], pattern: "Max-heap with deferred previous character", collections: ["Heap", "Greedy"], hasVisualizer: true, summary: "Ready visualizer: hold the last-used character outside the heap for one selection to prevent adjacent duplicates." } satisfies ReadyProblemDefinition;

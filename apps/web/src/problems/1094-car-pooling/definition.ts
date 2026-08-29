@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 1094, title: "Car Pooling", cnTitle: "拼车", slug: "car-pooling", difficulty: "Medium", tags: ["Array", "Sorting", "Simulation", "Prefix Sum"], pattern: "Difference-array capacity sweep", collections: ["Intervals", "Amazon"], hasVisualizer: true, summary: "Ready visualizer: mark passenger deltas at every pickup and drop-off, then sweep the active load." } satisfies ReadyProblemDefinition;

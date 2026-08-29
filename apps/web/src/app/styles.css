@@ -6757,3 +6757,115 @@ textarea {
   .matchstick-side.side-1,
   .matchstick-side.side-3 { bottom: 20%; }
 }
+
+.string-heap-flow-panel,
+.car-pooling-flow-panel,
+.cpu-flow-panel,
+.scheduler-flow-panel { min-height: 0; }
+
+.string-heap-stage,
+.car-pooling-stage,
+.cpu-stage,
+.scheduler-stage { display: grid; flex: 1; gap: 14px; min-height: 0; overflow: auto; padding: 18px; }
+
+.string-heap-stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); grid-template-areas: "source source" "heap answer"; margin: auto; max-width: 850px; width: 100%; }
+.char-source { grid-area: source; }
+.char-heap { grid-area: heap; }
+.char-answer { grid-area: answer; }
+.char-source,
+.char-heap,
+.char-answer,
+.trip-list,
+.station-rail,
+.passenger-gauge,
+.cpu-task-grid,
+.cpu-heap,
+.cpu-output,
+.scheduler-schedule,
+.scheduler-columns > div { background: #fffdf8; border: 1px solid #ded8ce; border-radius: 8px; padding: 14px; }
+.char-source h3,
+.char-answer h3,
+.trip-list h3,
+.passenger-gauge h3,
+.cpu-task-grid h3,
+.cpu-output h3,
+.scheduler-schedule h3 { color: #45544b; font-size: 12px; margin: 0 0 10px; }
+.char-source > div,
+.char-answer > div,
+.trip-list > div,
+.cpu-task-grid > div,
+.cpu-output > div,
+.scheduler-schedule > div { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; }
+.char-source span { align-items: center; background: #f0eee6; border: 1px solid #d7d1c7; border-radius: 6px; display: flex; gap: 10px; justify-content: space-between; min-width: 74px; padding: 9px 11px; }
+.char-source b { color: #2d4e3a; font-size: 18px; }
+.char-source em { color: #65736b; font-size: 12px; font-style: normal; font-weight: 800; }
+.char-heap > div { display: grid; gap: 8px; }
+.char-heap > div > span { align-items: center; background: #f5f2eb; border: 1px solid #d7d1c7; border-radius: 6px; display: flex; justify-content: space-between; min-height: 45px; padding: 9px 11px; }
+.char-heap > div > span.is-top { background: #dff5e3; border-color: #69a875; color: #155333; }
+.char-heap > div > span.is-focus { box-shadow: 0 0 0 4px rgba(217, 151, 60, 0.18); outline: 2px solid #d9973c; }
+.char-heap b { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 20px; }
+.char-heap em { color: #65736b; font-size: 12px; font-style: normal; font-weight: 800; }
+.char-heap > div > em,
+.char-answer > div > em,
+.scheduler-schedule > div > em { color: #748178; font-size: 13px; font-style: normal; font-weight: 800; }
+.char-answer > div > span { align-items: center; background: #f0eee6; border: 1px solid #d7d1c7; border-radius: 6px; display: flex; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 19px; font-weight: 900; height: 42px; justify-content: center; min-width: 40px; }
+.char-answer > div > span.is-recent { background: #ffe3bd; border-color: #d9973c; color: #73430f; }
+
+.car-pooling-stage { margin: auto; max-width: 900px; width: 100%; }
+.trip-list > div > span { align-items: center; background: #f3f0ea; border: 1px solid #d7d1c7; border-radius: 6px; display: grid; gap: 3px; min-width: 100px; padding: 9px 11px; }
+.trip-list > div > span.is-current { background: #ffe3bd; border-color: #d9973c; box-shadow: 0 0 0 4px rgba(217, 151, 60, 0.16); }
+.trip-list b { color: #225a3a; font-size: 16px; }
+.trip-list em { color: #69756e; font-size: 12px; font-style: normal; font-weight: 800; }
+.station-rail { min-height: 178px; }
+.station-rail > div:last-child { background: repeating-linear-gradient(90deg, #eef0ea 0, #eef0ea 1px, transparent 1px, transparent 10%); border-bottom: 2px solid #d7d1c7; height: 108px; margin: 16px 8px 0; position: relative; }
+.station-rail > div:last-child > span { align-items: center; background: #fffdfa; border: 2px solid #d7d1c7; border-radius: 50%; bottom: -17px; display: flex; flex-direction: column; height: 62px; justify-content: center; position: absolute; transform: translateX(-50%); transition: box-shadow 160ms ease, transform 160ms ease; width: 62px; }
+.station-rail b { font-size: 14px; }
+.station-rail em { color: #66736d; font-size: 11px; font-style: normal; font-weight: 900; margin-top: 3px; }
+.station-rail > div:last-child > span.is-pickup { background: #e7f5eb; border-color: #69a875; color: #155333; }
+.station-rail > div:last-child > span.is-dropoff { background: #e9eff8; border-color: #6c94c8; color: #214c78; }
+.station-rail > div:last-child > span.is-current { background: #ffe3bd; border-color: #d9973c; box-shadow: 0 0 0 5px rgba(217, 151, 60, 0.16); transform: translateX(-50%) translateY(-7px); }
+.passenger-gauge > div { background: #eeece5; border: 1px solid #d7d1c7; border-radius: 8px; height: 42px; overflow: hidden; position: relative; }
+.passenger-gauge > div > span { background: #69a875; display: block; height: 100%; transition: width 160ms ease; }
+.passenger-gauge > div > span.is-over { background: #d76b5f; }
+.passenger-gauge b { color: #24352b; font-size: 14px; left: 50%; position: absolute; text-shadow: 0 1px #fffdfa; top: 12px; transform: translateX(-50%); }
+
+.cpu-stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "tasks heap" "output output"; margin: auto; max-width: 920px; width: 100%; }
+.cpu-task-grid { grid-area: tasks; }
+.cpu-heap { grid-area: heap; }
+.cpu-output { grid-area: output; }
+.cpu-task-grid > div { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); }
+.cpu-task-grid span { background: #f3f0ea; border: 1px solid #d7d1c7; border-radius: 6px; display: grid; gap: 4px; min-height: 66px; padding: 9px; }
+.cpu-task-grid span.is-arrived { background: #e7f5eb; border-color: #69a875; }
+.cpu-task-grid span.is-current { background: #ffe3bd; border-color: #d9973c; box-shadow: 0 0 0 4px rgba(217, 151, 60, 0.16); }
+.cpu-task-grid b { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 17px; }
+.cpu-task-grid em { color: #68756e; font-size: 11px; font-style: normal; font-weight: 800; }
+.cpu-heap > div:last-child { display: grid; gap: 8px; }
+.cpu-heap > div:last-child > span { align-items: center; background: #f5f2eb; border: 1px solid #d7d1c7; border-radius: 6px; display: flex; justify-content: space-between; padding: 10px 12px; }
+.cpu-heap > div:last-child > span.is-top { background: #dff5e3; border-color: #69a875; }
+.cpu-heap b { font-size: 15px; }
+.cpu-heap em { color: #68756e; font-size: 12px; font-style: normal; font-weight: 800; }
+.cpu-output > div > span { background: #17201b; border-radius: 6px; color: #fff; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 15px; font-weight: 900; padding: 8px 10px; }
+
+.scheduler-stage { margin: auto; max-width: 900px; width: 100%; }
+.scheduler-schedule > div { align-items: stretch; min-height: 80px; }
+.scheduler-schedule > div > span { background: #dff5e3; border: 1px solid #69a875; border-radius: 6px; display: grid; gap: 5px; min-width: 80px; padding: 9px; }
+.scheduler-schedule > div > span.is-idle { background: #ece8e0; border-color: #c7bfb3; color: #756b62; }
+.scheduler-schedule b { font-size: 11px; }
+.scheduler-schedule em { font-size: 13px; font-style: normal; font-weight: 900; }
+.scheduler-columns { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.scheduler-columns > div { display: grid; gap: 8px; }
+.scheduler-columns > div > span { background: #f3f0ea; border: 1px solid #d7d1c7; border-radius: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 900; padding: 9px; }
+.scheduler-columns > div > span.is-top { background: #dff5e3; border-color: #69a875; }
+
+@media (max-width: 760px) {
+  .string-heap-stage,
+  .cpu-stage { grid-template-areas: none; grid-template-columns: 1fr; }
+  .char-source,
+  .char-heap,
+  .char-answer,
+  .cpu-task-grid,
+  .cpu-heap,
+  .cpu-output { grid-area: auto; }
+  .scheduler-columns { grid-template-columns: 1fr; }
+  .station-rail { min-height: 160px; }
+}
