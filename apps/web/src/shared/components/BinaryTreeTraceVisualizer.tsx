@@ -27,8 +27,10 @@ type Props<T, F extends BinaryTreeSnapshotFrame> = VisualizerProps & {
   errorMessage: string;
   parseInput: (value: unknown) => T | null;
   createRun: (input: T) => { frames: F[] };
-  getActiveValues: (frame: F) => number[];
+  getActiveValues?: (frame: F) => number[];
   getCompletedValues?: (frame: F) => number[];
+  getActiveIndices?: (frame: F) => number[];
+  getCompletedIndices?: (frame: F) => number[];
   renderState: (frame: F) => ReactNode;
 };
 
@@ -42,8 +44,10 @@ export function BinaryTreeTraceVisualizer<T, F extends BinaryTreeSnapshotFrame>(
   errorMessage,
   parseInput,
   createRun,
-  getActiveValues,
+  getActiveValues = () => [],
   getCompletedValues = () => [],
+  getActiveIndices = () => [],
+  getCompletedIndices = () => [],
   renderState,
 }: Props<T, F>) {
   const panelRef = useRef<HTMLElement | null>(null);
@@ -59,6 +63,8 @@ export function BinaryTreeTraceVisualizer<T, F extends BinaryTreeSnapshotFrame>(
   const tree = useMemo(() => flattenTree(frame.tree), [frame.tree]);
   const activeValues = getActiveValues(frame);
   const completedValues = getCompletedValues(frame);
+  const activeIndices = getActiveIndices(frame);
+  const completedIndices = getCompletedIndices(frame);
   const selected = examples.find((example) => example.id === exampleId);
   const resetViewport = useCallback(() => {
     flowRef.current?.setViewport({
@@ -83,8 +89,8 @@ export function BinaryTreeTraceVisualizer<T, F extends BinaryTreeSnapshotFrame>(
   }, [resetViewport]);
 
   const nodes = useMemo<Node[]>(() => tree.map((node) => {
-    const current = activeValues.includes(node.value);
-    const complete = !current && completedValues.includes(node.value);
+    const current = activeIndices.length ? activeIndices.includes(node.index) : activeValues.includes(node.value);
+    const complete = !current && (completedIndices.length ? completedIndices.includes(node.index) : completedValues.includes(node.value));
     return {
       id: node.id,
       position: treePosition(node.layoutIndex),
@@ -93,7 +99,7 @@ export function BinaryTreeTraceVisualizer<T, F extends BinaryTreeSnapshotFrame>(
       className: ["combo-node", "bst-node", current ? "is-active" : "", complete ? "is-complete" : ""].filter(Boolean).join(" "),
       data: { label: <div className="combo-node-content"><strong>{node.value}</strong><span>{current ? "current" : complete ? "confirmed" : node.side ?? "root"}</span></div> },
     };
-  }), [activeValues, completedValues, tree]);
+  }), [activeIndices, activeValues, completedIndices, completedValues, tree]);
   const edges = useMemo<Edge[]>(() => tree.filter((node) => node.parentId).map((node) => ({
     id: `${node.parentId}-${node.id}`,
     source: node.parentId!,
@@ -103,8 +109,8 @@ export function BinaryTreeTraceVisualizer<T, F extends BinaryTreeSnapshotFrame>(
     labelBgBorderRadius: 6,
     labelBgPadding: [6, 3],
     markerEnd: { type: MarkerType.ArrowClosed },
-    animated: activeValues.includes(node.value),
-  })), [activeValues, tree]);
+    animated: activeIndices.length ? activeIndices.includes(node.index) : activeValues.includes(node.value),
+  })), [activeIndices, activeValues, tree]);
 
   function load(example: Example<T>) {
     setExampleId(example.id);
