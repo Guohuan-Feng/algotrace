@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 349, title: "Intersection of Two Arrays", cnTitle: "两个数组的交集", slug: "intersection-of-two-arrays", difficulty: "Easy", tags: ["Array", "Hash Table", "Two Pointers", "Binary Search", "Sorting"], pattern: "Set membership lookup", collections: ["Array", "Hash Table"], hasVisualizer: true, summary: "Ready visualizer: build a membership set from nums1 and scan nums2 into a deduplicated intersection set." } satisfies ReadyProblemDefinition;
