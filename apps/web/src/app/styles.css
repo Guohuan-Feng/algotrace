@@ -6538,6 +6538,26 @@ textarea {
 .dedupe-removed span { color: #9c4a43; display: block; font-size: 10px; font-weight: 900; text-transform: uppercase; }
 .dedupe-removed strong { color: #803d38; display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; margin-top: 6px; }
 
+.partition-list-flow-panel { min-width: 0; }
+.partition-list-stage { display: flex; flex: 1; flex-direction: column; gap: 15px; overflow: auto; overscroll-behavior: contain; padding: 18px; }
+.partition-source h3, .partition-lane h3 { color: #6f7c74; font-size: 10px; margin: 0 0 8px; text-transform: uppercase; }
+.partition-source > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.partition-source span { background: #fffdfa; border: 1px solid #ded8ce; border-radius: 8px; display: grid; gap: 4px; min-width: 64px; padding: 9px; text-align: center; }
+.partition-source b { color: #24352b; font-size: 18px; }
+.partition-source em { color: #77827c; font-size: 9px; font-style: normal; }
+.partition-source span.is-processed { background: #eef5ef; border-color: #b9d3bf; }
+.partition-source span.is-current { background: #ffe3bd; border-color: #d9973c; box-shadow: 0 0 0 3px rgba(217, 151, 60, 0.16); }
+.partition-lane { border: 1px solid #ded8ce; border-radius: 8px; padding: 11px; }
+.partition-lane.small { background: #eef5ef; border-color: #b9d3bf; }
+.partition-lane.large { background: #edf4fb; border-color: #b4cae0; }
+.partition-lane > div { align-items: center; display: flex; flex-wrap: wrap; gap: 3px; min-height: 42px; }
+.partition-lane span { align-items: center; display: inline-flex; gap: 4px; }
+.partition-lane b { background: #fffdfa; border: 1px solid #ded8ce; border-radius: 999px; color: #24352b; padding: 8px 12px; }
+.partition-lane em { color: #77827c; font-size: 12px; font-style: normal; }
+.partition-result { background: #f4f0e8; border: 1px solid #e2dbd0; border-radius: 8px; padding: 11px; }
+.partition-result span { color: #6f7c74; display: block; font-size: 10px; font-weight: 900; text-transform: uppercase; }
+.partition-result strong { color: #24352b; display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; margin-top: 7px; overflow-wrap: anywhere; }
+
 .prefix-flow-panel,
 .ksum-flow-panel,
 .remove-nth-flow-panel {
