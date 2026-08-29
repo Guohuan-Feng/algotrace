@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 682, title: "Baseball Game", cnTitle: "棒球比赛", slug: "baseball-game", difficulty: "Easy", tags: ["Array", "Stack", "Simulation"], pattern: "Score history stack", collections: ["Stack"], hasVisualizer: true, summary: "Ready visualizer: process score operations by pushing, canceling, doubling, or combining valid round scores." } satisfies ReadyProblemDefinition;
