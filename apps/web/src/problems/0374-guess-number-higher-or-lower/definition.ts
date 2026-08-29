@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 374, title: "Guess Number Higher or Lower", cnTitle: "猜数字大小", slug: "guess-number-higher-or-lower", difficulty: "Easy", tags: ["Binary Search", "Interactive"], pattern: "Binary search through a comparison API", collections: ["Binary Search"], hasVisualizer: true, summary: "Ready visualizer: simulate guess(mid) responses and narrow the inclusive number range until pick is found." } satisfies ReadyProblemDefinition;
