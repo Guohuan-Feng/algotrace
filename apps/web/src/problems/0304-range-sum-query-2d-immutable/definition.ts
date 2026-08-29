@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 304, title: "Range Sum Query 2D - Immutable", cnTitle: "二维区域和检索 - 矩阵不可变", slug: "range-sum-query-2d-immutable", difficulty: "Medium", tags: ["Array", "Design", "Matrix", "Prefix Sum"], pattern: "2D prefix sum inclusion-exclusion", collections: ["Matrix", "Prefix Sum", "Design"], hasVisualizer: true, summary: "Ready visualizer: build a padded 2D prefix table, then answer a rectangle query with four inclusion-exclusion corners." } satisfies ReadyProblemDefinition;
