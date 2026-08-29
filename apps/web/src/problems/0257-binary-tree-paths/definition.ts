@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 257, title: "Binary Tree Paths", cnTitle: "二叉树的所有路径", slug: "binary-tree-paths", difficulty: "Easy", tags: ["String", "Backtracking", "Tree", "Depth-First Search", "Binary Tree"], pattern: "DFS path backtracking", collections: ["Tree", "Backtracking", "Depth-First Search"], hasVisualizer: true, summary: "Ready visualizer: append each DFS node to the current path, record it at a leaf, then pop while returning." } satisfies ReadyProblemDefinition;
