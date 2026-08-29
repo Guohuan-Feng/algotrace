@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 373, title: "Find K Pairs with Smallest Sums", cnTitle: "查找和最小的 K 对数字", slug: "find-k-pairs-with-smallest-sums", difficulty: "Medium", tags: ["Array", "Heap (Priority Queue)"], pattern: "K-way merge with a min-heap", collections: ["Array", "Heap"], hasVisualizer: true, summary: "Ready visualizer: seed the smallest pair from each nums1 row, then advance only the row of the popped pair." } satisfies ReadyProblemDefinition;
