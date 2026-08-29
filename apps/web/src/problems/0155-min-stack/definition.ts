@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 155, title: "Min Stack", cnTitle: "最小栈", slug: "min-stack", difficulty: "Medium", tags: ["Stack", "Design"], pattern: "Synchronized minimum stack", collections: ["Stack", "Hot 150"], hasVisualizer: true, summary: "Ready visualizer: push the current minimum at every depth so getMin stays O(1)." } satisfies ReadyProblemDefinition;
