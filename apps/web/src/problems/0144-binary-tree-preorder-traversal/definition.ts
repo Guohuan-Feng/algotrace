@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 144, title: "Binary Tree Preorder Traversal", cnTitle: "二叉树的前序遍历", slug: "binary-tree-preorder-traversal", difficulty: "Easy", tags: ["Stack", "Tree", "Depth-First Search", "Binary Tree"], pattern: "Root-left-right DFS", collections: ["Tree", "Traversal"], hasVisualizer: true, summary: "Ready visualizer: append the root first, then recurse left and right with an explicit call stack." } satisfies ReadyProblemDefinition;
