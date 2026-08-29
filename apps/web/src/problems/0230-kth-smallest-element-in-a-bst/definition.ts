@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 230, title: "Kth Smallest Element in a BST", cnTitle: "二叉搜索树中第 K 小的元素", slug: "kth-smallest-element-in-a-bst", difficulty: "Medium", tags: ["Tree", "Depth-First Search", "Binary Search Tree", "Binary Tree", "Stack"], pattern: "Iterative inorder traversal", collections: ["Hot 150", "Binary Search Tree", "Stack"], hasVisualizer: true, summary: "Ready visualizer: use an explicit inorder stack so each popped node is the next-smallest BST value." } satisfies ReadyProblemDefinition;
