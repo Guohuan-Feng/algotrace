@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 150, title: "Evaluate Reverse Polish Notation", cnTitle: "逆波兰表达式求值", slug: "evaluate-reverse-polish-notation", difficulty: "Medium", tags: ["Array", "Math", "Stack"], pattern: "Postfix evaluation stack", collections: ["Stack", "Hot 150"], hasVisualizer: true, summary: "Ready visualizer: read tokens, pop b then a for an operator, and push the computed value." } satisfies ReadyProblemDefinition;
