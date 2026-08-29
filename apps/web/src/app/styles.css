@@ -5947,6 +5947,53 @@ textarea {
   box-shadow: 0 0 0 4px rgba(205, 135, 40, 0.18);
 }
 
+.fleet-road {
+  background: repeating-linear-gradient(90deg, #e0e7df 0 22px, #8fa294 22px 44px);
+  border: 1px solid #96aa9c;
+  border-radius: 8px;
+  height: 186px;
+  margin-top: 22px;
+  position: relative;
+}
+
+.fleet-origin,
+.fleet-target {
+  color: #5d6d62;
+  font-size: 11px;
+  font-weight: 900;
+  position: absolute;
+  top: -22px;
+}
+
+.fleet-origin { left: 0; }
+.fleet-target { right: 0; }
+
+.fleet-car {
+  align-items: center;
+  background: #fffdfa;
+  border: 1px solid #719585;
+  border-radius: 7px;
+  color: #244a3a;
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  gap: 2px;
+  min-width: 58px;
+  padding: 7px 5px;
+  position: absolute;
+  top: 42px;
+  transform: translateX(-50%);
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.fleet-car:nth-of-type(2n) { top: 106px; }
+
+.fleet-car.is-current {
+  background: #ffe1a3;
+  border-color: #cc8427;
+  box-shadow: 0 0 0 4px rgba(204, 132, 39, 0.18);
+}
+
 .product-state-grid {
   display: grid;
   gap: 10px;
