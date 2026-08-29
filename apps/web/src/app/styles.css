@@ -5885,6 +5885,18 @@ textarea {
   border-color: #9fc5a1;
 }
 
+.list-run {
+  display: grid;
+  gap: 8px;
+}
+
+.list-run > span {
+  color: #6f7c74;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
 .product-phase,
 .robber-current-case {
   background: #f4f0e8;
