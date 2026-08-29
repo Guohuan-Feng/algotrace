@@ -5880,6 +5880,11 @@ textarea {
   transform: translateY(-2px);
 }
 
+.product-number.is-window:not(.is-current) {
+  background: #e9f4e9;
+  border-color: #9fc5a1;
+}
+
 .product-phase,
 .robber-current-case {
   background: #f4f0e8;
