@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 78, title: "Subsets", cnTitle: "子集", slug: "subsets", difficulty: "Medium", tags: ["Array", "Backtracking", "Bit Manipulation"], pattern: "Increasing-index subset DFS", collections: ["Backtracking"], hasVisualizer: true, summary: "Ready visualizer: record every path, then extend it only with later input positions." } satisfies ReadyProblemDefinition;

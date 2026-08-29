@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 40, title: "Combination Sum II", cnTitle: "组合总和 II", slug: "combination-sum-ii", difficulty: "Medium", tags: ["Array", "Backtracking", "Sorting"], pattern: "One-use duplicate-guard combination DFS", collections: ["Backtracking"], hasVisualizer: true, summary: "Ready visualizer: accumulate a target total, move to the next index, and skip sibling duplicates." } satisfies ReadyProblemDefinition;

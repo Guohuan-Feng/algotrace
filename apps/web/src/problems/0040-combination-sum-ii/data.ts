@@ -1,0 +1,5 @@
+export type CombinationSumIiInput = { candidates: number[]; target: number };
+export const title = "40. Combination Sum II";
+export const examples = [{ id: 1, label: "LeetCode 1", input: { candidates: [10, 1, 2, 7, 6, 1, 5], target: 8 }, output: [[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]] }, { id: 2, label: "LeetCode 2", input: { candidates: [2, 5, 2, 1, 2], target: 5 }, output: [[1, 2, 2], [5]] }];
+export const defaultExample = examples[0]!;
+export const codeLines = ["class Solution:", "    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:", "        candidates.sort()", "        res = []", "", "        def backtrack(start, path, total):", "            if total == target:", "                res.append(path)", "                return", "", "            if total > target:", "                return", "", "            for i in range(start, len(candidates)):", "                if i > start and candidates[i] == candidates[i - 1]:", "                    continue", "", "                backtrack(i + 1, path + [candidates[i]], total + candidates[i])", "", "        backtrack(0, [], 0)", "", "        return res"];

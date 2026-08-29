@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 90, title: "Subsets II", cnTitle: "子集 II", slug: "subsets-ii", difficulty: "Medium", tags: ["Array", "Backtracking", "Bit Manipulation"], pattern: "Sorted duplicate-guard subsets", collections: ["Backtracking"], hasVisualizer: true, summary: "Ready visualizer: append every path, then skip equal values at the same recursion depth." } satisfies ReadyProblemDefinition;

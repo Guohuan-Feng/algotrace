@@ -1,0 +1,4 @@
+import { NumericBacktrackingVisualizer } from "../../shared/components/NumericBacktrackingVisualizer";
+import { codeLines, defaultExample, examples, title, type CombinationSumIiInput } from "./data";
+import { createCombinationSumIiDryRun } from "./dryRun";
+export default function CombinationSumIiVisualizer(props: { onBack: () => void }) { return <NumericBacktrackingVisualizer {...props} title={title} valueName="candidates + target" examples={examples} defaultExample={defaultExample} codeLines={codeLines} inputToText={JSON.stringify} parseInput={(text) => { const value = JSON.parse(text); if (!value || !Array.isArray(value.candidates) || !value.candidates.every(Number.isInteger) || !Number.isInteger(value.target) || value.candidates.length > 12) throw new Error(); return value as CombinationSumIiInput; }} createRun={(input) => createCombinationSumIiDryRun(input.candidates, input.target)} values={(frame) => frame.candidates ?? []} />; }
