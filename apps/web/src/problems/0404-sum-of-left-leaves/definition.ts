@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 404, title: "Sum of Left Leaves", cnTitle: "左叶子之和", slug: "sum-of-left-leaves", difficulty: "Easy", tags: ["Tree", "Depth-First Search", "Binary Tree"], pattern: "DFS with an is-left flag", collections: ["Binary Tree", "Depth-First Search"], hasVisualizer: true, summary: "Ready visualizer: traverse the tree with a left-child flag and add a value only when that flagged node is a leaf." } satisfies ReadyProblemDefinition;
