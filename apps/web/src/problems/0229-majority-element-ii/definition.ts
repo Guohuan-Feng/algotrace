@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 229, title: "Majority Element II", cnTitle: "求众数 II", slug: "majority-element-ii", difficulty: "Medium", tags: ["Array", "Hash Table", "Sorting", "Counting"], pattern: "Two-candidate Boyer-Moore voting", collections: ["Array", "Counting"], hasVisualizer: true, summary: "Ready visualizer: keep at most two candidates while cancellation removes groups of three distinct values, then verify their actual frequencies." } satisfies ReadyProblemDefinition;

@@ -1,0 +1,17 @@
+import type { FrameKind } from "../../shared/types";
+export type MajorityElementIiFrame = { kind: FrameKind; phase: "start" | "inspect" | "vote1" | "vote2" | "choose1" | "choose2" | "cancel" | "verify" | "done"; title: string; detail: string; activeLines: number[]; index: number | null; candidate1: number | null; candidate2: number | null; count1: number; count2: number; verified: number[]; result: number[] | null; };
+export function createMajorityElementIiDryRun(nums: number[]): { frames: MajorityElementIiFrame[] } {
+  const frames: MajorityElementIiFrame[] = []; let candidate1: number | null = null, candidate2: number | null = null, count1 = 0, count2 = 0; const verified: number[] = [];
+  const push = (frame: Omit<MajorityElementIiFrame, "candidate1" | "candidate2" | "count1" | "count2" | "verified">) => frames.push({ ...frame, candidate1, candidate2, count1, count2, verified: [...verified] });
+  push({ kind: "start", phase: "start", title: "Keep room for two possible majorities", detail: "More than n / 3 can occur for at most two values, so only two candidates are needed.", activeLines: [2, 3, 4], index: null, result: null });
+  nums.forEach((num, index) => {
+    push({ kind: "visit", phase: "inspect", title: `Inspect nums[${index}] = ${num}`, detail: "First see whether it matches a current candidate; then fill an empty candidate slot; otherwise cancel three distinct values.", activeLines: [6], index, result: null });
+    if (num === candidate1) { count1 += 1; push({ kind: "found", phase: "vote1", title: `Add a vote to candidate 1 (${candidate1})`, detail: `count1 becomes ${count1}.`, activeLines: [7, 8], index, result: null }); }
+    else if (num === candidate2) { count2 += 1; push({ kind: "found", phase: "vote2", title: `Add a vote to candidate 2 (${candidate2})`, detail: `count2 becomes ${count2}.`, activeLines: [9, 10], index, result: null }); }
+    else if (count1 === 0) { candidate1 = num; count1 = 1; push({ kind: "build", phase: "choose1", title: `Put ${num} in candidate slot 1`, detail: "Slot 1 has no uncancelled vote, so this value starts a new candidate group.", activeLines: [11, 12], index, result: null }); }
+    else if (count2 === 0) { candidate2 = num; count2 = 1; push({ kind: "build", phase: "choose2", title: `Put ${num} in candidate slot 2`, detail: "Slot 2 has no uncancelled vote, so this value starts a new candidate group.", activeLines: [13, 14], index, result: null }); }
+    else { count1 -= 1; count2 -= 1; push({ kind: "backtrack", phase: "cancel", title: `Cancel ${num}, ${candidate1}, and ${candidate2}`, detail: `All three values differ, so count1 = ${count1} and count2 = ${count2}.`, activeLines: [15, 16, 17], index, result: null }); }
+  });
+  for (const candidate of [candidate1, candidate2]) if (candidate !== null && !verified.includes(candidate)) { const count = nums.filter((value) => value === candidate).length; if (count > nums.length / 3) verified.push(candidate); push({ kind: "visit", phase: "verify", title: `Verify ${candidate}: occurs ${count} times`, detail: count > nums.length / 3 ? `${count} is greater than n / 3, so include it.` : `${count} is not greater than n / 3, so discard it.`, activeLines: [19], index: null, result: null }); }
+  push({ kind: "done", phase: "done", title: `Return [${verified.join(", ")}]`, detail: "The voting pass produces candidates only; this verification pass confirms the answer.", activeLines: [19], index: null, result: verified }); return { frames };
+}
