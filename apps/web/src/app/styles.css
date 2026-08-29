@@ -5803,3 +5803,249 @@ textarea {
     transition: none;
   }
 }
+
+.product-flow-panel,
+.robber-flow-panel {
+  min-width: 0;
+}
+
+.product-stage,
+.robber-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 18px;
+}
+
+.product-numbers,
+.robber-ring,
+.robber-dp {
+  display: grid;
+  gap: 10px;
+  grid-auto-columns: minmax(78px, 1fr);
+  grid-auto-flow: column;
+  min-width: max-content;
+}
+
+.product-numbers,
+.robber-ring {
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 4px;
+}
+
+.product-number,
+.robber-house,
+.robber-dp-cell {
+  background: #fffdfa;
+  border: 1px solid #ded8ce;
+  border-radius: 8px;
+  min-height: 78px;
+  padding: 10px;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.product-number span,
+.robber-house span,
+.robber-dp-cell span,
+.product-state span,
+.product-phase span,
+.robber-current-case span,
+.robber-case-results span {
+  color: #6f7c74;
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.product-number strong,
+.robber-house strong,
+.robber-dp-cell strong {
+  color: #1e5f4a;
+  display: block;
+  font-size: 24px;
+  margin-top: 7px;
+}
+
+.product-number.is-current,
+.robber-house.is-active,
+.robber-dp-cell.is-active {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  box-shadow: 0 0 0 4px rgba(217, 151, 60, 0.18);
+  transform: translateY(-2px);
+}
+
+.product-phase,
+.robber-current-case {
+  background: #f4f0e8;
+  border: 1px solid #e2dbd0;
+  border-radius: 8px;
+  padding: 13px;
+}
+
+.product-phase strong,
+.robber-current-case strong {
+  color: #24352b;
+  display: block;
+  font-size: 17px;
+  margin-top: 4px;
+}
+
+.product-phase p {
+  color: #56635b;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 9px 0 0;
+}
+
+.product-state-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.product-state {
+  background: #eef5ef;
+  border: 1px solid #b9d3bf;
+  border-radius: 8px;
+  min-height: 96px;
+  padding: 13px;
+}
+
+.product-state strong {
+  color: #17643c;
+  display: block;
+  font-size: 30px;
+  margin-top: 8px;
+}
+
+.product-state.is-emphasized {
+  background: #ffe3bd;
+  border-color: #d9973c;
+}
+
+.product-state.is-result {
+  background: #e2edf7;
+  border-color: #779dc4;
+}
+
+.product-state.is-result strong {
+  color: #255b91;
+}
+
+.product-state.is-muted {
+  background: #f4f0e8;
+  border-color: #e2dbd0;
+}
+
+.product-state.is-muted strong {
+  color: #829087;
+}
+
+.product-legend,
+.robber-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.product-legend span,
+.robber-legend span {
+  align-items: center;
+  color: #5c6960;
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 800;
+  gap: 5px;
+}
+
+.product-legend i,
+.robber-legend i {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+}
+
+.product-current-key,
+.robber-active-key { background: #ffe3bd; border-color: #d9973c !important; }
+.product-state-key,
+.robber-source-key { background: #dff2e4; border-color: #3f9b62 !important; }
+.robber-excluded-key { background: #f1eeea; border-color: #aba39a !important; }
+
+.robber-case-results {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.robber-case-results span {
+  background: #eaf1f7;
+  border: 1px solid #c5d4e3;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.robber-case-results strong {
+  color: #285a86;
+  display: block;
+  font-size: 22px;
+  margin-top: 5px;
+}
+
+.robber-house.is-excluded {
+  background: #f1eeea;
+  border-color: #b9b1a7;
+  color: #7d766e;
+  opacity: 0.75;
+}
+
+.robber-house.is-excluded strong {
+  color: #7d766e;
+}
+
+.robber-dp {
+  align-content: start;
+  flex: 1;
+  min-height: 120px;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.robber-dp-cell.is-source {
+  background: #dff2e4;
+  border-color: #3f9b62;
+}
+
+.robber-dp p {
+  color: #68746e;
+  font-size: 13px;
+  margin: 0;
+}
+
+@media (max-width: 620px) {
+  .product-stage,
+  .robber-stage {
+    padding: 14px;
+  }
+
+  .product-state-grid,
+  .robber-case-results {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-number,
+  .robber-house,
+  .robber-dp-cell {
+    transition: none;
+  }
+}
