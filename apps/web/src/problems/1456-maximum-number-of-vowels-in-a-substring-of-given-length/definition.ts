@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 1456, title: "Maximum Number of Vowels in a Substring of Given Length", cnTitle: "定长子串中元音的最大数目", slug: "maximum-number-of-vowels-in-a-substring-of-given-length", difficulty: "Medium", tags: ["String", "Sliding Window"], pattern: "Fixed-size vowel window", collections: ["Sliding Window", "String"], hasVisualizer: true, summary: "Ready visualizer: count vowels in a fixed k-sized window as one character enters and one leaves." } satisfies ReadyProblemDefinition;

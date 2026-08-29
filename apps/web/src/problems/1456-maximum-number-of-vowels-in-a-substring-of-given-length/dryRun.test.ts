@@ -1,0 +1,2 @@
+import { describe, expect, test } from "vitest"; import { createMaxVowelsDryRun } from "./dryRun";
+describe("Maximum Number of Vowels in a Substring of Given Length dry run", () => { test("slides a k-sized window and keeps the largest vowel count", () => { const { frames } = createMaxVowelsDryRun("abciiidef", 3); expect(frames[frames.length - 1]?.result).toBe(3); expect(frames.some((frame) => frame.maximum === 3)).toBe(true); }); });

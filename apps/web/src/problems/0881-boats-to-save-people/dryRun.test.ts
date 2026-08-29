@@ -1,0 +1,2 @@
+import { describe, expect, test } from "vitest"; import { createRescueBoatsDryRun } from "./dryRun";
+describe("Boats to Save People dry run", () => { test("pairs the lightest passenger with the heaviest when possible", () => { const { frames } = createRescueBoatsDryRun([3, 2, 2, 1], 3); expect(frames[frames.length - 1]?.result).toBe(3); expect(frames.some((frame) => frame.boats === 3)).toBe(true); }); });

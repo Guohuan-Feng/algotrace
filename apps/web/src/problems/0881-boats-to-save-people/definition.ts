@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 881, title: "Boats to Save People", cnTitle: "救生艇", slug: "boats-to-save-people", difficulty: "Medium", tags: ["Array", "Two Pointers", "Greedy", "Sorting"], pattern: "Greedy pair lightest and heaviest", collections: ["Two Pointers", "Greedy"], hasVisualizer: true, summary: "Ready visualizer: always seat the heaviest person, pairing them with the lightest only when their combined weight fits." } satisfies ReadyProblemDefinition;

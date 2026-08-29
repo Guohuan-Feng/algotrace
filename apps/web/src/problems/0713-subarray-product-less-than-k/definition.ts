@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 713, title: "Subarray Product Less Than K", cnTitle: "乘积小于 K 的子数组", slug: "subarray-product-less-than-k", difficulty: "Medium", tags: ["Array", "Sliding Window"], pattern: "Variable-size product window", collections: ["Sliding Window", "Two Pointers"], hasVisualizer: true, summary: "Ready visualizer: grow the product with the right pointer, shrink from the left while invalid, then count all valid starts." } satisfies ReadyProblemDefinition;

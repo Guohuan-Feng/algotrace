@@ -1,0 +1,2 @@
+import { describe, expect, test } from "vitest"; import { createSubarrayProductDryRun } from "./dryRun";
+describe("Subarray Product Less Than K dry run", () => { test("counts each valid window ending at the current index", () => { const { frames } = createSubarrayProductDryRun([10, 5, 2, 6], 100); expect(frames[frames.length - 1]?.result).toBe(8); expect(frames.some((frame) => frame.product >= 100)).toBe(true); }); });
