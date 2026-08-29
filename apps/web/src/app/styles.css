@@ -6055,6 +6055,131 @@ textarea {
   color: #829087;
 }
 
+.water-flow-panel {
+  min-width: 0;
+}
+
+.water-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 18px;
+}
+
+.water-bars {
+  align-items: end;
+  display: grid;
+  gap: 8px;
+  min-height: 300px;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  padding: 20px 4px 0;
+}
+
+.water-column {
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: 22px 1fr 18px;
+  min-width: 44px;
+}
+
+.water-pointer {
+  color: #6f7c74;
+  font-size: 10px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.water-track {
+  align-items: end;
+  background: #f7f5f0;
+  border-bottom: 2px solid #b8c2bd;
+  display: flex;
+  min-height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.water-bar {
+  align-items: flex-start;
+  background: #e7eee9;
+  border: 1px solid #93af9c;
+  border-bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  min-width: 100%;
+  padding-top: 7px;
+  position: relative;
+  transition: height 180ms ease, background-color 180ms ease, border-color 180ms ease;
+  z-index: 2;
+}
+
+.water-bar strong {
+  color: #205740;
+  font-size: 13px;
+}
+
+.water-column.is-boundary .water-bar {
+  background: #ffe3bd;
+  border-color: #d9973c;
+  box-shadow: 0 0 0 3px rgba(217, 151, 60, 0.16);
+}
+
+.water-column.is-boundary .water-pointer {
+  color: #a46212;
+}
+
+.water-fill {
+  background: rgba(116, 177, 214, 0.33);
+  bottom: 0;
+  left: 0;
+  min-width: 100%;
+  position: absolute;
+  transition: height 180ms ease;
+  z-index: 1;
+}
+
+.water-column > span {
+  color: #6f7c74;
+  font-size: 10px;
+  font-weight: 800;
+  padding-top: 5px;
+  text-align: center;
+}
+
+.water-readout {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.water-readout > div {
+  background: #eef5ef;
+  border: 1px solid #b9d3bf;
+  border-radius: 8px;
+  min-width: 0;
+  padding: 12px;
+}
+
+.water-readout span {
+  color: #6f7c74;
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.water-readout strong {
+  color: #17643c;
+  display: block;
+  font-size: 24px;
+  margin-top: 7px;
+}
+
 .product-legend,
 .robber-legend {
   display: flex;
@@ -6146,6 +6271,10 @@ textarea {
 
   .product-state-grid,
   .robber-case-results {
+    grid-template-columns: 1fr;
+  }
+
+  .water-readout {
     grid-template-columns: 1fr;
   }
 }
