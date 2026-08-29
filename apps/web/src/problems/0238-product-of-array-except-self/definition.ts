@@ -1,0 +1,2 @@
+import type { ReadyProblemDefinition } from "../../catalog/types";
+export const definition = { id: 238, title: "Product of Array Except Self", cnTitle: "除自身以外数组的乘积", slug: "product-of-array-except-self", difficulty: "Medium", tags: ["Array", "Prefix Sum"], pattern: "Prefix and suffix products", collections: ["Hot 150", "Array", "Prefix Sum"], hasVisualizer: true, summary: "Ready visualizer: first write each index's left product, then multiply in its right product without division." } satisfies ReadyProblemDefinition;
