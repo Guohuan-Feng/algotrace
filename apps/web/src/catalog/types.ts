@@ -1,3 +1,5 @@
+import type { CompanyName } from "./companyCollections";
+
 export type Difficulty = "Easy" | "Medium" | "Hard";
 
 export type Problem = {
@@ -9,6 +11,7 @@ export type Problem = {
   tags: string[];
   pattern: string;
   collections?: string[];
+  companyRanks?: Partial<Record<CompanyName, number>>;
   hasVisualizer: boolean;
   summary: string;
 };

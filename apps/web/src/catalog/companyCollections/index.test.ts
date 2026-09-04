@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { companyCollections, getCompanyCollection } from "./index";
+import { mergeProblems, problemCatalog, rankCompanyProblems } from "../problems";
+import type { Problem } from "../types";
 
 describe("company collections", () => {
   it.each(["Google", "Amazon", "TikTok"] as const)(
@@ -22,5 +24,56 @@ describe("company collections", () => {
 
   it("exports all three company snapshots", () => {
     expect(companyCollections).toHaveLength(3);
+  });
+
+  it("keeps an existing visualizer while adding company collection metadata", () => {
+    const readyProblem: Problem = {
+      id: 1,
+      title: "Two Sum",
+      slug: "two-sum",
+      difficulty: "Easy",
+      tags: ["Array"],
+      pattern: "Hash lookup",
+      collections: ["Hot 150"],
+      hasVisualizer: true,
+      summary: "Local visualizer metadata.",
+    };
+    const companyEntry: Problem = {
+      ...readyProblem,
+      title: "Company Two Sum",
+      tags: ["Company frequency"],
+      collections: ["Google · 3 months"],
+      companyRanks: { Google: 160 },
+      hasVisualizer: false,
+      summary: "Company snapshot metadata.",
+    };
+
+    expect(mergeProblems([companyEntry, readyProblem])).toEqual([
+      expect.objectContaining({
+        id: 1,
+        title: "Two Sum",
+        hasVisualizer: true,
+        collections: ["Google · 3 months", "Hot 150"],
+        companyRanks: { Google: 160 },
+      }),
+    ]);
+  });
+
+  it("creates placeholders and applies a selected company frequency order", () => {
+    const google = getCompanyCollection("Google");
+    const companyOnly = google.problems.find(
+      (item) => problemCatalog.find((problem) => problem.id === item.id)?.hasVisualizer === false,
+    );
+
+    expect(companyOnly).toBeDefined();
+    expect(problemCatalog.find((problem) => problem.id === companyOnly?.id)).toMatchObject({
+      hasVisualizer: false,
+      collections: expect.arrayContaining(["Google · 3 months"]),
+    });
+
+    const firstThree = rankCompanyProblems("Google · 3 months", problemCatalog).slice(0, 3);
+    expect(firstThree.map((problem) => problem.companyRanks?.Google)).toEqual(
+      [...firstThree.map((problem) => problem.companyRanks?.Google)].sort((left, right) => right! - left!),
+    );
   });
 });
