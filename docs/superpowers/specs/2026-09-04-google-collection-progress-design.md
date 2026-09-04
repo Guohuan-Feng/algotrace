@@ -1,15 +1,17 @@
-# Google Collection and Cross-Device Progress Design
+# Company Collections and Cross-Device Progress Design
 
 ## Goal
 
-Add LeetCode's Google "3 months" company collection to AlgoTrace and let each
-learner track completed problems across devices by signing in with Google.
+Add LeetCode's Google, Amazon, and TikTok "3 months" company collections to
+AlgoTrace and let each learner track completed problems across devices by
+signing in with Google.
 
 ## Scope
 
-- Import the complete 495-problem Google three-month snapshot from the
-  user-provided LeetCode collection.
-- Expose it as the `Google · 3 months` catalog collection.
+- Import the complete Google, Amazon, and TikTok three-month snapshots from
+  the user-provided LeetCode collections, retaining their frequency order.
+- Expose them as `Google · 3 months`, `Amazon · 3 months`, and
+  `TikTok · 3 months` catalog collections.
 - Add a completion control at the far left of every directory row.
 - Persist completion state per user with Google OAuth and a cloud database.
 - Keep all existing collections, visualizers, search, filters, and routes
@@ -57,34 +59,48 @@ link. It stops click propagation so marking a problem does not navigate away.
 - Green check: completed, with `completed_at` available to screen readers.
 - The row title remains the primary click target for opening a visualizer.
 - A new `Completion` filter offers `All`, `Completed`, and `Not completed`.
-- The collection rail and List selector include `Google · 3 months`.
-- The header shows `completed / total` when the Google collection is selected.
+- The collection rail and List selector include all three company collections.
+- The header shows `completed / total` when any company collection is selected.
 
 The appearance follows the existing light AlgoTrace catalog, not the dark
 NeetCode screenshot. The screenshot is a workflow reference: a leading status
 control, grouped list, filtering, and visible completion count.
 
-## Google Collection Data
+## Company Collection Data
 
-Create a versioned catalog module containing the problem IDs, English titles,
-Chinese title when already known, difficulty, tags, source URL, and
-`Google · 3 months` collection label. It is a snapshot of the supplied list,
-not a claim that LeetCode's live frequency ranking will remain unchanged.
+Create versioned catalog modules containing problem IDs, English titles,
+Chinese titles when already known, difficulty, tags, source URL, frequency
+rank, snapshot timestamp, and the relevant company collection label.
 
-Existing catalog entries merge by problem ID. For each Google problem already
-in AlgoTrace, preserve its visualizer status and local metadata. Google-only
-problems appear as catalog placeholders with `hasVisualizer: false`, so users
-can track work immediately and later attach dry-run visualizations in their
-own problem folders.
+The LeetCode company pages are the authority for the initial three-month
+ordering. The `dr-o-ne/leetcode-company-problem-frequency` GitHub repository
+is a secondary, publicly inspectable source for changes. GitHub data is never
+called "real-time": every collection displays its last successful sync time
+and remains an explicit snapshot if a source is unavailable.
+
+A scheduled daily workflow reads the source snapshots, validates IDs and
+titles, updates changed collection files, and commits only when the contents
+changed. It records a failed validation rather than replacing a known-good
+snapshot with incomplete data. The public app uses only the committed data and
+does not fetch LeetCode or GitHub at page load.
+
+Existing catalog entries merge by problem ID. For each company-list problem
+already in AlgoTrace, preserve its visualizer status and local metadata.
+Company-only problems appear as catalog placeholders with `hasVisualizer: false`,
+so users can track work immediately and later attach dry-run visualizations in
+their own problem folders.
 
 ## Architecture
 
-- `catalog/googleThreeMonths.ts`: the source snapshot and collection metadata.
+- `catalog/companyCollections/`: the three source snapshots, metadata, and
+  collection merge helpers.
 - `auth/`: Supabase client, auth provider, and typed progress repository.
 - `shared/components/ProblemDirectory.tsx`: row checkbox, account control,
   collection progress, and completion filter.
-- `catalog/problems.ts`: merge Google items with the current catalog without
+- `catalog/problems.ts`: merge company items with the current catalog without
   duplicate IDs.
+- `.github/workflows/refresh-company-collections.yml`: scheduled source refresh
+  and validation workflow.
 - `supabase/migrations/`: SQL schema, indexes, and RLS policies committed with
   the application.
 
@@ -108,15 +124,17 @@ state; it must never fabricate credentials.
 
 ## Testing and Verification
 
-- Catalog tests verify exactly 495 unique Google collection entries, merge
-  behavior for existing IDs, and a stable collection count.
+- Catalog tests verify each company collection's unique entries, stable
+  frequency order, merge behavior for existing IDs, and a recorded snapshot
+  timestamp.
 - Progress repository tests cover signed-in loading, insert, delete, duplicate
   toggles, and mutation rollback.
 - Directory tests cover the leading completion control, anonymous sign-in
   prompt, completion filter, and no navigation when the control is clicked.
 - Run the full web test suite and production build.
-- Browser-check Google filtering, sign-in entry point, completed/uncompleted
-  filtering, and responsive row layout.
+- Browser-check Google, Amazon, and TikTok filters, sign-in entry point,
+  completed/uncompleted filtering, collection counts, and responsive row
+  layout.
 - After configuration, authenticate with Google, mark a test problem complete,
   then verify it from a second browser session. Confirm the user explicitly
   before the OAuth provider or cloud project configuration is saved.
