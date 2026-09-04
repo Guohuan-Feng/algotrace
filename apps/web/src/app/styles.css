@@ -527,19 +527,28 @@ input {
 
 .leetcode-link {
   align-items: center;
+  background: #f2f7f2;
+  border: 1px solid #bdd5c3;
+  border-radius: 6px;
   color: #245a36;
   display: inline-flex;
-  font-size: 12px;
-  font-weight: 850;
-  gap: 4px;
-  justify-self: end;
-  margin: 0 6px 4px;
+  flex: 0 0 30px;
+  height: 30px;
+  justify-content: center;
   text-decoration: none;
+  width: 30px;
 }
 
 .leetcode-link:hover {
+  background: #dff5e3;
+  border-color: #2f9b57;
   color: #0f6d96;
-  text-decoration: underline;
+}
+
+.leetcode-link:focus-visible,
+.problem-visualizer-link:focus-visible {
+  outline: 3px solid #75b989;
+  outline-offset: 2px;
 }
 
 .problem-main {
@@ -547,6 +556,24 @@ input {
   display: flex;
   gap: 12px;
   min-width: 0;
+}
+
+.problem-title-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.problem-visualizer-link {
+  color: inherit;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.problem-visualizer-link:hover h2 {
+  color: #1d7040;
+  text-decoration: underline;
 }
 
 .problem-main h2 {

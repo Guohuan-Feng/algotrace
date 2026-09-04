@@ -56,6 +56,51 @@ describe("ProblemDirectory", () => {
     expect(screen.getByRole("button", { name: "Mark #1 incomplete" }).getAttribute("aria-pressed")).toBe("true");
   });
 
+  it("renders a LeetCode link beside every source-backed problem title", async () => {
+    renderDirectory();
+
+    const problem = googleTestProblems[0];
+    const link = await screen.findByRole("link", { name: `Open #${problem.id} on LeetCode` });
+
+    expect(link.getAttribute("href")).toBe(problem.sourceUrl);
+    expect(link.getAttribute("target")).toBe("_blank");
+  });
+
+  it("derives the LeetCode link for a catalog problem without a stored source URL", async () => {
+    const problem: Problem = {
+      id: 51,
+      title: "N-Queens",
+      slug: "n-queens",
+      difficulty: "Hard",
+      tags: ["Backtracking"],
+      pattern: "Constraint backtracking",
+      hasVisualizer: false,
+      summary: "Place queens row by row.",
+    };
+    const auth: ProgressAuth = {
+      configured: true,
+      getUser: vi.fn(async () => ({ id: "user-1", email: "learner@example.com" })),
+      onUserChange: vi.fn(() => () => undefined),
+      signInWithGoogle: vi.fn(async () => undefined),
+      signOut: vi.fn(async () => undefined),
+    };
+    const repository: ProgressRepository = {
+      load: vi.fn(async () => new Set<number>()),
+      mark: vi.fn(async () => undefined),
+      unmark: vi.fn(async () => undefined),
+    };
+
+    render(
+      <ProgressProvider auth={auth} repository={repository}>
+        <ProblemDirectory problems={[problem]} />
+      </ProgressProvider>,
+    );
+
+    expect((await screen.findByRole("link", { name: "Open #51 on LeetCode" })).getAttribute("href")).toBe(
+      "https://leetcode.com/problems/n-queens/",
+    );
+  });
+
   it("filters completed rows and puts a selected company in frequency order", async () => {
     const user = userEvent.setup();
     renderDirectory(new Set([1]));
@@ -82,7 +127,7 @@ describe("ProblemDirectory", () => {
     expect(screen.queryByLabelText("List")).toBeNull();
     expect(idsInRows().slice(0, 3)).toEqual(amazon.problems.slice(0, 3).map((problem) => problem.id));
     expect(
-      screen.getByRole("link", { name: `View #${amazon.problems[0].id} on LeetCode` }).getAttribute("href"),
+      screen.getByRole("link", { name: `Open #${amazon.problems[0].id} on LeetCode` }).getAttribute("href"),
     ).toBe(amazon.problems[0].sourceUrl);
 
     expect(screen.getByLabelText("Amazon · 3 months solved progress").textContent).toContain(

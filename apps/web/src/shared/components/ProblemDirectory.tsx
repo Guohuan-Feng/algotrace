@@ -238,12 +238,26 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
                       {completed ? <Check size={16} /> : <Circle size={16} />}
                     </button>
                     <div className="problem-link-wrap">
-                      <a className="problem-link" href={`#/problems/${problem.slug}`}>
+                      <div className="problem-link">
                         <div className="problem-main">
                           <span className="problem-id">#{problem.id}</span>
                           <div>
-                            <h2>{problem.title}</h2>
-                            {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
+                            <div className="problem-title-row">
+                              <a className="problem-visualizer-link" href={`#/problems/${problem.slug}`}>
+                                <h2>{problem.title}</h2>
+                                {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
+                              </a>
+                              <a
+                                className="leetcode-link"
+                                aria-label={`Open #${problem.id} on LeetCode`}
+                                href={getLeetCodeUrl(problem)}
+                                target="_blank"
+                                rel="noreferrer"
+                                title="Open on LeetCode"
+                              >
+                                <ExternalLink size={15} />
+                              </a>
+                            </div>
                             <p>{problem.summary}</p>
                           </div>
                         </div>
@@ -263,18 +277,7 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
                             <span key={problemTag}>{problemTag}</span>
                           ))}
                         </div>
-                      </a>
-                      {fixedCompany && problem.sourceUrl ? (
-                        <a
-                          className="leetcode-link"
-                          aria-label={`View #${problem.id} on LeetCode`}
-                          href={problem.sourceUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          LeetCode <ExternalLink size={13} />
-                        </a>
-                      ) : null}
+                      </div>
                     </div>
                   </article>
                 );
@@ -293,6 +296,10 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
       </section>
     </main>
   );
+}
+
+function getLeetCodeUrl(problem: Problem): string {
+  return problem.sourceUrl ?? `https://leetcode.com/problems/${problem.slug}/`;
 }
 
 function CompanyCollectionTabs({ activeCompany }: { activeCompany?: CompanyName }) {
