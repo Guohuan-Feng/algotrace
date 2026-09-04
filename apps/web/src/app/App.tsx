@@ -4,6 +4,8 @@ import { getVisualizerBySlug } from "../problems";
 import { ProblemDirectory } from "../shared/components/ProblemDirectory";
 import { ProblemPlaceholder } from "../shared/components/ProblemPlaceholder";
 import { getProblemSlugFromHash, navigateToCatalog } from "../shared/lib/hashRouting";
+import { ProgressProvider } from "../auth/ProgressProvider";
+import type { Problem } from "../catalog/types";
 
 export default function App() {
   const [activeSlug, setActiveSlug] = useState(getProblemSlugFromHash);
@@ -17,10 +19,14 @@ export default function App() {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
-  if (!activeProblem) {
-    return <ProblemDirectory />;
-  }
+  const page = !activeProblem
+    ? <ProblemDirectory />
+    : renderProblem(activeProblem);
 
+  return <ProgressProvider>{page}</ProgressProvider>;
+}
+
+function renderProblem(activeProblem: Problem) {
   const Visualizer = getVisualizerBySlug(activeProblem.slug);
 
   if (Visualizer) {
