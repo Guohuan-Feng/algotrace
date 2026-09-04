@@ -4,7 +4,13 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { ProgressProvider } from "../../auth/ProgressProvider";
 import type { ProgressAuth, ProgressRepository } from "../../auth/types";
 import { getCompanyCollection } from "../../catalog/companyCollections";
+import { problemCatalog } from "../../catalog/problems";
+import type { Problem } from "../../catalog/types";
 import { ProblemDirectory } from "./ProblemDirectory";
+
+const googleTestProblems = getCompanyCollection("Google").problems
+  .slice(0, 3)
+  .map((companyProblem) => problemCatalog.find((problem) => problem.id === companyProblem.id) as Problem);
 
 function renderDirectory(completedIds = new Set<number>()) {
   const auth: ProgressAuth = {
@@ -22,7 +28,7 @@ function renderDirectory(completedIds = new Set<number>()) {
 
   render(
     <ProgressProvider auth={auth} repository={repository}>
-      <ProblemDirectory />
+      <ProblemDirectory problems={googleTestProblems} />
     </ProgressProvider>,
   );
 
@@ -64,6 +70,6 @@ describe("ProblemDirectory", () => {
 
     const google = getCompanyCollection("Google");
     expect(idsInRows().slice(0, 3)).toEqual(google.problems.slice(0, 3).map((problem) => problem.id));
-    expect(screen.getByLabelText("Google · 3 months progress").textContent).toContain(`1 / ${google.problems.length}`);
+    expect(screen.getByLabelText("Google · 3 months progress").textContent).toContain(`1 / ${googleTestProblems.length}`);
   });
 });

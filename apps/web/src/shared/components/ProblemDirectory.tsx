@@ -2,12 +2,13 @@ import { useMemo, useState } from "react";
 import { BookOpen, Check, CheckCircle2, Circle, Filter, LogIn, LogOut, Search } from "lucide-react";
 import { useProgress } from "../../auth/ProgressProvider";
 import { companyCollections } from "../../catalog/companyCollections";
-import { allCollections, allTags, problemCatalog, rankCompanyProblems, sortedProblems } from "../../catalog/problems";
+import { problemCatalog, rankCompanyProblems } from "../../catalog/problems";
+import type { Problem } from "../../catalog/types";
 
 type CompletionFilter = "All" | "Completed" | "Not completed";
 type AnimationFilter = "All" | "Ready" | "Missing";
 
-export function ProblemDirectory() {
+export function ProblemDirectory({ problems = problemCatalog }: { problems?: readonly Problem[] }) {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("All");
   const [difficulty, setDifficulty] = useState("All");
@@ -16,6 +17,15 @@ export function ProblemDirectory() {
   const [collection, setCollection] = useState("All");
   const { authState, completedIds, error, signIn, signOut, toggleCompletion, user } = useProgress();
 
+  const sortedProblems = useMemo(() => [...problems].sort((left, right) => left.id - right.id), [problems]);
+  const allTags = useMemo(
+    () => Array.from(new Set(problems.flatMap((problem) => problem.tags))).sort(),
+    [problems],
+  );
+  const allCollections = useMemo(
+    () => Array.from(new Set(problems.flatMap((problem) => problem.collections ?? []))).sort(),
+    [problems],
+  );
   const selectedCompany = companyCollections.find((item) => item.label === collection);
   const visibleProblems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -46,9 +56,9 @@ export function ProblemDirectory() {
     return rankCompanyProblems(collection, filtered);
   }, [collection, completedIds, completion, difficulty, query, status, tag]);
 
-  const readyCount = problemCatalog.filter((problem) => problem.hasVisualizer).length;
+  const readyCount = problems.filter((problem) => problem.hasVisualizer).length;
   const selectedCompanyProblems = selectedCompany
-    ? problemCatalog.filter((problem) => problem.collections?.includes(selectedCompany.label))
+    ? problems.filter((problem) => problem.collections?.includes(selectedCompany.label))
     : [];
   const selectedCompanyCompleted = selectedCompanyProblems.filter((problem) => completedIds.has(problem.id)).length;
   const completionDisabled = authState === "loading" || authState === "unconfigured";
@@ -67,7 +77,7 @@ export function ProblemDirectory() {
         <div className="catalog-actions">
           <AccountControl authState={authState} userName={user?.name ?? user?.email} onSignIn={signIn} onSignOut={signOut} />
           <div className="catalog-stats" aria-label="Catalog progress">
-            <span>{problemCatalog.length} indexed</span>
+            <span>{problems.length} indexed</span>
             <strong>{readyCount} ready</strong>
           </div>
         </div>
