@@ -11,7 +11,9 @@ apps/
   web/                         # Vite + React 前端和唯一的可部署应用
     src/
       app/                     # 应用入口、路由壳、全局样式
-      catalog/                 # Hot 150 与仅题库占位的元数据
+      catalog/                 # Hot 150、路线图和公司题单快照的元数据
+        companyCollections/    # Google/Amazon/TikTok 的版本化三个月快照
+      auth/                    # Supabase 会话和跨设备完成进度
       shared/                  # 跨题复用的 UI、类型和算法工具
       problems/                # 每个已完成动画一题一个文件夹
         0207-course-schedule/
@@ -79,6 +81,36 @@ export const definition = {
 ```
 
 没有动画的题目只需放到 `apps/web/src/catalog/hot150.ts` 或 `apps/web/src/catalog/roadmap.ts`。完成动画后，创建问题文件夹即可自动覆盖同题号的占位条目。
+
+## 公司题单与完成进度
+
+题库额外包含 `Google · 3 months`、`Amazon · 3 months`、`TikTok · 3 months` 三个公司题单。左侧圆形按钮用于标记完成；登录后，这个状态会保存在账号中并在其他设备同步。没有动画的公司题会先作为“待补动画”占位题出现，因此可以先跟踪学习进度。
+
+三个题单是仓库内的版本化快照，不是运行时抓取，也不应被理解为实时数据。生成器从公开的
+[`dr-o-ne/leetcode-company-problem-frequency`](https://github.com/dr-o-ne/leetcode-company-problem-frequency)
+Markdown 数据读取 `0 - 3 months` 条目，并在生成阶段利用 LeetCode 公开题目索引映射题号。
+页面会展示每份快照的源文件更新时间；日常更新由 GitHub Actions 校验后才会提交。
+
+手动刷新快照：
+
+```bash
+pnpm --dir apps/web refresh:company-collections
+pnpm --dir apps/web test src/catalog/companyCollections/index.test.ts
+```
+
+### 首次开启 Google 登录和跨设备同步
+
+代码已支持未配置状态：没有变量时题库照常可浏览，但登录和完成按钮会禁用，避免把本地状态误显示为已同步。以下配置需要在你确认后于 Supabase 和 Vercel 仪表盘保存；仓库中不包含密钥。
+
+1. 创建 Supabase 项目，在 SQL Editor 中执行
+   `supabase/migrations/20260904000000_problem_progress.sql`。
+2. 在 Supabase Authentication 的 Google provider 填入你自己的 Google OAuth client ID/secret，并在 redirect allowlist 添加：
+   `http://127.0.0.1:5173` 和 `https://algotrace-dryrun.vercel.app`。
+3. 在 Vercel 项目的 Production、Preview 和 Development 环境写入公开变量：
+   `VITE_SUPABASE_URL` 与 `VITE_SUPABASE_ANON_KEY`，然后重新部署。
+4. 在两台浏览器中用同一个 Google 账号登录，勾选一题，再刷新另一台浏览器确认进度出现。
+
+只能放 publishable anon key；不要把 Supabase service-role key、Google OAuth secret 或个人邮箱写入 Vercel 前端变量或 Git。
 
 ## 部署
 
