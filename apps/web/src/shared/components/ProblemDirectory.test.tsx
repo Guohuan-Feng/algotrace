@@ -118,6 +118,18 @@ describe("ProblemDirectory", () => {
     expect(screen.getByLabelText("Google · 3 months progress").textContent).toContain(`1 / ${googleTestProblems.length}`);
   });
 
+  it("renders large company collections in pages", async () => {
+    const user = userEvent.setup();
+    renderDirectory(new Set(), "Amazon");
+
+    const amazon = getCompanyCollection("Amazon");
+    await screen.findByRole("heading", { name: "Amazon · 3 months" });
+
+    expect(idsInRows()).toHaveLength(80);
+    await user.click(screen.getByRole("button", { name: `Show ${amazon.problems.length - 80} more problems` }));
+    expect(idsInRows()).toHaveLength(160);
+  }, 15_000);
+
   it("renders a dedicated company page with its frequency ranking and LeetCode links", async () => {
     renderDirectory(new Set(), "Amazon");
 

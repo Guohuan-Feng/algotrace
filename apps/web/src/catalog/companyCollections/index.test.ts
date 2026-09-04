@@ -22,6 +22,25 @@ describe("company collections", () => {
     },
   );
 
+  it("uses the complete official LeetCode three-month snapshots", () => {
+    const expectedCounts = {
+      Google: 495,
+      Amazon: 472,
+      TikTok: 19,
+    } as const;
+
+    for (const [name, expectedCount] of Object.entries(expectedCounts) as Array<
+      [keyof typeof expectedCounts, number]
+    >) {
+      const collection = getCompanyCollection(name);
+
+      expect(collection.sourceUrl).toBe(
+        `https://leetcode.com/company/${name.toLowerCase()}/?favoriteSlug=${name.toLowerCase()}-three-months`,
+      );
+      expect(collection.problems).toHaveLength(expectedCount);
+    }
+  });
+
   it("exports all three company snapshots", () => {
     expect(companyCollections).toHaveLength(3);
   });

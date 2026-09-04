@@ -1,9 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   BarChart3,
   BookOpen,
   Check,
   CheckCircle2,
+  ChevronDown,
   Circle,
   ExternalLink,
   Filter,
@@ -24,6 +25,9 @@ type ProblemDirectoryProps = {
   companyName?: CompanyName;
 };
 
+const INITIAL_RENDER_LIMIT = 80;
+const RENDER_INCREMENT = 80;
+
 export function ProblemDirectory({ problems = problemCatalog, companyName }: ProblemDirectoryProps) {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("All");
@@ -31,6 +35,7 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
   const [status, setStatus] = useState<AnimationFilter>("All");
   const [completion, setCompletion] = useState<CompletionFilter>("All");
   const [collection, setCollection] = useState("All");
+  const [renderLimit, setRenderLimit] = useState(INITIAL_RENDER_LIMIT);
   const { authState, completedIds, error, signIn, signOut, toggleCompletion, user } = useProgress();
 
   const sortedProblems = useMemo(() => [...problems].sort((left, right) => left.id - right.id), [problems]);
@@ -45,6 +50,11 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
   const fixedCompany = companyName ? getCompanyCollection(companyName) : undefined;
   const activeCollection = fixedCompany?.label ?? collection;
   const selectedCompany = fixedCompany ?? companyCollections.find((item) => item.label === collection);
+
+  useEffect(() => {
+    setRenderLimit(INITIAL_RENDER_LIMIT);
+  }, [activeCollection, completion, difficulty, query, status, tag]);
+
   const visibleProblems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     const filtered = sortedProblems.filter((problem) => {
@@ -73,6 +83,8 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
 
     return rankCompanyProblems(activeCollection, filtered);
   }, [activeCollection, completedIds, completion, difficulty, query, status, tag]);
+  const renderedProblems = visibleProblems.slice(0, renderLimit);
+  const remainingProblemCount = visibleProblems.length - renderedProblems.length;
 
   const readyCount = problems.filter((problem) => problem.hasVisualizer).length;
   const selectedCompanyProblems = selectedCompany
@@ -216,7 +228,7 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
               ) : null}
             </div>
             <div className="problem-list">
-              {visibleProblems.map((problem) => {
+              {renderedProblems.map((problem) => {
                 const completed = completedIds.has(problem.id);
                 const completionLabel = `Mark #${problem.id} ${completed ? "incomplete" : "complete"}`;
                 const frequency = selectedCompany ? problem.companyRanks?.[selectedCompany.name] : undefined;
@@ -283,6 +295,16 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
                 );
               })}
             </div>
+            {remainingProblemCount > 0 ? (
+              <button
+                className="load-more-problems"
+                aria-label={`Show ${remainingProblemCount} more problems`}
+                onClick={() => setRenderLimit((limit) => limit + RENDER_INCREMENT)}
+              >
+                <ChevronDown size={16} />
+                Show {Math.min(RENDER_INCREMENT, remainingProblemCount)} more
+              </button>
+            ) : null}
           </section>
 
           {!visibleProblems.length ? (

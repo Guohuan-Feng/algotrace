@@ -86,10 +86,10 @@ export const definition = {
 
 题库额外包含 `Google · 3 months`、`Amazon · 3 months`、`TikTok · 3 months` 三个公司题单。左侧圆形按钮用于标记完成；登录后，这个状态会保存在账号中并在其他设备同步。没有动画的公司题会先作为“待补动画”占位题出现，因此可以先跟踪学习进度。
 
-三个题单是仓库内的版本化快照，不是运行时抓取，也不应被理解为实时数据。生成器从公开的
-[`dr-o-ne/leetcode-company-problem-frequency`](https://github.com/dr-o-ne/leetcode-company-problem-frequency)
-Markdown 数据读取 `0 - 3 months` 条目，并在生成阶段利用 LeetCode 公开题目索引映射题号。
-页面会展示每份快照的源文件更新时间；日常更新由 GitHub Actions 校验后才会提交。
+三个题单是仓库内的版本化快照，不是运行时抓取，也不应被理解为实时数据。快照从登录状态下的
+LeetCode 官方 `favoriteQuestionList` 数据导出，保存在
+`apps/web/scripts/data/official-company-collections.json`，并按官方 `frequency` 从高到低生成。
+每个题单页面都链接回对应的 LeetCode `3 months` 公司题单，也显示这份快照的抓取时间。
 
 手动刷新快照：
 
@@ -97,6 +97,8 @@ Markdown 数据读取 `0 - 3 months` 条目，并在生成阶段利用 LeetCode 
 pnpm --dir apps/web refresh:company-collections
 pnpm --dir apps/web test src/catalog/companyCollections/index.test.ts
 ```
+
+更新时，先从 LeetCode 官方 Google、Amazon、TikTok 的 `3 months` 页面导出完整数据，替换上述 JSON 文件，再运行刷新命令。生成器会拒绝缺题、重复题号、无效难度或不是官方三个月页面的数据。
 
 ### 首次开启 Google 登录和跨设备同步
 

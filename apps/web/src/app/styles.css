@@ -445,6 +445,34 @@ input {
   gap: 8px;
 }
 
+.load-more-problems {
+  align-items: center;
+  background: #f2f8f1;
+  border: 1px solid #b8d2be;
+  border-radius: 6px;
+  color: #245a36;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  gap: 6px;
+  justify-content: center;
+  margin: 14px auto 0;
+  min-height: 38px;
+  padding: 8px 14px;
+}
+
+.load-more-problems:hover {
+  background: #e4f2e6;
+  border-color: #6fa87d;
+}
+
+.load-more-problems:focus-visible {
+  outline: 3px solid #75b989;
+  outline-offset: 2px;
+}
+
 .problem-row {
   background: #fffdfa;
   border: 1px solid #ded8ce;

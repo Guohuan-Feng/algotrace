@@ -5,102 +5,102 @@ import { fileURLToPath } from "node:url";
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = resolve(scriptDirectory, "..");
 const outputPath = resolve(appDirectory, "src/catalog/companyCollections/snapshots.generated.ts");
-const sourceRepository = "https://github.com/dr-o-ne/leetcode-company-problem-frequency";
+const defaultInputPath = resolve(scriptDirectory, "data/official-company-collections.json");
 
 const companies = [
-  { name: "Google", file: "google.md" },
-  { name: "Amazon", file: "amazon.md" },
-  { name: "TikTok", file: "tiktok.md" },
+  { name: "Google", favoriteSlug: "google-three-months" },
+  { name: "Amazon", favoriteSlug: "amazon-three-months" },
+  { name: "TikTok", favoriteSlug: "tiktok-three-months" },
 ];
 
-const difficultyNames = new Set(["Easy", "Medium", "Hard"]);
+const difficultyByApiValue = {
+  EASY: "Easy",
+  MEDIUM: "Medium",
+  HARD: "Hard",
+};
 
-async function fetchText(url) {
-  const response = await fetch(url, {
-    headers: { "User-Agent": "AlgoTrace-company-snapshot-refresh" },
-  });
+function inputPathFromArgs(args) {
+  const inputFlag = args.indexOf("--input");
 
-  if (!response.ok) {
-    throw new Error(`Request failed (${response.status}): ${url}`);
+  if (inputFlag === -1) {
+    return defaultInputPath;
   }
 
-  return response.text();
+  const path = args[inputFlag + 1];
+  if (!path) {
+    throw new Error("--input requires a JSON file path");
+  }
+
+  return resolve(path);
 }
 
-function parseRows(markdown, company, questionBySlug) {
-  const rows = markdown
-    .split("\n")
-    .filter((line) => line.startsWith("|"))
-    .slice(2)
-    .map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()));
-  const problems = [];
+function sourceUrlFor(company) {
+  return `https://leetcode.com/company/${company.name.toLowerCase()}/?favoriteSlug=${company.favoriteSlug}`;
+}
+
+function normalizeQuestions(company, questions) {
   const ids = new Set();
 
-  for (const [rowCompany, title, difficulty, times, period, sourceUrl] of rows) {
-    if (rowCompany !== company || period !== "0 - 3 months") {
-      continue;
+  const problems = questions.map((question) => {
+    const id = Number(question.questionFrontendId);
+    const difficulty = difficultyByApiValue[question.difficulty];
+    const frequency = Number(question.frequency);
+
+    if (!Number.isInteger(id) || id <= 0 || !question.title || !question.titleSlug || !difficulty) {
+      throw new Error(`${company.name}: received an invalid question from LeetCode`);
     }
 
-    if (!difficultyNames.has(difficulty)) {
-      throw new Error(`${company}: invalid difficulty for ${title}: ${difficulty}`);
-    }
-
-    const slug = new URL(sourceUrl).pathname.split("/").filter(Boolean).at(-1);
-    const id = slug && questionBySlug.get(slug);
-    const frequency = Number.parseInt(times, 10);
-
-    if (!id || !Number.isInteger(frequency) || frequency < 0) {
-      throw new Error(`${company}: could not validate ${title}`);
+    if (!Number.isFinite(frequency) || frequency < 0) {
+      throw new Error(`${company.name}: received an invalid frequency for ${question.title}`);
     }
 
     if (ids.has(id)) {
-      throw new Error(`${company}: duplicate problem id ${id}`);
+      throw new Error(`${company.name}: duplicate frontend question id ${id}`);
     }
 
     ids.add(id);
-    problems.push({ id, title, difficulty, frequency, sourceUrl });
-  }
-
-  if (!problems.length) {
-    throw new Error(`${company}: no 0 - 3 months problems found`);
-  }
+    return {
+      id,
+      title: question.title,
+      difficulty,
+      frequency,
+      sourceUrl: `https://leetcode.com/problems/${question.titleSlug}`,
+    };
+  });
 
   return problems.sort((left, right) => right.frequency - left.frequency || left.id - right.id);
 }
 
-async function fetchQuestionIds() {
-  const payload = JSON.parse(await fetchText("https://leetcode.com/api/problems/all/"));
-  const questionBySlug = new Map();
+function parseOfficialExport(rawExport) {
+  if (rawExport?.format !== "algotrace-official-company-collections/v1") {
+    throw new Error("Expected an AlgoTrace official company collection export");
+  }
 
-  for (const entry of payload.stat_status_pairs ?? []) {
-    const slug = entry.stat?.question__title_slug;
-    const id = Number(entry.stat?.frontend_question_id);
+  if (!rawExport.fetchedAt || Number.isNaN(Date.parse(rawExport.fetchedAt))) {
+    throw new Error("Official company export is missing a valid fetchedAt timestamp");
+  }
 
-    if (slug && Number.isInteger(id) && id > 0) {
-      questionBySlug.set(slug, id);
+  const exportsByName = new Map(rawExport.collections?.map((collection) => [collection.name, collection]));
+
+  return companies.map((company) => {
+    const collection = exportsByName.get(company.name);
+
+    if (!collection || collection.favoriteSlug !== company.favoriteSlug || collection.sourceUrl !== sourceUrlFor(company)) {
+      throw new Error(`${company.name}: official three-month export was missing or did not match its source`);
     }
-  }
 
-  if (!questionBySlug.size) {
-    throw new Error("LeetCode question index was empty");
-  }
+    if (!Array.isArray(collection.questions) || collection.questions.length !== collection.totalLength) {
+      throw new Error(`${company.name}: export must contain every question in the official list`);
+    }
 
-  return questionBySlug;
-}
-
-async function fetchSnapshotAt(file) {
-  const commits = JSON.parse(
-    await fetchText(
-      `https://api.github.com/repos/dr-o-ne/leetcode-company-problem-frequency/commits?path=companies/${file}&per_page=1`,
-    ),
-  );
-  const snapshotAt = commits[0]?.commit?.committer?.date;
-
-  if (!snapshotAt || Number.isNaN(Date.parse(snapshotAt))) {
-    throw new Error(`Could not determine source timestamp for ${file}`);
-  }
-
-  return new Date(snapshotAt).toISOString();
+    return {
+      name: company.name,
+      label: `${company.name} · 3 months`,
+      snapshotAt: new Date(rawExport.fetchedAt).toISOString(),
+      sourceUrl: sourceUrlFor(company),
+      problems: normalizeQuestions(company, collection.questions),
+    };
+  });
 }
 
 function formatSource(collections) {
@@ -110,28 +110,17 @@ function formatSource(collections) {
 }
 
 async function main() {
-  const questionBySlug = await fetchQuestionIds();
-  const collections = await Promise.all(
-    companies.map(async ({ name, file }) => {
-      const rawUrl = `https://raw.githubusercontent.com/dr-o-ne/leetcode-company-problem-frequency/main/companies/${file}`;
-      const [markdown, snapshotAt] = await Promise.all([fetchText(rawUrl), fetchSnapshotAt(file)]);
-
-      return {
-        name,
-        label: `${name} · 3 months`,
-        snapshotAt,
-        sourceUrl: `${sourceRepository}/blob/main/companies/${file}`,
-        problems: parseRows(markdown, name, questionBySlug),
-      };
-    }),
-  );
+  const inputPath = inputPathFromArgs(process.argv.slice(2));
+  const rawExport = JSON.parse(await readFile(inputPath, "utf8"));
+  const collections = parseOfficialExport(rawExport);
   const nextSource = formatSource(collections);
+
   await mkdir(dirname(outputPath), { recursive: true });
 
   const previousSource = await readFile(outputPath, "utf8").catch(() => "");
   if (previousSource !== nextSource) {
     await writeFile(outputPath, nextSource, "utf8");
-    console.log(`Updated ${outputPath}`);
+    console.log(`Updated ${outputPath} from ${inputPath}`);
   } else {
     console.log("Company collection snapshots are already current.");
   }
