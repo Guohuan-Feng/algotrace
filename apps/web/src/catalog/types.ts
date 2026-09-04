@@ -12,6 +12,7 @@ export type Problem = {
   pattern: string;
   collections?: string[];
   companyRanks?: Partial<Record<CompanyName, number>>;
+  sourceUrl?: string;
   hasVisualizer: boolean;
   summary: string;
 };

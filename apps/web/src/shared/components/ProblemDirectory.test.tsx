@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ProgressProvider } from "../../auth/ProgressProvider";
 import type { ProgressAuth, ProgressRepository } from "../../auth/types";
-import { getCompanyCollection } from "../../catalog/companyCollections";
+import { getCompanyCollection, type CompanyName } from "../../catalog/companyCollections";
 import { problemCatalog } from "../../catalog/problems";
 import type { Problem } from "../../catalog/types";
 import { ProblemDirectory } from "./ProblemDirectory";
@@ -12,7 +12,7 @@ const googleTestProblems = getCompanyCollection("Google").problems
   .slice(0, 3)
   .map((companyProblem) => problemCatalog.find((problem) => problem.id === companyProblem.id) as Problem);
 
-function renderDirectory(completedIds = new Set<number>()) {
+function renderDirectory(completedIds = new Set<number>(), companyName?: CompanyName) {
   const auth: ProgressAuth = {
     configured: true,
     getUser: vi.fn(async () => ({ id: "user-1", email: "learner@example.com", name: "Learner" })),
@@ -28,7 +28,7 @@ function renderDirectory(completedIds = new Set<number>()) {
 
   render(
     <ProgressProvider auth={auth} repository={repository}>
-      <ProblemDirectory problems={googleTestProblems} />
+      <ProblemDirectory problems={companyName ? problemCatalog : googleTestProblems} companyName={companyName} />
     </ProgressProvider>,
   );
 
@@ -71,5 +71,31 @@ describe("ProblemDirectory", () => {
     const google = getCompanyCollection("Google");
     expect(idsInRows().slice(0, 3)).toEqual(google.problems.slice(0, 3).map((problem) => problem.id));
     expect(screen.getByLabelText("Google · 3 months progress").textContent).toContain(`1 / ${googleTestProblems.length}`);
+  });
+
+  it("renders a dedicated company page with its frequency ranking and LeetCode links", async () => {
+    renderDirectory(new Set(), "Amazon");
+
+    const amazon = getCompanyCollection("Amazon");
+    await screen.findByRole("heading", { name: "Amazon · 3 months" });
+
+    expect(screen.queryByLabelText("List")).toBeNull();
+    expect(idsInRows().slice(0, 3)).toEqual(amazon.problems.slice(0, 3).map((problem) => problem.id));
+    expect(
+      screen.getByRole("link", { name: `View #${amazon.problems[0].id} on LeetCode` }).getAttribute("href"),
+    ).toBe(amazon.problems[0].sourceUrl);
+
+    expect(screen.getByLabelText("Amazon · 3 months solved progress").textContent).toContain(
+      `0 / ${amazon.problems.length} solved`,
+    );
+    expect(screen.getByLabelText("Easy progress").textContent).toContain(
+      `0 / ${amazon.problems.filter((problem) => problem.difficulty === "Easy").length}`,
+    );
+    expect(screen.getByLabelText("Medium progress").textContent).toContain(
+      `0 / ${amazon.problems.filter((problem) => problem.difficulty === "Medium").length}`,
+    );
+    expect(screen.getByLabelText("Hard progress").textContent).toContain(
+      `0 / ${amazon.problems.filter((problem) => problem.difficulty === "Hard").length}`,
+    );
   });
 });

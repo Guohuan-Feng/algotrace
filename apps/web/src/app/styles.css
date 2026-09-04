@@ -125,6 +125,31 @@ input {
   max-width: 680px;
 }
 
+.company-collection-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.company-collection-tabs a {
+  background: #f0ebe2;
+  border: 1px solid #e0d8cb;
+  border-radius: 6px;
+  color: #46524b;
+  font-size: 12px;
+  font-weight: 850;
+  padding: 7px 9px;
+  text-decoration: none;
+}
+
+.company-collection-tabs a:hover,
+.company-collection-tabs a.active {
+  background: #dff5e3;
+  border-color: #67ab79;
+  color: #155333;
+}
+
 .catalog-stats {
   align-items: flex-end;
   background: #17201b;
@@ -145,6 +170,111 @@ input {
 .catalog-stats strong {
   color: #fff;
   font-size: 22px;
+}
+
+.company-progress-card {
+  background: #fffdfa;
+  border: 1px solid #d9e0da;
+  border-radius: 8px;
+  color: #334139;
+  display: grid;
+  gap: 10px;
+  min-width: 286px;
+  padding: 14px;
+}
+
+.company-progress-card > p {
+  border-top: 1px solid #e5e9e4;
+  color: #526058;
+  font-size: 12px;
+  font-weight: 800;
+  margin: 0;
+  padding-top: 10px;
+}
+
+.company-progress-title {
+  align-items: center;
+  color: #245a36;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 900;
+  gap: 7px;
+}
+
+.company-progress-content {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.difficulty-progress-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.difficulty-progress-list div {
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.difficulty-progress-list dt,
+.difficulty-progress-list dd {
+  font-weight: 900;
+  margin: 0;
+}
+
+.difficulty-progress-list dt.easy {
+  color: #17834b;
+}
+
+.difficulty-progress-list dt.medium {
+  color: #b16c08;
+}
+
+.difficulty-progress-list dt.hard {
+  color: #bd3c30;
+}
+
+.difficulty-progress-list dd {
+  color: #59665f;
+}
+
+.company-progress-ring {
+  align-items: center;
+  border-radius: 50%;
+  display: grid;
+  height: 96px;
+  justify-items: center;
+  padding: 8px;
+  width: 96px;
+}
+
+.company-progress-ring > div {
+  align-content: center;
+  background: #fffdfa;
+  border-radius: 50%;
+  display: grid;
+  height: 100%;
+  justify-items: center;
+  line-height: 1;
+  width: 100%;
+}
+
+.company-progress-ring strong {
+  color: #1f2c24;
+  font-size: 28px;
+}
+
+.company-progress-ring span,
+.company-progress-ring small {
+  color: #66736d;
+  font-size: 10px;
+  font-weight: 800;
 }
 
 .catalog-toolbar {
@@ -390,6 +520,28 @@ input {
   text-decoration: none;
 }
 
+.problem-link-wrap {
+  display: grid;
+  min-width: 0;
+}
+
+.leetcode-link {
+  align-items: center;
+  color: #245a36;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 850;
+  gap: 4px;
+  justify-self: end;
+  margin: 0 6px 4px;
+  text-decoration: none;
+}
+
+.leetcode-link:hover {
+  color: #0f6d96;
+  text-decoration: underline;
+}
+
 .problem-main {
   align-items: flex-start;
   display: flex;
@@ -468,6 +620,16 @@ input {
 .status.missing {
   background: #ede8df;
   color: #6e6253;
+}
+
+.frequency-badge {
+  background: #e2edf9;
+  border-radius: 999px;
+  color: #175680;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 7px 9px;
+  white-space: nowrap;
 }
 
 .tag-list {

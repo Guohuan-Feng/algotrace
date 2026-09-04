@@ -1,14 +1,30 @@
 import { useMemo, useState } from "react";
-import { BookOpen, Check, CheckCircle2, Circle, Filter, LogIn, LogOut, Search } from "lucide-react";
+import {
+  BarChart3,
+  BookOpen,
+  Check,
+  CheckCircle2,
+  Circle,
+  ExternalLink,
+  Filter,
+  LogIn,
+  LogOut,
+  Search,
+} from "lucide-react";
 import { useProgress } from "../../auth/ProgressProvider";
-import { companyCollections } from "../../catalog/companyCollections";
+import { companyCollections, getCompanyCollection, type CompanyCollection, type CompanyName } from "../../catalog/companyCollections";
 import { problemCatalog, rankCompanyProblems } from "../../catalog/problems";
 import type { Problem } from "../../catalog/types";
 
 type CompletionFilter = "All" | "Completed" | "Not completed";
 type AnimationFilter = "All" | "Ready" | "Missing";
 
-export function ProblemDirectory({ problems = problemCatalog }: { problems?: readonly Problem[] }) {
+type ProblemDirectoryProps = {
+  problems?: readonly Problem[];
+  companyName?: CompanyName;
+};
+
+export function ProblemDirectory({ problems = problemCatalog, companyName }: ProblemDirectoryProps) {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("All");
   const [difficulty, setDifficulty] = useState("All");
@@ -26,7 +42,9 @@ export function ProblemDirectory({ problems = problemCatalog }: { problems?: rea
     () => Array.from(new Set(problems.flatMap((problem) => problem.collections ?? []))).sort(),
     [problems],
   );
-  const selectedCompany = companyCollections.find((item) => item.label === collection);
+  const fixedCompany = companyName ? getCompanyCollection(companyName) : undefined;
+  const activeCollection = fixedCompany?.label ?? collection;
+  const selectedCompany = fixedCompany ?? companyCollections.find((item) => item.label === collection);
   const visibleProblems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     const filtered = sortedProblems.filter((problem) => {
@@ -48,17 +66,17 @@ export function ProblemDirectory({ problems = problemCatalog }: { problems?: rea
         completion === "All" ||
         (completion === "Completed" && completedIds.has(problem.id)) ||
         (completion === "Not completed" && !completedIds.has(problem.id));
-      const matchesCollection = collection === "All" || Boolean(problem.collections?.includes(collection));
+      const matchesCollection = activeCollection === "All" || Boolean(problem.collections?.includes(activeCollection));
 
       return matchesSearch && matchesTag && matchesDifficulty && matchesStatus && matchesCompletion && matchesCollection;
     });
 
-    return rankCompanyProblems(collection, filtered);
-  }, [collection, completedIds, completion, difficulty, query, status, tag]);
+    return rankCompanyProblems(activeCollection, filtered);
+  }, [activeCollection, completedIds, completion, difficulty, query, status, tag]);
 
   const readyCount = problems.filter((problem) => problem.hasVisualizer).length;
   const selectedCompanyProblems = selectedCompany
-    ? problems.filter((problem) => problem.collections?.includes(selectedCompany.label))
+    ? rankCompanyProblems(selectedCompany.label, problems)
     : [];
   const selectedCompanyCompleted = selectedCompanyProblems.filter((problem) => completedIds.has(problem.id)).length;
   const completionDisabled = authState === "loading" || authState === "unconfigured";
@@ -67,19 +85,26 @@ export function ProblemDirectory({ problems = problemCatalog }: { problems?: rea
     <main className="catalog-shell">
       <header className="catalog-header">
         <div>
-          <p className="eyebrow">Algorithm visualizer library</p>
-          <h1>AlgoTrace</h1>
+          <p className="eyebrow">{fixedCompany ? `${fixedCompany.name} interview preparation` : "Algorithm visualizer library"}</p>
+          <h1>{fixedCompany?.label ?? "AlgoTrace"}</h1>
           <p className="catalog-subtitle">
-            A growing index for algorithm dry-run animations. Ready items open a full visual trace; missing items stay in the roadmap.
+            {fixedCompany
+              ? "LeetCode problems from the latest three-month company snapshot, ranked by reported interview frequency."
+              : "A growing index for algorithm dry-run animations. Ready items open a full visual trace; missing items stay in the roadmap."}
           </p>
+          <CompanyCollectionTabs activeCompany={fixedCompany?.name} />
           {error ? <p className="catalog-error" role="alert">{error}</p> : null}
         </div>
         <div className="catalog-actions">
           <AccountControl authState={authState} userName={user?.name ?? user?.email} onSignIn={signIn} onSignOut={signOut} />
-          <div className="catalog-stats" aria-label="Catalog progress">
-            <span>{problems.length} indexed</span>
-            <strong>{readyCount} ready</strong>
-          </div>
+          {fixedCompany ? (
+            <CompanyProgressCard collection={fixedCompany} problems={selectedCompanyProblems} completedIds={completedIds} />
+          ) : (
+            <div className="catalog-stats" aria-label="Catalog progress">
+              <span>{problems.length} indexed</span>
+              <strong>{readyCount} ready</strong>
+            </div>
+          )}
         </div>
       </header>
 
@@ -126,15 +151,17 @@ export function ProblemDirectory({ problems = problemCatalog }: { problems?: rea
             <option value="Not completed">Not completed</option>
           </select>
         </label>
-        <label>
-          List
-          <select aria-label="List" value={collection} onChange={(event) => setCollection(event.target.value)}>
-            <option value="All">All lists</option>
-            {allCollections.map((item) => (
-              <option key={item} value={item}>{item}</option>
-            ))}
-          </select>
-        </label>
+        {!fixedCompany ? (
+          <label>
+            List
+            <select aria-label="List" value={collection} onChange={(event) => setCollection(event.target.value)}>
+              <option value="All">All lists</option>
+              {allCollections.map((item) => (
+                <option key={item} value={item}>{item}</option>
+              ))}
+            </select>
+          </label>
+        ) : null}
       </section>
 
       <section className="catalog-content">
@@ -152,20 +179,24 @@ export function ProblemDirectory({ problems = problemCatalog }: { problems?: rea
               {item}
             </button>
           ))}
-          <div className="rail-divider" />
-          <h2>Lists</h2>
-          <button className={collection === "All" ? "topic-chip active" : "topic-chip"} onClick={() => setCollection("All")}>
-            All lists
-          </button>
-          {allCollections.map((item) => (
-            <button
-              className={collection === item ? "topic-chip active" : "topic-chip"}
-              key={item}
-              onClick={() => setCollection(item)}
-            >
-              {item}
-            </button>
-          ))}
+          {!fixedCompany ? (
+            <>
+              <div className="rail-divider" />
+              <h2>Lists</h2>
+              <button className={collection === "All" ? "topic-chip active" : "topic-chip"} onClick={() => setCollection("All")}>
+                All lists
+              </button>
+              {allCollections.map((item) => (
+                <button
+                  className={collection === item ? "topic-chip active" : "topic-chip"}
+                  key={item}
+                  onClick={() => setCollection(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </>
+          ) : null}
         </aside>
 
         <div className="problem-groups">
@@ -188,6 +219,7 @@ export function ProblemDirectory({ problems = problemCatalog }: { problems?: rea
               {visibleProblems.map((problem) => {
                 const completed = completedIds.has(problem.id);
                 const completionLabel = `Mark #${problem.id} ${completed ? "incomplete" : "complete"}`;
+                const frequency = selectedCompany ? problem.companyRanks?.[selectedCompany.name] : undefined;
 
                 return (
                   <article className="problem-row" data-problem-id={problem.id} key={problem.id}>
@@ -205,31 +237,45 @@ export function ProblemDirectory({ problems = problemCatalog }: { problems?: rea
                     >
                       {completed ? <Check size={16} /> : <Circle size={16} />}
                     </button>
-                    <a className="problem-link" href={`#/problems/${problem.slug}`}>
-                      <div className="problem-main">
-                        <span className="problem-id">#{problem.id}</span>
-                        <div>
-                          <h2>{problem.title}</h2>
-                          {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
-                          <p>{problem.summary}</p>
+                    <div className="problem-link-wrap">
+                      <a className="problem-link" href={`#/problems/${problem.slug}`}>
+                        <div className="problem-main">
+                          <span className="problem-id">#{problem.id}</span>
+                          <div>
+                            <h2>{problem.title}</h2>
+                            {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
+                            <p>{problem.summary}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="problem-meta">
-                        <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
-                        <span className={problem.hasVisualizer ? "status ready" : "status missing"}>
-                          {problem.hasVisualizer ? <CheckCircle2 size={14} /> : <Circle size={14} />}
-                          {problem.hasVisualizer ? "已有动画" : "待补动画"}
-                        </span>
-                      </div>
-                      <div className="tag-list">
-                        {problem.collections?.map((problemCollection) => (
-                          <span className="collection-tag" key={problemCollection}>{problemCollection}</span>
-                        ))}
-                        {problem.tags.map((problemTag) => (
-                          <span key={problemTag}>{problemTag}</span>
-                        ))}
-                      </div>
-                    </a>
+                        <div className="problem-meta">
+                          {frequency !== undefined ? <span className="frequency-badge">{frequency} mentions</span> : null}
+                          <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
+                          <span className={problem.hasVisualizer ? "status ready" : "status missing"}>
+                            {problem.hasVisualizer ? <CheckCircle2 size={14} /> : <Circle size={14} />}
+                            {problem.hasVisualizer ? "已有动画" : "待补动画"}
+                          </span>
+                        </div>
+                        <div className="tag-list">
+                          {problem.collections?.map((problemCollection) => (
+                            <span className="collection-tag" key={problemCollection}>{problemCollection}</span>
+                          ))}
+                          {problem.tags.map((problemTag) => (
+                            <span key={problemTag}>{problemTag}</span>
+                          ))}
+                        </div>
+                      </a>
+                      {fixedCompany && problem.sourceUrl ? (
+                        <a
+                          className="leetcode-link"
+                          aria-label={`View #${problem.id} on LeetCode`}
+                          href={problem.sourceUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          LeetCode <ExternalLink size={13} />
+                        </a>
+                      ) : null}
+                    </div>
                   </article>
                 );
               })}
@@ -246,6 +292,75 @@ export function ProblemDirectory({ problems = problemCatalog }: { problems?: rea
         </div>
       </section>
     </main>
+  );
+}
+
+function CompanyCollectionTabs({ activeCompany }: { activeCompany?: CompanyName }) {
+  return (
+    <nav className="company-collection-tabs" aria-label="Company collections">
+      <a className={activeCompany ? "" : "active"} href="#/">All problems</a>
+      {companyCollections.map((collection) => (
+        <a
+          className={activeCompany === collection.name ? "active" : ""}
+          href={`#/collections/${collection.name.toLowerCase()}`}
+          key={collection.name}
+        >
+          {collection.label}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+function CompanyProgressCard({
+  collection,
+  problems,
+  completedIds,
+}: {
+  collection: CompanyCollection;
+  problems: readonly Problem[];
+  completedIds: ReadonlySet<number>;
+}) {
+  const completedCount = problems.filter((problem) => completedIds.has(problem.id)).length;
+  const progress = problems.length ? Math.round((completedCount / problems.length) * 100) : 0;
+  const difficulties = ["Easy", "Medium", "Hard"] as const;
+
+  return (
+    <aside className="company-progress-card" aria-label={`${collection.label} solved progress`}>
+      <div className="company-progress-title">
+        <BarChart3 size={17} />
+        <span>Progress</span>
+      </div>
+      <div className="company-progress-content">
+        <dl className="difficulty-progress-list">
+          {difficulties.map((difficulty) => {
+            const total = problems.filter((problem) => problem.difficulty === difficulty).length;
+            const completed = problems.filter(
+              (problem) => problem.difficulty === difficulty && completedIds.has(problem.id),
+            ).length;
+
+            return (
+              <div key={difficulty}>
+                <dt className={difficulty.toLowerCase()}>{difficulty}</dt>
+                <dd aria-label={`${difficulty} progress`}>{completed} / {total}</dd>
+              </div>
+            );
+          })}
+        </dl>
+        <div
+          aria-hidden="true"
+          className="company-progress-ring"
+          style={{ background: `conic-gradient(#2f9b57 ${progress}%, #e2e8e2 0)` }}
+        >
+          <div>
+            <strong>{completedCount}</strong>
+            <span>/ {problems.length}</span>
+            <small>solved</small>
+          </div>
+        </div>
+      </div>
+      <p>{completedCount} / {problems.length} solved</p>
+    </aside>
   );
 }
 

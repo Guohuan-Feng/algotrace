@@ -36,6 +36,7 @@ export function mergeProblems(problems: readonly Problem[]): Problem[] {
       collections: unionStrings(previous.collections, problem.collections),
       tags: unionStrings(previous.tags, problem.tags),
       companyRanks: { ...previous.companyRanks, ...problem.companyRanks },
+      sourceUrl: previous.sourceUrl ?? problem.sourceUrl,
       hasVisualizer: previous.hasVisualizer || problem.hasVisualizer,
     });
   }
@@ -68,6 +69,7 @@ function companyCollectionToProblems(collection: CompanyCollection): Problem[] {
     pattern: "Company collection",
     collections: [collection.label],
     companyRanks: { [collection.name]: problem.frequency } as Partial<Record<CompanyName, number>>,
+    sourceUrl: problem.sourceUrl,
     hasVisualizer: false,
     summary: `Ranked ${problem.frequency} times in the ${collection.label} snapshot.`,
   }));

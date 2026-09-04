@@ -3,30 +3,43 @@ import { problemCatalog } from "../catalog/problems";
 import { getVisualizerBySlug } from "../problems";
 import { ProblemDirectory } from "../shared/components/ProblemDirectory";
 import { ProblemPlaceholder } from "../shared/components/ProblemPlaceholder";
-import { getProblemSlugFromHash, navigateToCatalog } from "../shared/lib/hashRouting";
+import {
+  getCatalogRouteFromHash,
+  getProblemSlugFromHash,
+  navigateToCatalog,
+  type CatalogRoute,
+} from "../shared/lib/hashRouting";
 import { ProgressProvider } from "../auth/ProgressProvider";
 import type { Problem } from "../catalog/types";
 
 export default function App() {
-  const [activeSlug, setActiveSlug] = useState(getProblemSlugFromHash);
-  const activeProblem = activeSlug
-    ? problemCatalog.find((problem) => problem.slug === activeSlug)
-    : null;
+  const [route, setRoute] = useState(getRouteFromHash);
 
   useEffect(() => {
-    const onHashChange = () => setActiveSlug(getProblemSlugFromHash());
+    const onHashChange = () => setRoute(getRouteFromHash());
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
-  const page = !activeProblem
-    ? <ProblemDirectory />
-    : renderProblem(activeProblem);
+  const page = route.kind === "problem"
+    ? renderProblem(problemCatalog.find((problem) => problem.slug === route.slug))
+    : <ProblemDirectory companyName={route.kind === "company" ? route.name : undefined} />;
 
   return <ProgressProvider>{page}</ProgressProvider>;
 }
 
-function renderProblem(activeProblem: Problem) {
+type AppRoute = CatalogRoute | { kind: "problem"; slug: string };
+
+function getRouteFromHash(): AppRoute {
+  const slug = getProblemSlugFromHash();
+  return slug ? { kind: "problem", slug } : getCatalogRouteFromHash();
+}
+
+function renderProblem(activeProblem: Problem | undefined) {
+  if (!activeProblem) {
+    return <ProblemDirectory />;
+  }
+
   const Visualizer = getVisualizerBySlug(activeProblem.slug);
 
   if (Visualizer) {
