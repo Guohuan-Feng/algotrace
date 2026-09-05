@@ -56,14 +56,16 @@ describe("ProblemDirectory", () => {
     expect(screen.getByRole("button", { name: "Mark #1 incomplete" }).getAttribute("aria-pressed")).toBe("true");
   });
 
-  it("renders a LeetCode link beside every source-backed problem title", async () => {
+  it("renders a LeetCode link immediately after every source-backed problem title", async () => {
     renderDirectory();
 
     const problem = googleTestProblems[0];
     const link = await screen.findByRole("link", { name: `Open #${problem.id} on LeetCode` });
+    const visualizerLink = screen.getByRole("link", { name: problem.title });
 
     expect(link.getAttribute("href")).toBe(problem.sourceUrl);
     expect(link.getAttribute("target")).toBe("_blank");
+    expect(visualizerLink.nextElementSibling).toBe(link);
   });
 
   it("derives the LeetCode link for a catalog problem without a stored source URL", async () => {
@@ -154,5 +156,14 @@ describe("ProblemDirectory", () => {
     expect(screen.getByLabelText("Hard progress").textContent).toContain(
       `0 / ${amazon.problems.filter((problem) => problem.difficulty === "Hard").length}`,
     );
+  });
+
+  it("uses a compact directory without topic rails or row tag pills", async () => {
+    renderDirectory(new Set(), "Amazon");
+
+    await screen.findByRole("heading", { name: "Amazon · 3 months" });
+
+    expect(screen.queryByRole("heading", { name: "Topics" })).toBeNull();
+    expect(document.querySelector(".tag-list")).toBeNull();
   });
 });

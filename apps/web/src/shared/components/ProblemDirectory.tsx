@@ -177,40 +177,6 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
       </section>
 
       <section className="catalog-content">
-        <aside className="topic-rail">
-          <h2>Topics</h2>
-          <button className={tag === "All" ? "topic-chip active" : "topic-chip"} onClick={() => setTag("All")}>
-            All
-          </button>
-          {allTags.map((item) => (
-            <button
-              className={tag === item ? "topic-chip active" : "topic-chip"}
-              key={item}
-              onClick={() => setTag(item)}
-            >
-              {item}
-            </button>
-          ))}
-          {!fixedCompany ? (
-            <>
-              <div className="rail-divider" />
-              <h2>Lists</h2>
-              <button className={collection === "All" ? "topic-chip active" : "topic-chip"} onClick={() => setCollection("All")}>
-                All lists
-              </button>
-              {allCollections.map((item) => (
-                <button
-                  className={collection === item ? "topic-chip active" : "topic-chip"}
-                  key={item}
-                  onClick={() => setCollection(item)}
-                >
-                  {item}
-                </button>
-              ))}
-            </>
-          ) : null}
-        </aside>
-
         <div className="problem-groups">
           <section className="letter-group">
             <div className="directory-heading">
@@ -228,6 +194,14 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
               ) : null}
             </div>
             <div className="problem-list">
+              <div className="problem-list-header" aria-hidden="true">
+                <span />
+                <span>#</span>
+                <span>Title</span>
+                <span>Frequency</span>
+                <span>Difficulty</span>
+                <span>Animation</span>
+              </div>
               {renderedProblems.map((problem) => {
                 const completed = completedIds.has(problem.id);
                 const completionLabel = `Mark #${problem.id} ${completed ? "incomplete" : "complete"}`;
@@ -249,48 +223,31 @@ export function ProblemDirectory({ problems = problemCatalog, companyName }: Pro
                     >
                       {completed ? <Check size={16} /> : <Circle size={16} />}
                     </button>
-                    <div className="problem-link-wrap">
-                      <div className="problem-link">
-                        <div className="problem-main">
-                          <span className="problem-id">#{problem.id}</span>
-                          <div>
-                            <div className="problem-title-row">
-                              <a className="problem-visualizer-link" href={`#/problems/${problem.slug}`}>
-                                <h2>{problem.title}</h2>
-                                {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
-                              </a>
-                              <a
-                                className="leetcode-link"
-                                aria-label={`Open #${problem.id} on LeetCode`}
-                                href={getLeetCodeUrl(problem)}
-                                target="_blank"
-                                rel="noreferrer"
-                                title="Open on LeetCode"
-                              >
-                                <ExternalLink size={15} />
-                              </a>
-                            </div>
-                            <p>{problem.summary}</p>
-                          </div>
-                        </div>
-                        <div className="problem-meta">
-                          {frequency !== undefined ? <span className="frequency-badge">{frequency} mentions</span> : null}
-                          <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
-                          <span className={problem.hasVisualizer ? "status ready" : "status missing"}>
-                            {problem.hasVisualizer ? <CheckCircle2 size={14} /> : <Circle size={14} />}
-                            {problem.hasVisualizer ? "已有动画" : "待补动画"}
-                          </span>
-                        </div>
-                        <div className="tag-list">
-                          {problem.collections?.map((problemCollection) => (
-                            <span className="collection-tag" key={problemCollection}>{problemCollection}</span>
-                          ))}
-                          {problem.tags.map((problemTag) => (
-                            <span key={problemTag}>{problemTag}</span>
-                          ))}
-                        </div>
+                    <span className="problem-id">{problem.id}</span>
+                    <div className="problem-title">
+                      <div className="problem-title-row">
+                        <a className="problem-visualizer-link" href={`#/problems/${problem.slug}`}>
+                          <h2>{problem.title}</h2>
+                        </a>
+                        <a
+                          className="leetcode-link"
+                          aria-label={`Open #${problem.id} on LeetCode`}
+                          href={getLeetCodeUrl(problem)}
+                          target="_blank"
+                          rel="noreferrer"
+                          title="Open on LeetCode"
+                        >
+                          <ExternalLink size={15} />
+                        </a>
                       </div>
+                      {problem.cnTitle ? <small className="problem-cn">{problem.cnTitle}</small> : null}
                     </div>
+                    <span className="frequency-badge">{frequency === undefined ? "-" : `${frequency}`}</span>
+                    <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
+                    <span className={problem.hasVisualizer ? "status ready" : "status missing"}>
+                      {problem.hasVisualizer ? <CheckCircle2 size={15} /> : <Circle size={15} />}
+                      {problem.hasVisualizer ? "动画" : "待补"}
+                    </span>
                   </article>
                 );
               })}
@@ -379,7 +336,7 @@ function CompanyProgressCard({
         <div
           aria-hidden="true"
           className="company-progress-ring"
-          style={{ background: `conic-gradient(#2f9b57 ${progress}%, #e2e8e2 0)` }}
+          style={{ background: `conic-gradient(#00b8a3 ${progress}%, #3c3c3c 0)` }}
         >
           <div>
             <strong>{completedCount}</strong>
